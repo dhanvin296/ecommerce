@@ -3,285 +3,1534 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Puja Samagri</title>
+
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#140b05;color:#fff7e6;font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
-.scroll-space{height:560vh;position:relative}
-.scene{position:fixed;inset:0;overflow:hidden;background:#140b05}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.04);will-change:transform,filter}
-.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(17,8,3,.08),rgba(17,8,3,.25)),radial-gradient(circle at center,transparent 30%,rgba(8,3,1,.45));pointer-events:none}
-.asset{position:absolute;left:50%;top:50%;width:min(78vw,900px);transform:translate(-50%,-50%) scale(.72);opacity:0;filter:drop-shadow(0 22px 30px rgba(0,0,0,.35));will-change:transform,opacity;pointer-events:none}
-#fire{z-index:3}
-#people{z-index:4;width:min(94vw,1250px)}
-#dung{z-index:5;width:min(70vw,800px)}
-.info{position:absolute;z-index:7;left:50%;bottom:11%;transform:translate(-50%,40px);width:min(850px,88vw);text-align:center;opacity:0;will-change:transform,opacity}
-.info h2{margin:0 0 12px;font-size:clamp(27px,4vw,54px);color:#ffd27a;text-shadow:0 3px 18px #000}
-.info p{margin:0 auto;font-family:Arial,sans-serif;font-size:clamp(14px,1.5vw,19px);line-height:1.65;color:#fff3d8;text-shadow:0 2px 10px #000}
-#infoFire{z-index:6}
-#infoPeople{z-index:6}
-#infoDung{z-index:8}
-.title{position:absolute;z-index:9;left:50%;top:50%;transform:translate(-50%,-50%) translateY(80px) scale(.8);opacity:0;width:100%;text-align:center;will-change:transform,opacity}
-.title .small{display:block;font-size:clamp(12px,1.4vw,20px);letter-spacing:.5em;text-transform:uppercase;margin-bottom:18px;color:#ffe0a0;text-shadow:0 2px 12px #000}
-.title h1{margin:0;font-size:clamp(48px,9vw,125px);letter-spacing:.06em;line-height:.9;color:#ffd27a;text-shadow:0 3px 0 #8c4b17,0 8px 30px rgba(0,0,0,.65)}
-.scroll-hint{position:fixed;z-index:12;bottom:24px;left:50%;transform:translateX(-50%);font:12px Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,247,230,.8);transition:opacity .3s}
-.scroll-hint::after{content:"↓";display:block;text-align:center;font-size:22px;margin-top:5px;animation:bounce 1.4s infinite}
-@keyframes bounce{50%{transform:translateY(6px)}}
-.vignette{position:absolute;inset:0;z-index:10;pointer-events:none;box-shadow:inset 0 0 180px rgba(0,0,0,.48)}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#140b05;
+  color:#fff7e6;
+  font-family:Georgia,"Times New Roman",serif;
+  overflow-x:hidden;
+}
+
+/* =========================================================
+   SCROLL SPACE
+========================================================= */
+
+.scroll-space{
+  height:560vh;
+  position:relative;
+}
+
+/* =========================================================
+   MAIN FIXED SCENE
+========================================================= */
+
+.scene{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:#140b05;
+  transition:opacity .3s ease;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform:scale(1.04);
+  will-change:transform,filter;
+}
+
+.shade{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(17,8,3,.08),
+      rgba(17,8,3,.25)
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 30%,
+      rgba(8,3,1,.45)
+    );
+
+  pointer-events:none;
+}
+
+/* =========================================================
+   SCROLLING IMAGE ASSETS
+========================================================= */
+
+.asset{
+  position:absolute;
+  left:50%;
+  top:50%;
+
+  width:min(78vw,900px);
+
+  transform:
+    translate(-50%,-50%)
+    translateY(100px)
+    scale(.72);
+
+  opacity:0;
+
+  filter:
+    drop-shadow(0 22px 30px rgba(0,0,0,.35));
+
+  will-change:transform,opacity;
+
+  pointer-events:none;
+}
+
+#fire{
+  z-index:3;
+}
+
+#people{
+  z-index:4;
+  width:min(94vw,1250px);
+}
+
+#dung{
+  z-index:5;
+  width:min(70vw,800px);
+}
+
+/* =========================================================
+   INFORMATION TEXT
+========================================================= */
+
+.info{
+  position:absolute;
+
+  z-index:7;
+
+  left:50%;
+  bottom:11%;
+
+  transform:
+    translate(-50%,40px);
+
+  width:min(850px,88vw);
+
+  text-align:center;
+
+  opacity:0;
+
+  will-change:
+    transform,
+    opacity;
+
+  pointer-events:none;
+}
+
+.info h2{
+  margin:0 0 12px;
+
+  font-size:
+    clamp(27px,4vw,54px);
+
+  color:#ffd27a;
+
+  text-shadow:
+    0 3px 18px #000;
+}
+
+.info p{
+  margin:0 auto;
+
+  font-family:Arial,sans-serif;
+
+  font-size:
+    clamp(14px,1.5vw,19px);
+
+  line-height:1.65;
+
+  color:#fff3d8;
+
+  text-shadow:
+    0 2px 10px #000;
+}
+
+#infoFire{
+  z-index:6;
+}
+
+#infoPeople{
+  z-index:6;
+}
+
+#infoDung{
+  z-index:8;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.title{
+  position:absolute;
+
+  z-index:9;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    translateY(80px)
+    scale(.8);
+
+  opacity:0;
+
+  width:100%;
+
+  text-align:center;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+.title .small{
+  display:block;
+
+  font-size:
+    clamp(12px,1.4vw,20px);
+
+  letter-spacing:.5em;
+
+  text-transform:uppercase;
+
+  margin-bottom:18px;
+
+  color:#ffe0a0;
+
+  text-shadow:
+    0 2px 12px #000;
+}
+
+.title h1{
+  margin:0;
+
+  font-size:
+    clamp(48px,9vw,125px);
+
+  letter-spacing:.06em;
+
+  line-height:.9;
+
+  color:#ffd27a;
+
+  text-shadow:
+    0 3px 0 #8c4b17,
+    0 8px 30px rgba(0,0,0,.65);
+}
+
+/* =========================================================
+   SCROLL HINT
+========================================================= */
+
+.scroll-hint{
+  position:fixed;
+
+  z-index:12;
+
+  bottom:24px;
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  font:
+    12px Arial,sans-serif;
+
+  letter-spacing:.28em;
+
+  text-transform:uppercase;
+
+  color:
+    rgba(255,247,230,.8);
+
+  transition:
+    opacity .3s;
+}
+
+.scroll-hint::after{
+  content:"↓";
+
+  display:block;
+
+  text-align:center;
+
+  font-size:22px;
+
+  margin-top:5px;
+
+  animation:bounce 1.4s infinite;
+}
+
+@keyframes bounce{
+
+  50%{
+    transform:translateY(6px);
+  }
+
+}
+
+/* =========================================================
+   VIGNETTE
+========================================================= */
+
+.vignette{
+  position:absolute;
+
+  inset:0;
+
+  z-index:10;
+
+  pointer-events:none;
+
+  box-shadow:
+    inset 0 0 180px rgba(0,0,0,.48);
+}
+
+/* =========================================================
+   WHITE SHOP SECTION
+========================================================= */
 
 .shop-section{
+
   position:relative;
+
   z-index:20;
+
   min-height:100vh;
+
   background:#fff;
+
   color:#3a2112;
-  padding:90px 20px 110px;
+
+  padding:
+    90px 20px 110px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 }
+
 .shop-inner{
-  width:min(1100px,94vw);
+
+  width:
+    min(1100px,94vw);
+
   text-align:center;
 }
+
 .shop-kicker{
-  font:600 12px Arial,sans-serif;
+
+  font:
+    600 12px Arial,sans-serif;
+
   letter-spacing:.28em;
+
   color:#a46627;
+
   margin-bottom:12px;
 }
-.shop-inner>h2{
-  margin:0 0 38px;
-  font-size:clamp(34px,5vw,64px);
+
+.shop-inner > h2{
+
+  margin:
+    0 0 38px;
+
+  font-size:
+    clamp(34px,5vw,64px);
+
   color:#6f3d18;
 }
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
 .product-card{
-  width:min(900px,100%);
+
+  width:
+    min(900px,100%);
+
   margin:auto;
+
   background:#fffdf9;
-  border:1px solid #eadbc8;
+
+  border:
+    1px solid #eadbc8;
+
   border-radius:26px;
+
   overflow:hidden;
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   text-align:left;
-  box-shadow:0 20px 60px rgba(83,48,22,.14);
+
+  box-shadow:
+    0 20px 60px rgba(83,48,22,.14);
 }
+
 .product-image-wrap{
+
   min-height:430px;
-  background:linear-gradient(145deg,#f7ead8,#fffaf3);
+
+  background:
+    linear-gradient(
+      145deg,
+      #f7ead8,
+      #fffaf3
+    );
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   padding:28px;
 }
+
 .product-image-wrap img{
+
   width:100%;
+
   max-width:470px;
+
   height:auto;
+
   object-fit:contain;
-  filter:drop-shadow(0 18px 20px rgba(70,40,15,.16));
+
+  filter:
+    drop-shadow(
+      0 18px 20px rgba(70,40,15,.16)
+    );
 }
+
 .product-info{
-  padding:52px 48px;
+
+  padding:
+    52px 48px;
+
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
 }
+
 .product-tag{
-  font:700 11px Arial,sans-serif;
+
+  font:
+    700 11px Arial,sans-serif;
+
   letter-spacing:.22em;
+
   color:#a46627;
+
   margin-bottom:14px;
 }
+
 .product-info h3{
-  margin:0 0 16px;
-  font-size:clamp(28px,3vw,43px);
+
+  margin:
+    0 0 16px;
+
+  font-size:
+    clamp(28px,3vw,43px);
+
   color:#4d2a14;
 }
+
 .product-description{
-  font:16px/1.7 Arial,sans-serif;
+
+  font:
+    16px/1.7 Arial,sans-serif;
+
   color:#725b49;
-  margin:0 0 25px;
+
+  margin:
+    0 0 25px;
 }
+
 .price{
-  font:700 34px Georgia,serif;
+
+  font:
+    700 34px Georgia,serif;
+
   color:#8b4d1c;
+
   margin-bottom:24px;
 }
+
 .price span{
-  font:14px Arial,sans-serif;
+
+  font:
+    14px Arial,sans-serif;
+
   color:#927d6b;
+
   margin-left:6px;
 }
+
 .order-btn{
+
   border:0;
+
   border-radius:999px;
-  padding:16px 30px;
+
+  padding:
+    16px 30px;
+
   background:#8b4d1c;
+
   color:#fff;
-  font:700 14px Arial,sans-serif;
+
+  font:
+    700 14px Arial,sans-serif;
+
   letter-spacing:.08em;
+
   cursor:pointer;
-  transition:transform .2s,box-shadow .2s;
-  box-shadow:0 10px 25px rgba(139,77,28,.22);
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+
+  box-shadow:
+    0 10px 25px rgba(139,77,28,.22);
 }
+
 .order-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(139,77,28,.28);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(139,77,28,.28);
 }
+
 .fake-note{
+
   margin-top:12px;
-  font:12px Arial,sans-serif;
+
+  font:
+    12px Arial,sans-serif;
+
   color:#9a897b;
 }
-@media(max-width:700px){
-  .product-card{grid-template-columns:1fr}
-  .product-image-wrap{min-height:300px}
-  .product-info{padding:35px 28px}
+
+/* =========================================================
+   WHITE BIRD ANIMATION
+========================================================= */
+
+.bird-layer{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:2;
+
+  pointer-events:none;
+
+  overflow:hidden;
 }
 
-@media(max-width:700px){
-.asset{width:112vw}#people{width:125vw}#dung{width:105vw}
-.title h1{letter-spacing:.02em}
-.info{bottom:8%}
+.bird{
+
+  position:absolute;
+
+  width:34px;
+
+  height:18px;
+
+  opacity:0;
+
+  will-change:
+    transform,
+    left;
+
+  animation:
+    flyAcross
+    16s
+    linear
+    infinite;
 }
+
+/* LEFT WING */
+
+.bird::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:7px;
+
+  right:16px;
+
+  width:17px;
+
+  height:8px;
+
+  border-top:
+    3px solid rgba(
+      255,
+      255,
+      255,
+      .95
+    );
+
+  border-radius:
+    100% 100% 0 0;
+
+  transform-origin:
+    right center;
+
+  will-change:
+    transform;
+
+  animation:
+    flapLeft
+    .5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+/* RIGHT WING */
+
+.bird::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:7px;
+
+  left:16px;
+
+  width:17px;
+
+  height:8px;
+
+  border-top:
+    3px solid rgba(
+      255,
+      255,
+      255,
+      .95
+    );
+
+  border-radius:
+    100% 100% 0 0;
+
+  transform-origin:
+    left center;
+
+  will-change:
+    transform;
+
+  animation:
+    flapRight
+    .5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+/* DIFFERENT BIRD SIZES / SPEEDS */
+
+.b1{
+
+  top:22%;
+
+  animation-duration:13s;
+
+  animation-delay:0s;
+
+  --birdScale:.65;
+}
+
+.b2{
+
+  top:15%;
+
+  animation-duration:17s;
+
+  animation-delay:2.5s;
+
+  --birdScale:.45;
+}
+
+.b3{
+
+  top:29%;
+
+  animation-duration:11s;
+
+  animation-delay:5s;
+
+  --birdScale:.85;
+}
+
+.b4{
+
+  top:12%;
+
+  animation-duration:19s;
+
+  animation-delay:1.2s;
+
+  --birdScale:.5;
+}
+
+.b5{
+
+  top:26%;
+
+  animation-duration:15s;
+
+  animation-delay:7s;
+
+  --birdScale:.7;
+}
+
+/* WING FLAP */
+
+@keyframes flapLeft{
+
+  0%{
+
+    transform:
+      rotate(-22deg)
+      skewY(-8deg);
+  }
+
+  100%{
+
+    transform:
+      rotate(28deg)
+      skewY(8deg);
+  }
+
+}
+
+@keyframes flapRight{
+
+  0%{
+
+    transform:
+      rotate(22deg)
+      skewY(8deg);
+  }
+
+  100%{
+
+    transform:
+      rotate(-28deg)
+      skewY(-8deg);
+  }
+
+}
+
+/* FLY ACROSS SCREEN */
+
+@keyframes flyAcross{
+
+  0%{
+
+    left:-10%;
+
+    opacity:0;
+
+    transform:
+      translateY(0)
+      scale(var(--birdScale));
+  }
+
+  5%{
+
+    opacity:.85;
+  }
+
+  45%{
+
+    transform:
+      translateY(-20px)
+      scale(var(--birdScale));
+  }
+
+  50%{
+
+    transform:
+      translateY(-25px)
+      scale(var(--birdScale));
+  }
+
+  90%{
+
+    opacity:.85;
+  }
+
+  100%{
+
+    left:110%;
+
+    opacity:0;
+
+    transform:
+      translateY(15px)
+      scale(var(--birdScale));
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+  .product-card{
+
+    grid-template-columns:1fr;
+  }
+
+  .product-image-wrap{
+
+    min-height:300px;
+  }
+
+  .product-info{
+
+    padding:
+      35px 28px;
+  }
+
+  #people{
+
+    width:125vw;
+  }
+
+  #dung{
+
+    width:105vw;
+  }
+
+  .asset{
+
+    width:112vw;
+  }
+
+}
+
 </style>
 </head>
+
+
 <body>
-<div class="scroll-space"></div>
 
-<div class="scene">
-<img class="bg" src="bg.png" alt="Ancient Indian temple courtyard">
-<div class="shade"></div>
 
-<img id="fire" class="asset" src="fire.png" alt="Decorated havan fire">
-<div id="infoFire" class="info">
-<h2>Havan Fire</h2>
-<p>A traditional havan fire represents a central part of many puja ceremonies, where offerings are made with prayers and devotion.</p>
+<!-- =======================================================
+     LONG SCROLL AREA
+======================================================= -->
+
+<div class="scroll-space">
+
+  <div class="scene">
+
+    <!-- REAL BACKGROUND -->
+    <img
+      src="bg.png"
+      alt="Ancient Indian courtyard"
+      class="bg"
+    >
+
+    <div class="shade"></div>
+
+
+    <!-- FIRE -->
+    <img
+      src="fire.png"
+      alt="Havan fire"
+      class="asset"
+      id="fire"
+    >
+
+
+    <!-- PEOPLE -->
+    <img
+      src="people.png"
+      alt="People performing puja"
+      class="asset"
+      id="people"
+    >
+
+
+    <!-- DUNG / UPLA -->
+    <img
+      src="dung.png"
+      alt="Traditional cow dung cakes"
+      class="asset"
+      id="dung"
+    >
+
+
+    <!-- ===================================================
+         WHITE BIRDS
+    ==================================================== -->
+
+    <div
+      class="bird-layer"
+      aria-hidden="true"
+    >
+
+      <div class="bird b1"></div>
+
+      <div class="bird b2"></div>
+
+      <div class="bird b3"></div>
+
+      <div class="bird b4"></div>
+
+      <div class="bird b5"></div>
+
+    </div>
+
+
+    <!-- ===================================================
+         TITLE
+    ==================================================== -->
+
+    <div class="title">
+
+      <span class="small">
+        Welcome To
+      </span>
+
+      <h1>
+        PUJA SAMAGRI
+      </h1>
+
+    </div>
+
+
+    <!-- ===================================================
+         FIRE TEXT
+    ==================================================== -->
+
+    <div
+      class="info"
+      id="infoFire"
+    >
+
+      <h2>
+        Holy Fire Setup
+      </h2>
+
+      <p>
+        A traditional havan fire forms the centre of
+        many puja ceremonies, representing devotion,
+        offerings and sacred tradition.
+      </p>
+
+    </div>
+
+
+    <!-- ===================================================
+         PEOPLE TEXT
+    ==================================================== -->
+
+    <div
+      class="info"
+      id="infoPeople"
+    >
+
+      <h2>
+        Community Gathering
+      </h2>
+
+      <p>
+        Families and communities gather together with
+        the priest to participate in prayer and traditional
+        ceremonies.
+      </p>
+
+    </div>
+
+
+    <!-- ===================================================
+         DUNG TEXT
+    ==================================================== -->
+
+    <div
+      class="info"
+      id="infoDung"
+    >
+
+      <h2>
+        Traditional Upla
+      </h2>
+
+      <p>
+        Dried cow-dung cakes, traditionally known as
+        upla, are used as a rural fuel source and are
+        associated with certain traditional practices.
+      </p>
+
+    </div>
+
+
+    <div class="vignette"></div>
+
+
+    <div class="scroll-hint">
+      Scroll Down
+    </div>
+
+  </div>
+
 </div>
 
-<img id="people" class="asset" src="people.png" alt="Family performing puja">
-<div id="infoPeople" class="info">
-<h2>Devotion &amp; Prayer</h2>
-<p>Families gather together with the priest, offering prayers and participating in the ceremony as part of a shared tradition.</p>
-</div>
 
-<img id="dung" class="asset" src="dung.png" alt="Dried cow-dung cakes">
-<div id="infoDung" class="info">
-<h2>Upla / Dung Cakes</h2>
-<p>Traditional dried cow-dung cakes, commonly called upla, can be used as a rural fuel source and are also associated with some traditional havan practices.</p>
-</div>
+<!-- =======================================================
+     SHOP SECTION
+======================================================= -->
 
-<div id="title" class="title">
-<span class="small">Sacred traditions • Timeless devotion</span>
-<h1>PUJA SAMAGRI</h1>
-</div>
-<div class="vignette"></div>
-</div>
+<div class="shop-section">
 
-<div id="hint" class="scroll-hint">Scroll to begin</div>
-
-<section class="shop-section">
   <div class="shop-inner">
-    <div class="shop-kicker">PUJA SAMAGRI • TRADITIONAL ESSENTIALS</div>
-    <h2>Bring Tradition Home</h2>
+
+    <span class="shop-kicker">
+      Premium Collection
+    </span>
+
+    <h2>
+      Our Ritual Essentials
+    </h2>
+
 
     <div class="product-card">
+
+
+      <!-- PRODUCT IMAGE -->
+
       <div class="product-image-wrap">
-        <img src="dung.png" alt="Traditional dried cow-dung cakes">
+
+        <img
+          src="dung.png"
+          alt="Traditional cow dung upla"
+        >
+
       </div>
+
+
+      <!-- PRODUCT DETAILS -->
+
       <div class="product-info">
-        <div class="product-tag">TRADITIONAL</div>
-        <h3>Natural Cow Dung Upla</h3>
+
+        <span class="product-tag">
+          TRADITIONAL
+        </span>
+
+        <h3>
+          Natural Cow Dung Upla
+        </h3>
+
         <p class="product-description">
-          Traditionally prepared dried cow-dung cakes, suitable for traditional
-          havan and puja practices.
+
+          Traditionally prepared dried cow-dung
+          cakes suitable for traditional havan
+          and puja practices.
+
         </p>
-        <div class="price">₹149 <span>per pack</span></div>
-        <button class="order-btn" id="fakeOrder">ORDER NOW</button>
-        <div class="fake-note">Demo storefront • No real order is placed</div>
+
+        <div class="price">
+
+          ₹149
+
+          <span>
+            per pack
+          </span>
+
+        </div>
+
+
+        <button
+          class="order-btn"
+          id="orderButton"
+        >
+
+          ORDER NOW
+
+        </button>
+
+
+        <span class="fake-note">
+
+          Demo storefront • No real order is placed.
+
+        </span>
+
       </div>
+
     </div>
+
   </div>
-</section>
+
+</div>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
 
 <script>
+
 (() => {
-const fire=document.getElementById("fire");
-const people=document.getElementById("people");
-const dung=document.getElementById("dung");
-const infoFire=document.getElementById("infoFire");
-const infoPeople=document.getElementById("infoPeople");
-const infoDung=document.getElementById("infoDung");
-const title=document.getElementById("title");
-const bg=document.querySelector(".bg");
-const hint=document.getElementById("hint");
-
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const ease=t=>t*t*(3-2*t);
-const range=(p,a,b)=>ease(clamp((p-a)/(b-a),0,1));
-
-function show(el,p,a,b,outA,outB){
-  const enter=range(p,a,b);
-  const exit=range(p,outA,outB);
-  const opacity=enter*(1-exit);
-  el.style.opacity=opacity;
-  el.style.transform=`translate(-50%,-50%) translateY(${(1-enter)*95-exit*50}px) scale(${.72+enter*.28-exit*.12})`;
-}
-
-function text(el,p,a,b,outA,outB){
-  const enter=range(p,a,b);
-  const exit=range(p,outA,outB);
-  const opacity=enter*(1-exit);
-  el.style.opacity=opacity;
-  el.style.transform=`translate(-50%,${40-enter*40+exit*30}px)`;
-}
 
 
-const scene=document.querySelector(".scene");
-const fakeOrder=document.getElementById("fakeOrder");
+  /* ELEMENTS */
 
-fakeOrder.addEventListener("click",()=>{
-  fakeOrder.textContent="DEMO — NOT ORDERED";
-  fakeOrder.disabled=true;
-  setTimeout(()=>{
-    fakeOrder.textContent="ORDER NOW";
-    fakeOrder.disabled=false;
-  },1800);
-});
+  const fire =
+    document.getElementById("fire");
 
-function render(){
-  const max=document.documentElement.scrollHeight-innerHeight;
-  const p=max>0?scrollY/max:0;
+  const people =
+    document.getElementById("people");
 
-  show(fire,p,.05,.19,.29,.39);
-  text(infoFire,p,.12,.22,.32,.42);
+  const dung =
+    document.getElementById("dung");
 
-  show(people,p,.29,.43,.48,.58);
-  text(infoPeople,p,.36,.47,.51,.61);
 
-  show(dung,p,.50,.65,.70,.78);
-  text(infoDung,p,.58,.69,.73,.82);
+  const infoFire =
+    document.getElementById("infoFire");
 
-  const titleIn=range(p,.76,.91);
-  title.style.opacity=titleIn;
-  title.style.transform=`translate(-50%,-50%) translateY(${(1-titleIn)*80}px) scale(${.8+titleIn*.2})`;
+  const infoPeople =
+    document.getElementById("infoPeople");
 
-  bg.style.transform=`scale(${1.04+p*.035})`;
-  bg.style.filter=`brightness(${1-p*.12}) saturate(${1+p*.06})`;
-  hint.style.opacity=p<.06?1:0;
+  const infoDung =
+    document.getElementById("infoDung");
 
-  // Fade the cinematic scene away just before the white shop section begins.
-  const sceneOut=range(p,.92,1);
-  scene.style.opacity=1-sceneOut;
-  scene.style.pointerEvents=sceneOut>0.98?"none":"auto";
-}
-addEventListener("scroll",render,{passive:true});
-addEventListener("resize",render);
-render();
+
+  const title =
+    document.querySelector(".title");
+
+  const scene =
+    document.querySelector(".scene");
+
+  const bg =
+    document.querySelector(".bg");
+
+  const hint =
+    document.querySelector(".scroll-hint");
+
+
+  /* -------------------------------------------------------
+     HELPERS
+  ------------------------------------------------------- */
+
+  function clamp(
+    value,
+    min,
+    max
+  ){
+
+    return Math.max(
+      min,
+      Math.min(max,value)
+    );
+
+  }
+
+
+  function ease(t){
+
+    return t * t *
+      (3 - 2 * t);
+
+  }
+
+
+  function range(
+    progress,
+    start,
+    end
+  ){
+
+    return ease(
+      clamp(
+        (progress-start) /
+        (end-start),
+        0,
+        1
+      )
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     IMAGE ANIMATION
+  ------------------------------------------------------- */
+
+  function showImage(
+    element,
+    progress,
+    enterStart,
+    enterEnd,
+    exitStart,
+    exitEnd
+  ){
+
+    const enter =
+      range(
+        progress,
+        enterStart,
+        enterEnd
+      );
+
+    const exit =
+      range(
+        progress,
+        exitStart,
+        exitEnd
+      );
+
+
+    const opacity =
+      enter *
+      (1-exit);
+
+
+    const y =
+      (1-enter) * 100 -
+      exit * 55;
+
+
+    const scale =
+      .72 +
+      enter * .28 -
+      exit * .12;
+
+
+    element.style.opacity =
+      opacity;
+
+
+    element.style.transform =
+      `
+      translate(-50%,-50%)
+      translateY(${y}px)
+      scale(${scale})
+      `;
+
+  }
+
+
+  /* -------------------------------------------------------
+     TEXT ANIMATION
+  ------------------------------------------------------- */
+
+  function showText(
+    element,
+    progress,
+    start,
+    end,
+    exitStart,
+    exitEnd
+  ){
+
+    const enter =
+      range(
+        progress,
+        start,
+        end
+      );
+
+    const exit =
+      range(
+        progress,
+        exitStart,
+        exitEnd
+      );
+
+
+    const opacity =
+      enter *
+      (1-exit);
+
+
+    element.style.opacity =
+      opacity;
+
+
+    element.style.transform =
+      `
+      translate(
+        -50%,
+        ${40 - enter*40 + exit*30}px
+      )
+      `;
+
+  }
+
+
+  /* -------------------------------------------------------
+     MAIN SCROLL LOOP
+  ------------------------------------------------------- */
+
+  function render(){
+
+    const maxScroll =
+      document.documentElement
+        .scrollHeight -
+      window.innerHeight;
+
+
+    const progress =
+      maxScroll > 0
+        ? window.scrollY / maxScroll
+        : 0;
+
+
+    /* FIRE */
+
+    showImage(
+      fire,
+      progress,
+      .05,
+      .19,
+      .29,
+      .39
+    );
+
+
+    showText(
+      infoFire,
+      progress,
+      .12,
+      .22,
+      .32,
+      .42
+    );
+
+
+    /* PEOPLE */
+
+    showImage(
+      people,
+      progress,
+      .29,
+      .43,
+      .48,
+      .58
+    );
+
+
+    showText(
+      infoPeople,
+      progress,
+      .36,
+      .47,
+      .51,
+      .61
+    );
+
+
+    /* DUNG */
+
+    showImage(
+      dung,
+      progress,
+      .50,
+      .65,
+      .70,
+      .78
+    );
+
+
+    showText(
+      infoDung,
+      progress,
+      .58,
+      .69,
+      .73,
+      .82
+    );
+
+
+    /* TITLE */
+
+    const titleIn =
+      range(
+        progress,
+        .76,
+        .91
+      );
+
+
+    title.style.opacity =
+      titleIn;
+
+
+    title.style.transform =
+      `
+      translate(-50%,-50%)
+      translateY(${(1-titleIn)*80}px)
+      scale(${.8 + titleIn*.2})
+      `;
+
+
+    /* BACKGROUND MOTION */
+
+    bg.style.transform =
+      `
+      scale(
+        ${1.04 + progress*.035}
+      )
+      `;
+
+
+    bg.style.filter =
+      `
+      brightness(
+        ${1-progress*.12}
+      )
+      saturate(
+        ${1+progress*.06}
+      )
+      `;
+
+
+    /* FADE CINEMATIC SCENE */
+
+    const sceneOut =
+      range(
+        progress,
+        .92,
+        1
+      );
+
+
+    scene.style.opacity =
+      1-sceneOut;
+
+
+    scene.style.pointerEvents =
+      sceneOut > .98
+        ? "none"
+        : "auto";
+
+
+    /* SCROLL HINT */
+
+    hint.style.opacity =
+      progress < .06
+        ? 1
+        : 0;
+
+  }
+
+
+  /* -------------------------------------------------------
+     FAKE ORDER BUTTON
+  ------------------------------------------------------- */
+
+  const orderButton =
+    document.getElementById(
+      "orderButton"
+    );
+
+
+  orderButton.addEventListener(
+    "click",
+    () => {
+
+      orderButton.textContent =
+        "DEMO — ORDER RECEIVED";
+
+
+      orderButton.disabled =
+        true;
+
+
+      setTimeout(
+        () => {
+
+          orderButton.textContent =
+            "ORDER NOW";
+
+          orderButton.disabled =
+            false;
+
+        },
+        1800
+      );
+
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     EVENTS
+  ------------------------------------------------------- */
+
+  window.addEventListener(
+    "scroll",
+    render,
+    {
+      passive:true
+    }
+  );
+
+
+  window.addEventListener(
+    "resize",
+    render
+  );
+
+
+  /* INITIAL RENDER */
+
+  render();
+
 })();
+
 </script>
+
+
 </body>
 </html>
