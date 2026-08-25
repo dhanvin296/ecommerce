@@ -82,42 +82,135 @@ body{margin:0;background:#140b05;color:#fff7e6;font-family:Georgia,"Times New Ro
 
 /* MOBILE */
 @media(max-width:700px){
-  .scroll-space{height:430vh}
-  .asset{width:125vw;max-width:none}
-  #fire{width:112vw}
-  #people{width:145vw}
-  #dung{width:118vw}
-  .opening-copy{width:92vw}
-  .eyebrow{font-size:9px;letter-spacing:.22em;margin-bottom:13px}
-  .opening-copy h1{font-size:clamp(42px,13vw,78px)}
-  .opening-copy p{font-size:13px;line-height:1.5;margin:19px auto 14px;max-width:330px}
-  .info{width:91vw;bottom:16%;padding:0 8px}
-  .section-label{font-size:9px;letter-spacing:.2em;margin-bottom:9px}
-  .info h2{font-size:clamp(26px,8vw,40px);line-height:1.03;margin-bottom:9px}
-  .info p{font-size:13px;line-height:1.5}
-  .scroll-hint{bottom:max(14px,env(safe-area-inset-bottom));font-size:9px}
-  .mantra-div{min-height:52vh;padding:55px 14px;background:#140b05}
-  .mantra-inner{width:100%;padding:28px 16px;border-radius:22px;background:rgba(20,11,5,.28);backdrop-filter:none;-webkit-backdrop-filter:none}
-  .mantra-inner h2{font-size:clamp(36px,11vw,58px)}
-  .mantra-ornament{margin:15px auto;font-size:28px}
-  .gayatri{font-size:clamp(17px,5.2vw,25px);line-height:1.8;color:#fff9e8}
-  .mantra-meaning{font-size:13px;line-height:1.55;color:rgba(255,244,216,.9)}
-  .shop-section{min-height:auto;padding:70px 14px calc(90px + env(safe-area-inset-bottom))}
+  .scroll-space{height:320vh}
+  .asset{width:112vw;max-width:none}
+  #fire{width:104vw}
+  #people{width:128vw}
+  #dung{width:108vw}
+
+  .opening-copy{width:90vw}
+  .eyebrow{font-size:8px;letter-spacing:.18em;margin-bottom:10px}
+  .opening-copy h1{font-size:clamp(38px,11.5vw,68px)}
+  .opening-copy p{font-size:12px;line-height:1.4;margin:14px auto 11px;max-width:300px}
+
+  .info{
+    width:90vw;
+    bottom:12%;
+    padding:0 4px;
+  }
+  .section-label{font-size:8px;letter-spacing:.16em;margin-bottom:7px}
+  .info h2{
+    font-size:clamp(23px,7vw,34px);
+    line-height:1.05;
+    margin-bottom:7px;
+  }
+  .info p{font-size:12px;line-height:1.4;max-width:330px}
+
+  .scroll-hint{
+    bottom:max(12px,env(safe-area-inset-bottom));
+    font-size:8px;
+    will-change:opacity;
+  }
+
+  /* GAYATRI: compact enough for a normal portrait viewport */
+  .mantra-div{
+    min-height:70vh;
+    padding:56px 14px 60px;
+    background:#140b05;
+  }
+  .mantra-inner{
+    width:100%;
+    padding:24px 14px;
+    border-radius:20px;
+    background:rgba(20,11,5,.28);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .mantra-kicker{font-size:8px;margin-bottom:11px;letter-spacing:.22em}
+  .mantra-inner h2{
+    font-size:clamp(32px,9.5vw,48px);
+    line-height:1;
+  }
+  .mantra-ornament{margin:12px auto;font-size:25px}
+  .gayatri{
+    font-size:clamp(16px,4.7vw,23px);
+    line-height:1.65;
+    color:#fff9e8;
+  }
+  .mantra-meaning{
+    max-width:330px;
+    margin:20px auto 0;
+    font-size:12px;
+    line-height:1.5;
+    color:rgba(255,244,216,.9);
+  }
+
+  /* SHOP: remove the huge vertical gaps on portrait phones */
+  .shop-section{
+    min-height:0;
+    padding:64px 12px calc(76px + env(safe-area-inset-bottom));
+    align-items:flex-start;
+  }
   .shop-inner{width:100%}
-  .shop-inner>h2{font-size:clamp(34px,10vw,50px)}
-  .shop-intro{font-size:14px;margin-bottom:28px}
-  .products-grid{grid-template-columns:1fr}
-  .product-card{border-radius:20px}
-  .product-image-wrap{height:260px;padding:20px}
-  .product-info{padding:28px 21px 30px}
-  .product-tag{font-size:9px;letter-spacing:.16em}
-  .product-info h3{font-size:clamp(27px,8vw,38px);line-height:1.08}
-  .product-description{font-size:14px;line-height:1.55}
-  .price{font-size:30px}
-  .order-btn{min-height:54px}
+  .shop-kicker{font-size:8px;letter-spacing:.2em}
+  .shop-inner>h2{
+    font-size:clamp(30px,9vw,44px);
+    line-height:1;
+    margin:9px 0;
+  }
+  .shop-intro{
+    font-size:13px;
+    line-height:1.5;
+    margin:0 auto 28px;
+    max-width:330px;
+  }
+  .products-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .product-card{border-radius:16px}
+  .product-image-wrap{
+    height:220px;
+    padding:16px;
+  }
+  .product-info{
+    padding:23px 18px 24px;
+  }
+  .product-tag{font-size:8px;letter-spacing:.14em;margin-bottom:8px}
+  .product-info h3{
+    font-size:clamp(24px,7vw,32px);
+    line-height:1.05;
+    margin-bottom:8px;
+  }
+  .product-description{
+    font-size:12px;
+    line-height:1.45;
+    margin-bottom:14px;
+  }
+  .price{
+    font-size:25px;
+    margin-bottom:13px;
+  }
+  .order-btn{
+    min-height:48px;
+    padding:12px 18px;
+    font-size:11px;
+  }
+
   .bg{transform:none!important;filter:none!important}
-  .vignette{box-shadow:inset 0 0 90px rgba(0,0,0,.36)}
+  .vignette{box-shadow:inset 0 0 70px rgba(0,0,0,.32)}
 }
+
+@media(max-width:700px) and (max-height:700px){
+  .mantra-div{padding-top:42px;padding-bottom:46px}
+  .mantra-inner{padding:21px 12px}
+  .gayatri{line-height:1.55}
+  .mantra-meaning{margin-top:16px;font-size:11px}
+  .shop-section{padding-top:48px;padding-bottom:58px}
+  .product-image-wrap{height:200px}
+  .product-info{padding:20px 16px 21px}
+}
+
 @media(max-width:380px){
   .info{bottom:14%}
   .info p{font-size:12.5px}
@@ -136,37 +229,90 @@ body{margin:0;background:#140b05;color:#fff7e6;font-family:Georgia,"Times New Ro
 /* GLASS SCROLLBAR + NAV */
 /* FROSTED / BLURRED SCROLLBAR */
 html{
-  scrollbar-width:auto;
-  scrollbar-color:rgba(255,240,205,.55) rgba(255,255,255,.10);
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,245,220,.42) rgba(255,255,255,.045);
+  overscroll-behavior-y:auto;
 }
 body{
   scrollbar-gutter:stable;
 }
+.scene,
+.asset,
+.opening-copy,
+.info{
+  transform:translateZ(0);
+}
+
+.asset,
+.bg{
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+@media(max-width:700px){
+  html{
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:auto;
+  }
+  ::-webkit-scrollbar{
+    width:4px;
+    height:4px;
+  }
+  .scene{
+    contain:paint;
+  }
+  ::-webkit-scrollbar-track{
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  ::-webkit-scrollbar-thumb{
+    border:0;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:rgba(255,245,220,.48);
+  }
+}
+
+@media(max-width:700px){
+  .asset{
+    filter:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .scene,.asset,.opening-copy,.info{
+    transform:none;
+  }
+}
 ::-webkit-scrollbar{
-  width:14px;
-  height:14px;
+  width:11px;
+  height:11px;
 }
 ::-webkit-scrollbar-track{
-  background:rgba(255,255,255,.045);
-  border-left:1px solid rgba(255,255,255,.08);
-  box-shadow:inset 0 0 12px rgba(255,255,255,.08);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  background:rgba(255,255,255,.035);
+  border-left:1px solid rgba(255,255,255,.06);
+  box-shadow:inset 0 0 10px rgba(255,255,255,.07);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
 }
 ::-webkit-scrollbar-thumb{
   min-height:70px;
   background:linear-gradient(
     180deg,
-    rgba(255,248,220,.62),
-    rgba(255,220,157,.38)
+    rgba(255,248,220,.48),
+    rgba(255,220,157,.27)
   );
-  border:3px solid rgba(255,255,255,.13);
+  border:2px solid rgba(255,255,255,.10);
   border-radius:999px;
   box-shadow:
-    inset 0 0 8px rgba(255,255,255,.28),
-    0 0 14px rgba(255,224,165,.28);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+    inset 0 0 7px rgba(255,255,255,.22),
+    0 0 10px rgba(255,224,165,.20);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
 }
 ::-webkit-scrollbar-thumb:hover{
   background:rgba(255,240,200,.78);
@@ -183,6 +329,13 @@ body{
 /* TRANSPARENT NAVBAR */
 .site-nav{
   position:fixed;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-110%);
+  transition:opacity .32s ease,transform .32s ease,visibility .32s ease;
+  will-change:opacity,transform;
+
   top:0;left:0;right:0;
   z-index:100;
   display:flex;
@@ -218,11 +371,76 @@ body{
   text-shadow:0 2px 8px rgba(0,0,0,.65);
 }
 .site-nav a:hover{color:#ffe6a8}
+.site-nav.is-visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+@media(prefers-reduced-motion:reduce){
+  .site-nav{transition:none}
+}
+
+@media(max-width:700px){
+  /* Mobile scroll performance: keep animated layers on the compositor. */
+  .scene{
+    isolation:isolate;
+    contain:layout paint style;
+  }
+  .bg,.asset,.opening-copy,.info,.scroll-hint{
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+  }
+  .site-nav{
+    /* Keep the glass look, but avoid an expensive full-screen blur region. */
+    backdrop-filter:blur(7px)!important;
+    -webkit-backdrop-filter:blur(7px)!important;
+    will-change:transform,opacity;
+  }
+  .mantra-div,.shop-section,.site-footer{
+    contain:content;
+  }
+  .product-card{
+    contain:layout paint;
+  }
+  .product-image-wrap img{
+    content-visibility:auto;
+  }
+}
+
+
 @media(max-width:700px){
   .site-nav{min-height:54px;padding:10px 14px;background:rgba(12,7,4,.14)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important}
   .site-nav .brand{font-size:15px}
   .site-nav .links{gap:12px}
   .site-nav a{font-size:9px;letter-spacing:.07em}
+}
+
+
+/* FOOTER */
+.site-footer{
+  position:relative;
+  z-index:20;
+  padding:34px 20px calc(34px + env(safe-area-inset-bottom));
+  background:#140b05;
+  color:rgba(255,247,230,.72);
+  text-align:center;
+  font:500 12px/1.5 Arial,sans-serif;
+  letter-spacing:.04em;
+}
+.site-footer p{margin:0}
+.site-footer a{
+  color:#ffd27a;
+  text-decoration:none;
+  font-weight:700;
+  transition:opacity .2s ease;
+}
+.site-footer a:hover{opacity:.72}
+@media(max-width:700px){
+  .site-footer{
+    padding:28px 16px calc(30px + env(safe-area-inset-bottom));
+    font-size:11px;
+  }
 }
 
 </style>
@@ -351,6 +569,8 @@ body{
   const bg=document.querySelector(".bg");
   const hint=document.querySelector(".scroll-hint");
   const scrollSpace=document.querySelector(".scroll-space");
+  const siteNav=document.querySelector(".site-nav");
+  const mantra=document.getElementById("gayatri");
 
   function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
   function ease(t){return t*t*(3-2*t)}
@@ -364,50 +584,91 @@ body{
     el.style.opacity=enter*(1-exit);
     const y=(1-enter)*100-exit*55;
     const scale=.72+enter*.28-exit*.12;
-    el.style.transform=`translate(-50%,-50%) translateY(${y}px) scale(${scale})`;
+    el.style.transform=`translate3d(-50%,-50%,0) translateY(${y}px) scale(${scale})`;
   }
 
   function showText(el,p,start,end,exitStart,exitEnd){
     const enter=range(p,start,end);
     const exit=range(p,exitStart,exitEnd);
     el.style.opacity=enter*(1-exit);
-    el.style.transform=`translate(-50%,${40-enter*40+exit*30}px)`;
+    el.style.transform=`translate3d(-50%,${40-enter*40+exit*30}px,0)`;
+  }
+
+  let maxSceneScroll=1;
+  let framePending=false;
+  let lastP=-1;
+  let lastNavState=null;
+  let isMobile=window.innerWidth<=700;
+  let mantraTop=0;
+  let shopTop=0;
+
+  function measure(){
+    maxSceneScroll=Math.max(1,scrollSpace.offsetHeight-window.innerHeight);
+    isMobile=window.innerWidth<=700;
+    // Read layout only during resize/initialization, never during scrolling.
+    mantraTop=mantra.offsetTop;
+    shopTop=document.getElementById("shop").offsetTop;
   }
 
   function render(){
-    const maxSceneScroll=Math.max(1,scrollSpace.offsetHeight-window.innerHeight);
-    const p=clamp(window.scrollY/maxSceneScroll,0,1);
+    framePending=false;
+
+    const y=window.scrollY;
+    const p=clamp(y/maxSceneScroll,0,1);
+
+    // Avoid classList work on every scroll frame.
+    const shouldShowNav=y>=mantraTop-24 && y<shopTop-24;
+    if(shouldShowNav!==lastNavState){
+      siteNav.classList.toggle("is-visible",shouldShowNav);
+      lastNavState=shouldShowNav;
+    }
+
+    // Skip duplicate positions, but always allow the first frame.
+    if(p===lastP) return;
+    lastP=p;
 
     const openIn=range(p,0,.09);
     const openOut=range(p,.10,.17);
     openingCopy.style.opacity=openIn*(1-openOut);
     openingCopy.style.transform=
-      `translate(-50%,-50%) translateY(${60-openIn*60+openOut*30}px)`;
+      `translate3d(-50%,-50%,0) translateY(${60-openIn*60+openOut*30}px)`;
 
     showImage(fire,p,.08,.18,.27,.36);
     showText(infoFire,p,.14,.23,.29,.37);
-
     showImage(people,p,.31,.41,.50,.59);
     showText(infoPeople,p,.37,.47,.52,.61);
 
-    showImage(dung,p,.53,.63,.72,.81);
-    showText(infoDung,p,.59,.69,.74,.83);
-
-    if(window.innerWidth>700){
-      bg.style.transform=`scale(${1.04+p*.035})`;
-      bg.style.filter=`brightness(${1-p*.12}) saturate(${1+p*.06})`;
+    if(isMobile){
+      showImage(dung,p,.53,.63,.72,.91);
+      showText(infoDung,p,.59,.69,.74,.91);
+    }else{
+      showImage(dung,p,.53,.63,.72,.81);
+      showText(infoDung,p,.59,.69,.74,.83);
+      bg.style.transform=`translate3d(0,0,0) scale(${1.04+p*.035})`;
     }
 
-    const sceneOut=range(p,.985,1);
+    const sceneOut=isMobile ? range(p,.90,.96) : range(p,.985,1);
     scene.style.opacity=1-sceneOut;
     scene.style.pointerEvents=sceneOut>.98?"none":"auto";
-
     hint.style.opacity=p<.045?1:0;
   }
 
-  window.addEventListener("scroll",render,{passive:true});
-  window.addEventListener("resize",render);
-  render();
+  function requestRender(){
+    if(framePending) return;
+    framePending=true;
+    requestAnimationFrame(render);
+  }
+
+  window.addEventListener("scroll",requestRender,{passive:true});
+  window.addEventListener("resize",()=>{
+    measure();
+    lastP=-1;
+    lastNavState=null;
+    requestRender();
+  },{passive:true});
+
+  measure();
+  requestRender();
 })();
 </script>
 
@@ -432,7 +693,7 @@ body{
         const p=doc.data();
         const card=document.createElement("article");
         card.className="product-card";
-        card.innerHTML=`<div class="product-image-wrap"><img src="${escapeHtml(p.imageUrl||"")}" alt="${escapeHtml(p.name||"Product")}" loading="lazy"></div>
+        card.innerHTML=`<div class="product-image-wrap"><img src="${escapeHtml(p.imageUrl||"")}" alt="${escapeHtml(p.name||"Product")}" loading="lazy" decoding="async"></div>
           <div class="product-info"><span class="product-tag">${escapeHtml(p.tag||"HAVAN SAMAGRI")}</span>
           <h3>${escapeHtml(p.name||"Untitled Product")}</h3>
           <p class="product-description">${escapeHtml(p.description||"")}</p>
@@ -448,5 +709,9 @@ body{
   function escapeHtml(v){return String(v).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
   loadProducts();
 </script>
+
+<footer class="site-footer">
+  <p>Site made by <a href="https://mpoxel.in" target="_blank" rel="noopener noreferrer">mpoxel.in</a></p>
+</footer>
 </body>
 </html>
