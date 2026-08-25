@@ -7,856 +7,124 @@
 <title>Puja Samagri</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  background:#140b05;
-  color:#fff7e6;
-  font-family:Georgia,"Times New Roman",serif;
-  overflow-x:hidden;
-}
-
-/* =========================================================
-   SCROLL SPACE
-========================================================= */
-
-.scroll-space{
-  height:560vh;
-  position:relative;
-}
-
-/* =========================================================
-   MAIN FIXED SCENE
-========================================================= */
-
-.scene{
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  background:#140b05;
-  transition:opacity .3s ease;
-}
-
-.bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  transform:scale(1.04);
-  will-change:transform,filter;
-}
-
-.shade{
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(17,8,3,.08),
-      rgba(17,8,3,.25)
-    ),
-    radial-gradient(
-      circle at center,
-      transparent 30%,
-      rgba(8,3,1,.45)
-    );
-
-  pointer-events:none;
-}
-
-/* =========================================================
-   SCROLLING IMAGE ASSETS
-========================================================= */
-
-.asset{
-  position:absolute;
-  left:50%;
-  top:50%;
-
-  width:min(78vw,900px);
-
-  transform:
-    translate(-50%,-50%)
-    translateY(100px)
-    scale(.72);
-
-  opacity:0;
-
-  filter:
-    drop-shadow(0 22px 30px rgba(0,0,0,.35));
-
-  will-change:transform,opacity;
-
-  pointer-events:none;
-}
-
-#fire{
-  z-index:3;
-}
-
-#people{
-  z-index:4;
-  width:min(94vw,1250px);
-}
-
-#dung{
-  z-index:5;
-  width:min(70vw,800px);
-}
-
-/* =========================================================
-   INFORMATION TEXT
-========================================================= */
-
-.info{
-  position:absolute;
-
-  z-index:7;
-
-  left:50%;
-  bottom:11%;
-
-  transform:
-    translate(-50%,40px);
-
-  width:min(850px,88vw);
-
-  text-align:center;
-
-  opacity:0;
-
-  will-change:
-    transform,
-    opacity;
-
-  pointer-events:none;
-}
-
-.info h2{
-  margin:0 0 12px;
-
-  font-size:
-    clamp(27px,4vw,54px);
-
-  color:#ffd27a;
-
-  text-shadow:
-    0 3px 18px #000;
-}
-
-.info p{
-  margin:0 auto;
-
-  font-family:Arial,sans-serif;
-
-  font-size:
-    clamp(14px,1.5vw,19px);
-
-  line-height:1.65;
-
-  color:#fff3d8;
-
-  text-shadow:
-    0 2px 10px #000;
-}
-
-#infoFire{
-  z-index:6;
-}
-
-#infoPeople{
-  z-index:6;
-}
-
-#infoDung{
-  z-index:8;
-}
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.title{
-  position:absolute;
-
-  z-index:9;
-
-  left:50%;
-  top:50%;
-
-  transform:
-    translate(-50%,-50%)
-    translateY(80px)
-    scale(.8);
-
-  opacity:0;
-
-  width:100%;
-
-  text-align:center;
-
-  will-change:
-    transform,
-    opacity;
-}
-
-.title .small{
-  display:block;
-
-  font-size:
-    clamp(12px,1.4vw,20px);
-
-  letter-spacing:.5em;
-
-  text-transform:uppercase;
-
-  margin-bottom:18px;
-
-  color:#ffe0a0;
-
-  text-shadow:
-    0 2px 12px #000;
-}
-
-.title h1{
-  margin:0;
-
-  font-size:
-    clamp(48px,9vw,125px);
-
-  letter-spacing:.06em;
-
-  line-height:.9;
-
-  color:#ffd27a;
-
-  text-shadow:
-    0 3px 0 #8c4b17,
-    0 8px 30px rgba(0,0,0,.65);
-}
-
-/* =========================================================
-   SCROLL HINT
-========================================================= */
-
-.scroll-hint{
-  position:fixed;
-
-  z-index:12;
-
-  bottom:24px;
-  left:50%;
-
-  transform:
-    translateX(-50%);
-
-  font:
-    12px Arial,sans-serif;
-
-  letter-spacing:.28em;
-
-  text-transform:uppercase;
-
-  color:
-    rgba(255,247,230,.8);
-
-  transition:
-    opacity .3s;
-}
-
-.scroll-hint::after{
-  content:"↓";
-
-  display:block;
-
-  text-align:center;
-
-  font-size:22px;
-
-  margin-top:5px;
-
-  animation:bounce 1.4s infinite;
-}
-
-@keyframes bounce{
-
-  50%{
-    transform:translateY(6px);
-  }
-
-}
-
-/* =========================================================
-   VIGNETTE
-========================================================= */
-
-.vignette{
-  position:absolute;
-
-  inset:0;
-
-  z-index:10;
-
-  pointer-events:none;
-
-  box-shadow:
-    inset 0 0 180px rgba(0,0,0,.48);
-}
-
-/* =========================================================
-   WHITE SHOP SECTION
-========================================================= */
-
-.shop-section{
-
-  position:relative;
-
-  z-index:20;
-
-  min-height:100vh;
-
-  background:#fff;
-
-  color:#3a2112;
-
-  padding:
-    90px 20px 110px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-}
-
-.shop-inner{
-
-  width:
-    min(1100px,94vw);
-
-  text-align:center;
-}
-
-.shop-kicker{
-
-  font:
-    600 12px Arial,sans-serif;
-
-  letter-spacing:.28em;
-
-  color:#a46627;
-
-  margin-bottom:12px;
-}
-
-.shop-inner > h2{
-
-  margin:
-    0 0 38px;
-
-  font-size:
-    clamp(34px,5vw,64px);
-
-  color:#6f3d18;
-}
-
-/* =========================================================
-   PRODUCT CARD
-========================================================= */
-
-.product-card{
-
-  width:
-    min(900px,100%);
-
-  margin:auto;
-
-  background:#fffdf9;
-
-  border:
-    1px solid #eadbc8;
-
-  border-radius:26px;
-
-  overflow:hidden;
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  text-align:left;
-
-  box-shadow:
-    0 20px 60px rgba(83,48,22,.14);
-}
-
-.product-image-wrap{
-
-  min-height:430px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #f7ead8,
-      #fffaf3
-    );
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:28px;
-}
-
-.product-image-wrap img{
-
-  width:100%;
-
-  max-width:470px;
-
-  height:auto;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 18px 20px rgba(70,40,15,.16)
-    );
-}
-
-.product-info{
-
-  padding:
-    52px 48px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-}
-
-.product-tag{
-
-  font:
-    700 11px Arial,sans-serif;
-
-  letter-spacing:.22em;
-
-  color:#a46627;
-
-  margin-bottom:14px;
-}
-
-.product-info h3{
-
-  margin:
-    0 0 16px;
-
-  font-size:
-    clamp(28px,3vw,43px);
-
-  color:#4d2a14;
-}
-
-.product-description{
-
-  font:
-    16px/1.7 Arial,sans-serif;
-
-  color:#725b49;
-
-  margin:
-    0 0 25px;
-}
-
-.price{
-
-  font:
-    700 34px Georgia,serif;
-
-  color:#8b4d1c;
-
-  margin-bottom:24px;
-}
-
-.price span{
-
-  font:
-    14px Arial,sans-serif;
-
-  color:#927d6b;
-
-  margin-left:6px;
-}
-
-.order-btn{
-
-  border:0;
-
-  border-radius:999px;
-
-  padding:
-    16px 30px;
-
-  background:#8b4d1c;
-
-  color:#fff;
-
-  font:
-    700 14px Arial,sans-serif;
-
-  letter-spacing:.08em;
-
-  cursor:pointer;
-
-  transition:
-    transform .2s,
-    box-shadow .2s;
-
-  box-shadow:
-    0 10px 25px rgba(139,77,28,.22);
-}
-
-.order-btn:hover{
-
-  transform:
-    translateY(-2px);
-
-  box-shadow:
-    0 14px 30px rgba(139,77,28,.28);
-}
-
-.fake-note{
-
-  margin-top:12px;
-
-  font:
-    12px Arial,sans-serif;
-
-  color:#9a897b;
-}
-
-/* =========================================================
-   WHITE BIRD ANIMATION
-========================================================= */
-
-.bird-layer{
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:2;
-
-  pointer-events:none;
-
-  overflow:hidden;
-}
-
-.bird{
-
-  position:absolute;
-
-  width:34px;
-
-  height:18px;
-
-  opacity:0;
-
-  will-change:
-    transform,
-    left;
-
-  animation:
-    flyAcross
-    16s
-    linear
-    infinite;
-}
-
-/* LEFT WING */
-
-.bird::before{
-
-  content:"";
-
-  position:absolute;
-
-  top:7px;
-
-  right:16px;
-
-  width:17px;
-
-  height:8px;
-
-  border-top:
-    3px solid rgba(
-      255,
-      255,
-      255,
-      .95
-    );
-
-  border-radius:
-    100% 100% 0 0;
-
-  transform-origin:
-    right center;
-
-  will-change:
-    transform;
-
-  animation:
-    flapLeft
-    .5s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-/* RIGHT WING */
-
-.bird::after{
-
-  content:"";
-
-  position:absolute;
-
-  top:7px;
-
-  left:16px;
-
-  width:17px;
-
-  height:8px;
-
-  border-top:
-    3px solid rgba(
-      255,
-      255,
-      255,
-      .95
-    );
-
-  border-radius:
-    100% 100% 0 0;
-
-  transform-origin:
-    left center;
-
-  will-change:
-    transform;
-
-  animation:
-    flapRight
-    .5s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-/* DIFFERENT BIRD SIZES / SPEEDS */
-
-.b1{
-
-  top:22%;
-
-  animation-duration:13s;
-
-  animation-delay:0s;
-
-  --birdScale:.65;
-}
-
-.b2{
-
-  top:15%;
-
-  animation-duration:17s;
-
-  animation-delay:2.5s;
-
-  --birdScale:.45;
-}
-
-.b3{
-
-  top:29%;
-
-  animation-duration:11s;
-
-  animation-delay:5s;
-
-  --birdScale:.85;
-}
-
-.b4{
-
-  top:12%;
-
-  animation-duration:19s;
-
-  animation-delay:1.2s;
-
-  --birdScale:.5;
-}
-
-.b5{
-
-  top:26%;
-
-  animation-duration:15s;
-
-  animation-delay:7s;
-
-  --birdScale:.7;
-}
-
-/* WING FLAP */
-
-@keyframes flapLeft{
-
-  0%{
-
-    transform:
-      rotate(-22deg)
-      skewY(-8deg);
-  }
-
-  100%{
-
-    transform:
-      rotate(28deg)
-      skewY(8deg);
-  }
-
-}
-
-@keyframes flapRight{
-
-  0%{
-
-    transform:
-      rotate(22deg)
-      skewY(8deg);
-  }
-
-  100%{
-
-    transform:
-      rotate(-28deg)
-      skewY(-8deg);
-  }
-
-}
-
-/* FLY ACROSS SCREEN */
-
-@keyframes flyAcross{
-
-  0%{
-
-    left:-10%;
-
-    opacity:0;
-
-    transform:
-      translateY(0)
-      scale(var(--birdScale));
-  }
-
-  5%{
-
-    opacity:.85;
-  }
-
-  45%{
-
-    transform:
-      translateY(-20px)
-      scale(var(--birdScale));
-  }
-
-  50%{
-
-    transform:
-      translateY(-25px)
-      scale(var(--birdScale));
-  }
-
-  90%{
-
-    opacity:.85;
-  }
-
-  100%{
-
-    left:110%;
-
-    opacity:0;
-
-    transform:
-      translateY(15px)
-      scale(var(--birdScale));
-  }
-
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#140b05;color:#fff7e6;font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+
+.scroll-space{height:620vh;position:relative}
+.scene{position:fixed;inset:0;overflow:hidden;background:#140b05;transition:opacity .45s ease}
+
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.04);will-change:transform,filter}
+.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(17,8,3,.15),rgba(17,8,3,.34)),radial-gradient(circle at center,transparent 22%,rgba(8,3,1,.58) 100%);pointer-events:none}
+
+.asset{position:absolute;left:50%;top:50%;width:min(78vw,900px);transform:translate(-50%,-50%) translateY(100px) scale(.72);opacity:0;filter:drop-shadow(0 22px 30px rgba(0,0,0,.4));will-change:transform,opacity;pointer-events:none}
+#fire{z-index:3}
+#people{z-index:4;width:min(94vw,1250px)}
+#dung{z-index:5;width:min(70vw,800px)}
+
+.opening-copy{position:absolute;z-index:9;left:50%;top:50%;width:min(900px,92vw);transform:translate(-50%,-50%) translateY(60px);opacity:0;text-align:center;will-change:transform,opacity}
+.eyebrow{display:block;margin-bottom:18px;font:700 clamp(10px,1.2vw,14px)/1 Arial,sans-serif;letter-spacing:.34em;color:#ffe0a0}
+.opening-copy h1{margin:0;font-size:clamp(48px,9vw,118px);line-height:.88;letter-spacing:.045em;color:#ffd27a;text-shadow:0 3px 0 #8c4b17,0 8px 30px rgba(0,0,0,.7)}
+.opening-copy h1 em{font-style:normal;color:#fff0c5}
+.opening-copy p{margin:25px auto 18px;max-width:620px;font:500 clamp(14px,1.6vw,19px)/1.6 Arial,sans-serif;color:#fff3d8;text-shadow:0 2px 10px #000}
+.opening-line{display:block;width:70px;height:1px;margin:0 auto 12px;background:#ffd27a}
+.opening-copy small{font:600 11px/1 Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,247,230,.75)}
+
+.info{position:absolute;z-index:8;left:50%;bottom:15%;width:min(850px,90vw);transform:translate(-50%,40px);text-align:center;opacity:0;will-change:transform,opacity;pointer-events:none}
+.section-label{display:block;margin-bottom:12px;font:700 11px/1 Arial,sans-serif;letter-spacing:.28em;color:#ffe0a0;text-shadow:0 2px 10px #000}
+.info h2{margin:0 0 12px;font-size:clamp(28px,4.5vw,58px);line-height:1;color:#ffd27a;text-shadow:0 3px 18px #000}
+.sales-info p{max-width:760px;padding:0 8px}.info p{max-width:720px;margin:0 auto;font:500 clamp(14px,1.5vw,19px)/1.6 Arial,sans-serif;color:#fff3d8;text-shadow:0 2px 10px #000}
+
+.scroll-hint{position:fixed;z-index:12;bottom:24px;left:50%;transform:translateX(-50%);font:600 11px/1 Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,247,230,.8);transition:opacity .3s}
+.scroll-hint::after{content:"↓";display:block;text-align:center;font-size:22px;margin-top:6px;animation:bounce 1.4s infinite}
+@keyframes bounce{50%{transform:translateY(6px)}}
+.vignette{position:absolute;inset:0;z-index:10;pointer-events:none;box-shadow:inset 0 0 180px rgba(0,0,0,.48)}
+
+/* GAYATRI */
+.mantra-div{position:relative;z-index:20;min-height:72vh;padding:100px 20px;display:flex;align-items:center;justify-content:center;background:#140b05;color:#fff7e6;text-align:center}
+.mantra-inner{width:min(850px,92vw)}
+.mantra-kicker{display:block;margin-bottom:14px;font:700 11px/1 Arial,sans-serif;letter-spacing:.3em;color:#a46627}
+.mantra-inner h2{margin:0;font-size:clamp(38px,6vw,72px);color:#6f3d18;line-height:1}
+.mantra-ornament{margin:20px auto;font-size:34px;color:#a46627}
+.gayatri{margin:0 auto;font-family:"Noto Serif Devanagari","Nirmala UI","Mangal",serif;font-size:clamp(21px,3vw,34px);line-height:1.8;color:#4d2a14}
+.mantra-meaning{max-width:650px;margin:25px auto 0;font:500 15px/1.7 Arial,sans-serif;color:#725b49}
+
+/* SHOP */
+.shop-section{position:relative;z-index:20;min-height:100vh;background:#fff;color:#3a2112;padding:90px 20px 120px;display:flex;align-items:center;justify-content:center}
+.shop-inner{width:min(1100px,94vw);text-align:center}
+.shop-kicker{font:700 11px/1 Arial,sans-serif;letter-spacing:.28em;color:#a46627}
+.shop-inner>h2{margin:12px 0;font-size:clamp(36px,5vw,64px);line-height:1;color:#6f3d18}
+.shop-intro{max-width:650px;margin:0 auto 38px;font:500 15px/1.65 Arial,sans-serif;color:#725b49}
+.products-grid{width:min(1100px,100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 auto}
+.product-card{background:#fffdf9;border:1px solid #eadbc8;border-radius:22px;overflow:hidden;text-align:left;box-shadow:0 20px 60px rgba(83,48,22,.14);display:flex;flex-direction:column}
+.product-image-wrap{height:280px;background:linear-gradient(145deg,#f7ead8,#fffaf3);display:flex;align-items:center;justify-content:center;padding:22px}
+.product-image-wrap img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 20px rgba(70,40,15,.16))}
+.product-info{padding:28px;display:flex;flex-direction:column;flex:1}
+.product-tag{font:700 10px/1 Arial,sans-serif;letter-spacing:.18em;color:#a46627;margin-bottom:12px}
+.product-info h3{margin:0 0 12px;font-size:clamp(25px,2.5vw,36px);color:#4d2a14}
+.product-description{font:500 15px/1.65 Arial,sans-serif;color:#725b49;margin:0 0 20px}
+.price{font:700 30px Georgia,serif;color:#8b4d1c;margin-top:auto;margin-bottom:18px}
+.price span{font:14px Arial,sans-serif;color:#927d6b;margin-left:6px}
+.order-btn{width:100%;border:0;border-radius:999px;min-height:52px;padding:15px 25px;background:#8b4d1c;color:#fff;font:700 13px/1 Arial,sans-serif;letter-spacing:.08em;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 25px rgba(139,77,28,.22)}
+.order-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(139,77,28,.28)}
+.products-status{font:500 14px/1.5 Arial,sans-serif;color:#927d6b;margin:28px 0 0;text-align:center}
+
+/* BIRDS */
+.bird-layer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.bird{position:absolute;width:34px;height:18px;opacity:0;will-change:transform,left;animation:flyAcross 16s linear infinite}
+.bird::before,.bird::after{content:"";position:absolute;top:7px;width:17px;height:8px;border-top:3px solid rgba(255,255,255,.95);border-radius:100% 100% 0 0}
+.bird::before{right:16px;transform-origin:right center;animation:flapLeft .5s ease-in-out infinite alternate}
+.bird::after{left:16px;transform-origin:left center;animation:flapRight .5s ease-in-out infinite alternate}
+.b1{top:22%;animation-duration:13s;--birdScale:.65}.b2{top:15%;animation-duration:17s;animation-delay:2.5s;--birdScale:.45}.b3{top:29%;animation-duration:11s;animation-delay:5s;--birdScale:.85}.b4{top:12%;animation-duration:19s;animation-delay:1.2s;--birdScale:.5}.b5{top:26%;animation-duration:15s;animation-delay:7s;--birdScale:.7}
+@keyframes flapLeft{0%{transform:rotate(-22deg) skewY(-8deg)}100%{transform:rotate(28deg) skewY(8deg)}}
+@keyframes flapRight{0%{transform:rotate(22deg) skewY(8deg)}100%{transform:rotate(-28deg) skewY(-8deg)}}
+@keyframes flyAcross{0%{left:-10%;opacity:0;transform:translateY(0) scale(var(--birdScale))}5%{opacity:.85}45%{transform:translateY(-20px) scale(var(--birdScale))}50%{transform:translateY(-25px) scale(var(--birdScale))}90%{opacity:.85}100%{left:110%;opacity:0;transform:translateY(15px) scale(var(--birdScale))}}
+
+/* MOBILE */
 @media(max-width:700px){
-
-  .product-card{
-
-    grid-template-columns:1fr;
-  }
-
-  .product-image-wrap{
-
-    min-height:300px;
-  }
-
-  .product-info{
-
-    padding:
-      35px 28px;
-  }
-
-  #people{
-
-    width:125vw;
-  }
-
-  #dung{
-
-    width:105vw;
-  }
-
-  .asset{
-
-    width:112vw;
-  }
-
+  .scroll-space{height:520vh}
+  .asset{width:125vw;max-width:none}
+  #fire{width:112vw}
+  #people{width:145vw}
+  #dung{width:118vw}
+  .opening-copy{width:92vw}
+  .eyebrow{font-size:9px;letter-spacing:.22em;margin-bottom:13px}
+  .opening-copy h1{font-size:clamp(42px,13vw,78px)}
+  .opening-copy p{font-size:13px;line-height:1.5;margin:19px auto 14px;max-width:330px}
+  .info{width:91vw;bottom:16%;padding:0 8px}
+  .section-label{font-size:9px;letter-spacing:.2em;margin-bottom:9px}
+  .info h2{font-size:clamp(26px,8vw,40px);line-height:1.03;margin-bottom:9px}
+  .info p{font-size:13px;line-height:1.5}
+  .scroll-hint{bottom:max(14px,env(safe-area-inset-bottom));font-size:9px}
+  .mantra-div{min-height:80vh;padding:80px 18px}
+  .mantra-inner h2{font-size:clamp(36px,11vw,58px)}
+  .mantra-ornament{margin:15px auto;font-size:28px}
+  .gayatri{font-size:clamp(17px,5.2vw,25px);line-height:1.8}
+  .mantra-meaning{font-size:13px;line-height:1.55}
+  .shop-section{min-height:auto;padding:70px 14px calc(90px + env(safe-area-inset-bottom))}
+  .shop-inner{width:100%}
+  .shop-inner>h2{font-size:clamp(34px,10vw,50px)}
+  .shop-intro{font-size:14px;margin-bottom:28px}
+  .products-grid{grid-template-columns:1fr}
+  .product-card{border-radius:20px}
+  .product-image-wrap{height:260px;padding:20px}
+  .product-info{padding:28px 21px 30px}
+  .product-tag{font-size:9px;letter-spacing:.16em}
+  .product-info h3{font-size:clamp(27px,8vw,38px);line-height:1.08}
+  .product-description{font-size:14px;line-height:1.55}
+  .price{font-size:30px}
+  .order-btn{min-height:54px}
 }
-
+@media(max-width:380px){
+  .info{bottom:14%}
+  .info p{font-size:12.5px}
+  .gayatri{font-size:16px}
+  .product-info{padding:24px 18px 27px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bird{animation:none;display:none}
+}
 </style>
 </head>
 
@@ -869,668 +137,203 @@ body{
 ======================================================= -->
 
 <div class="scroll-space">
-
   <div class="scene">
 
-    <!-- REAL BACKGROUND -->
-    <img
-      src="bg.png"
-      alt="Ancient Indian courtyard"
-      class="bg"
-    >
-
+    <img src="bg.png" alt="Traditional Indian puja setting" class="bg">
     <div class="shade"></div>
 
+    <img src="fire.png" alt="Havan fire" class="asset" id="fire">
+    <img src="people.png" alt="People performing a puja ceremony" class="asset" id="people">
+    <img src="dung.png" alt="Traditional cow dung cakes for havan" class="asset" id="dung">
 
-    <!-- FIRE -->
-    <img
-      src="fire.png"
-      alt="Havan fire"
-      class="asset"
-      id="fire"
-    >
-
-
-    <!-- PEOPLE -->
-    <img
-      src="people.png"
-      alt="People performing puja"
-      class="asset"
-      id="people"
-    >
-
-
-    <!-- DUNG / UPLA -->
-    <img
-      src="dung.png"
-      alt="Traditional cow dung cakes"
-      class="asset"
-      id="dung"
-    >
-
-
-    <!-- ===================================================
-         WHITE BIRDS
-    ==================================================== -->
-
-    <div
-      class="bird-layer"
-      aria-hidden="true"
-    >
-
+    <div class="bird-layer" aria-hidden="true">
       <div class="bird b1"></div>
-
       <div class="bird b2"></div>
-
       <div class="bird b3"></div>
-
       <div class="bird b4"></div>
-
       <div class="bird b5"></div>
-
     </div>
 
-
-    <!-- ===================================================
-         TITLE
-    ==================================================== -->
-
-    <div class="title">
-
-      <span class="small">
-        Welcome To
-      </span>
-
-      <h1>
-        PUJA SAMAGRI
-      </h1>
-
+    <div class="opening-copy" id="openingCopy">
+      <span class="eyebrow">TRADITIONAL • PURE • RITUAL</span>
+      <h1>WELCOME TO<br><em>OUR SHOP</em></h1>
+      <p>Traditional havan samagri for sacred ceremonies.</p>
+      <span class="opening-line"></span>
+      <small>Scroll to explore</small>
     </div>
 
-
-    <!-- ===================================================
-         FIRE TEXT
-    ==================================================== -->
-
-    <div
-      class="info"
-      id="infoFire"
-    >
-
-      <h2>
-        Holy Fire Setup
-      </h2>
-
-      <p>
-        A traditional havan fire forms the centre of
-        many puja ceremonies, representing devotion,
-        offerings and sacred tradition.
-      </p>
-
+    <div class="info sales-info" id="infoFire">
+      <span class="section-label">HAVAN SAMAGRI</span>
+      <h2>WE SELL HAVAN SAMAGRI</h2>
+      <p>Traditional puja essentials for havan, yajna and sacred ceremonies, carefully selected for your rituals.</p>
     </div>
 
-
-    <!-- ===================================================
-         PEOPLE TEXT
-    ==================================================== -->
-
-    <div
-      class="info"
-      id="infoPeople"
-    >
-
-      <h2>
-        Community Gathering
-      </h2>
-
-      <p>
-        Families and communities gather together with
-        the priest to participate in prayer and traditional
-        ceremonies.
-      </p>
-
+    <div class="info sales-info" id="infoPeople">
+      <span class="section-label">FOR EVERY CEREMONY</span>
+      <h2>Made For Sacred Gatherings</h2>
+      <p>Bring the traditional atmosphere of a havan to family ceremonies, festivals, prayers and special occasions.</p>
     </div>
 
-
-    <!-- ===================================================
-         DUNG TEXT
-    ==================================================== -->
-
-    <div
-      class="info"
-      id="infoDung"
-    >
-
-      <h2>
-        Traditional Upla
-      </h2>
-
-      <p>
-        Dried cow-dung cakes, traditionally known as
-        upla, are used as a rural fuel source and are
-        associated with certain traditional practices.
-      </p>
-
+    <div class="info sales-info" id="infoDung">
+      <span class="section-label">TRADITIONAL ESSENTIAL</span>
+      <h2>COW DUNG CAKES / UPLA</h2>
+      <p>Traditional upla, commonly used as a fuel in havan and associated with longstanding ritual practices.</p>
     </div>
-
-
     <div class="vignette"></div>
 
-
     <div class="scroll-hint">
-      Scroll Down
+      SCROLL DOWN
     </div>
-
   </div>
+</div>
+<div class="mantra-div">
+  <div class="mantra-inner">
+    <span class="mantra-kicker">SACRED CHANT</span>
+    <h2>GAYATRI MANTRA</h2>
+    <div class="mantra-ornament">ॐ</div>
 
+    <p class="gayatri">
+      ॐ भूर्भुवः स्वः<br>
+      तत्सवितुर्वरेण्यं<br>
+      भर्गो देवस्य धीमहि<br>
+      धियो यो नः प्रचोदयात् ॥
+    </p>
+
+    <p class="mantra-meaning">
+      We meditate upon the divine light of Savitṛ.
+      May it inspire and illuminate our understanding.
+    </p>
+  </div>
 </div>
 
-
 <!-- =======================================================
-     SHOP SECTION
+     SHOP SECTION — FIREBASE PRODUCTS
 ======================================================= -->
 
 <div class="shop-section">
-
   <div class="shop-inner">
+    <span class="shop-kicker">SHOP HAVAN ESSENTIALS</span>
+    <h2>Our Ritual Essentials</h2>
+    <p class="shop-intro">Choose what you need for your next havan.<br>Traditional havan samagri selected for your puja, yajna and sacred ceremonies.</p>
 
-    <span class="shop-kicker">
-      Premium Collection
-    </span>
-
-    <h2>
-      Our Ritual Essentials
-    </h2>
-
-
-    <div class="product-card">
-
-
-      <!-- PRODUCT IMAGE -->
-
-      <div class="product-image-wrap">
-
-        <img
-          src="dung.png"
-          alt="Traditional cow dung upla"
-        >
-
-      </div>
-
-
-      <!-- PRODUCT DETAILS -->
-
-      <div class="product-info">
-
-        <span class="product-tag">
-          TRADITIONAL
-        </span>
-
-        <h3>
-          Natural Cow Dung Upla
-        </h3>
-
-        <p class="product-description">
-
-          Traditionally prepared dried cow-dung
-          cakes suitable for traditional havan
-          and puja practices.
-
-        </p>
-
-        <div class="price">
-
-          ₹149
-
-          <span>
-            per pack
-          </span>
-
-        </div>
-
-
-        <button
-          class="order-btn"
-          id="orderButton"
-        >
-
-          ORDER NOW
-
-        </button>
-
-
-        <span class="fake-note">
-
-          Demo storefront • No real order is placed.
-
-        </span>
-
-      </div>
-
-    </div>
-
+    <div id="productsGrid" class="products-grid" aria-live="polite"></div>
+    <p id="productsStatus" class="products-status">Loading products…</p>
   </div>
-
 </div>
-
 
 <!-- =======================================================
      JAVASCRIPT
 ======================================================= -->
 
 <script>
-
 (() => {
+  const fire=document.getElementById("fire");
+  const people=document.getElementById("people");
+  const dung=document.getElementById("dung");
 
+  const infoFire=document.getElementById("infoFire");
+  const infoPeople=document.getElementById("infoPeople");
+  const infoDung=document.getElementById("infoDung");
 
-  /* ELEMENTS */
+  const openingCopy=document.getElementById("openingCopy");
+  const scene=document.querySelector(".scene");
+  const bg=document.querySelector(".bg");
+  const hint=document.querySelector(".scroll-hint");
+  const scrollSpace=document.querySelector(".scroll-space");
 
-  const fire =
-    document.getElementById("fire");
-
-  const people =
-    document.getElementById("people");
-
-  const dung =
-    document.getElementById("dung");
-
-
-  const infoFire =
-    document.getElementById("infoFire");
-
-  const infoPeople =
-    document.getElementById("infoPeople");
-
-  const infoDung =
-    document.getElementById("infoDung");
-
-
-  const title =
-    document.querySelector(".title");
-
-  const scene =
-    document.querySelector(".scene");
-
-  const bg =
-    document.querySelector(".bg");
-
-  const hint =
-    document.querySelector(".scroll-hint");
-
-
-  /* -------------------------------------------------------
-     HELPERS
-  ------------------------------------------------------- */
-
-  function clamp(
-    value,
-    min,
-    max
-  ){
-
-    return Math.max(
-      min,
-      Math.min(max,value)
-    );
-
+  function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+  function ease(t){return t*t*(3-2*t)}
+  function range(p,start,end){
+    return ease(clamp((p-start)/(end-start),0,1))
   }
 
-
-  function ease(t){
-
-    return t * t *
-      (3 - 2 * t);
-
+  function showImage(el,p,start,end,exitStart,exitEnd){
+    const enter=range(p,start,end);
+    const exit=range(p,exitStart,exitEnd);
+    el.style.opacity=enter*(1-exit);
+    const y=(1-enter)*100-exit*55;
+    const scale=.72+enter*.28-exit*.12;
+    el.style.transform=`translate(-50%,-50%) translateY(${y}px) scale(${scale})`;
   }
 
-
-  function range(
-    progress,
-    start,
-    end
-  ){
-
-    return ease(
-      clamp(
-        (progress-start) /
-        (end-start),
-        0,
-        1
-      )
-    );
-
+  function showText(el,p,start,end,exitStart,exitEnd){
+    const enter=range(p,start,end);
+    const exit=range(p,exitStart,exitEnd);
+    el.style.opacity=enter*(1-exit);
+    el.style.transform=`translate(-50%,${40-enter*40+exit*30}px)`;
   }
-
-
-  /* -------------------------------------------------------
-     IMAGE ANIMATION
-  ------------------------------------------------------- */
-
-  function showImage(
-    element,
-    progress,
-    enterStart,
-    enterEnd,
-    exitStart,
-    exitEnd
-  ){
-
-    const enter =
-      range(
-        progress,
-        enterStart,
-        enterEnd
-      );
-
-    const exit =
-      range(
-        progress,
-        exitStart,
-        exitEnd
-      );
-
-
-    const opacity =
-      enter *
-      (1-exit);
-
-
-    const y =
-      (1-enter) * 100 -
-      exit * 55;
-
-
-    const scale =
-      .72 +
-      enter * .28 -
-      exit * .12;
-
-
-    element.style.opacity =
-      opacity;
-
-
-    element.style.transform =
-      `
-      translate(-50%,-50%)
-      translateY(${y}px)
-      scale(${scale})
-      `;
-
-  }
-
-
-  /* -------------------------------------------------------
-     TEXT ANIMATION
-  ------------------------------------------------------- */
-
-  function showText(
-    element,
-    progress,
-    start,
-    end,
-    exitStart,
-    exitEnd
-  ){
-
-    const enter =
-      range(
-        progress,
-        start,
-        end
-      );
-
-    const exit =
-      range(
-        progress,
-        exitStart,
-        exitEnd
-      );
-
-
-    const opacity =
-      enter *
-      (1-exit);
-
-
-    element.style.opacity =
-      opacity;
-
-
-    element.style.transform =
-      `
-      translate(
-        -50%,
-        ${40 - enter*40 + exit*30}px
-      )
-      `;
-
-  }
-
-
-  /* -------------------------------------------------------
-     MAIN SCROLL LOOP
-  ------------------------------------------------------- */
 
   function render(){
+    const maxSceneScroll=Math.max(1,scrollSpace.offsetHeight-window.innerHeight);
+    const p=clamp(window.scrollY/maxSceneScroll,0,1);
 
-    const maxScroll =
-      document.documentElement
-        .scrollHeight -
-      window.innerHeight;
+    const openIn=range(p,0,.09);
+    const openOut=range(p,.10,.17);
+    openingCopy.style.opacity=openIn*(1-openOut);
+    openingCopy.style.transform=
+      `translate(-50%,-50%) translateY(${60-openIn*60+openOut*30}px)`;
 
+    showImage(fire,p,.08,.18,.27,.36);
+    showText(infoFire,p,.14,.23,.29,.37);
 
-    const progress =
-      maxScroll > 0
-        ? window.scrollY / maxScroll
-        : 0;
+    showImage(people,p,.31,.41,.50,.59);
+    showText(infoPeople,p,.37,.47,.52,.61);
 
+    showImage(dung,p,.53,.63,.72,.81);
+    showText(infoDung,p,.59,.69,.74,.83);
 
-    /* FIRE */
+    bg.style.transform=`scale(${1.04+p*.035})`;
+    bg.style.filter=`brightness(${1-p*.12}) saturate(${1+p*.06})`;
 
-    showImage(
-      fire,
-      progress,
-      .05,
-      .19,
-      .29,
-      .39
-    );
+    const sceneOut=range(p,.985,1);
+    scene.style.opacity=1-sceneOut;
+    scene.style.pointerEvents=sceneOut>.98?"none":"auto";
 
-
-    showText(
-      infoFire,
-      progress,
-      .12,
-      .22,
-      .32,
-      .42
-    );
-
-
-    /* PEOPLE */
-
-    showImage(
-      people,
-      progress,
-      .29,
-      .43,
-      .48,
-      .58
-    );
-
-
-    showText(
-      infoPeople,
-      progress,
-      .36,
-      .47,
-      .51,
-      .61
-    );
-
-
-    /* DUNG */
-
-    showImage(
-      dung,
-      progress,
-      .50,
-      .65,
-      .70,
-      .78
-    );
-
-
-    showText(
-      infoDung,
-      progress,
-      .58,
-      .69,
-      .73,
-      .82
-    );
-
-
-    /* TITLE */
-
-    const titleIn =
-      range(
-        progress,
-        .76,
-        .91
-      );
-
-
-    title.style.opacity =
-      titleIn;
-
-
-    title.style.transform =
-      `
-      translate(-50%,-50%)
-      translateY(${(1-titleIn)*80}px)
-      scale(${.8 + titleIn*.2})
-      `;
-
-
-    /* BACKGROUND MOTION */
-
-    bg.style.transform =
-      `
-      scale(
-        ${1.04 + progress*.035}
-      )
-      `;
-
-
-    bg.style.filter =
-      `
-      brightness(
-        ${1-progress*.12}
-      )
-      saturate(
-        ${1+progress*.06}
-      )
-      `;
-
-
-    /* FADE CINEMATIC SCENE */
-
-    const sceneOut =
-      range(
-        progress,
-        .92,
-        1
-      );
-
-
-    scene.style.opacity =
-      1-sceneOut;
-
-
-    scene.style.pointerEvents =
-      sceneOut > .98
-        ? "none"
-        : "auto";
-
-
-    /* SCROLL HINT */
-
-    hint.style.opacity =
-      progress < .06
-        ? 1
-        : 0;
-
+    hint.style.opacity=p<.045?1:0;
   }
 
-
-  /* -------------------------------------------------------
-     FAKE ORDER BUTTON
-  ------------------------------------------------------- */
-
-  const orderButton =
-    document.getElementById(
-      "orderButton"
-    );
-
-
-  orderButton.addEventListener(
-    "click",
-    () => {
-
-      orderButton.textContent =
-        "DEMO — ORDER RECEIVED";
-
-
-      orderButton.disabled =
-        true;
-
-
-      setTimeout(
-        () => {
-
-          orderButton.textContent =
-            "ORDER NOW";
-
-          orderButton.disabled =
-            false;
-
-        },
-        1800
-      );
-
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     EVENTS
-  ------------------------------------------------------- */
-
-  window.addEventListener(
-    "scroll",
-    render,
-    {
-      passive:true
-    }
-  );
-
-
-  window.addEventListener(
-    "resize",
-    render
-  );
-
-
-  /* INITIAL RENDER */
-
+  window.addEventListener("scroll",render,{passive:true});
+  window.addEventListener("resize",render);
   render();
-
 })();
-
 </script>
 
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  import { firebaseConfig } from "./firebase-config.js";
+
+  const grid=document.getElementById("productsGrid");
+  const status=document.getElementById("productsStatus");
+
+  async function loadProducts(){
+    try{
+      const app=initializeApp(firebaseConfig);
+      const db=getFirestore(app);
+      const snap=await getDocs(query(collection(db,"products"),orderBy("createdAt","desc")));
+      grid.innerHTML="";
+      if(snap.empty){ status.textContent="No products listed yet."; return; }
+      status.textContent="";
+      snap.forEach(doc=>{
+        const p=doc.data();
+        const card=document.createElement("article");
+        card.className="product-card";
+        card.innerHTML=`<div class="product-image-wrap"><img src="${escapeHtml(p.imageUrl||"")}" alt="${escapeHtml(p.name||"Product")}" loading="lazy"></div>
+          <div class="product-info"><span class="product-tag">${escapeHtml(p.tag||"HAVAN SAMAGRI")}</span>
+          <h3>${escapeHtml(p.name||"Untitled Product")}</h3>
+          <p class="product-description">${escapeHtml(p.description||"")}</p>
+          <div class="price">₹${Number(p.price||0).toLocaleString("en-IN")} <span>${escapeHtml(p.unit||"per pack")}</span></div>
+          <button class="order-btn" type="button">ORDER NOW</button></div>`;
+        grid.appendChild(card);
+      });
+    }catch(err){
+      console.error(err);
+      status.textContent="Products could not be loaded. Check Firebase configuration and rules.";
+    }
+  }
+  function escapeHtml(v){return String(v).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+  loadProducts();
+</script>
 </body>
 </html>
