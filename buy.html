@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6b3f20">
+  <title>Buy | Havan Samagree</title>
+
+  <style>
+    :root {
+      --brown:#6b3f20;
+      --dark-brown:#3d2414;
+      --gold:#c58a32;
+      --cream:#fffaf2;
+      --border:#ead8bd;
+      --muted:#806c5b;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    html { scrollbar-width:none; }
+    html::-webkit-scrollbar { display:none; }
+
+    body {
+      font-family:Arial,Helvetica,sans-serif;
+      background:#fff;
+      color:var(--dark-brown);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .navbar {
+      width:min(94%,1180px);
+      margin:14px auto 0;
+      padding:12px 18px;
+      border:1px solid rgba(197,138,50,.28);
+      border-radius:18px;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .logo {
+      color:var(--brown);
+      text-decoration:none;
+      font-size:19px;
+      font-weight:800;
+    }
+
+    .logo span { color:var(--gold); }
+
+    .back {
+      color:var(--brown);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    main {
+      width:min(850px,92%);
+      margin:0 auto;
+      padding:58px 0 70px;
+    }
+
+    .heading {
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .om {
+      color:var(--gold);
+      font-family:Georgia,serif;
+      font-size:34px;
+      margin-bottom:6px;
+    }
+
+    h1 {
+      color:var(--brown);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(34px,6vw,50px);
+    }
+
+    .heading p {
+      color:var(--muted);
+      margin-top:8px;
+      font-size:14px;
+    }
+
+    .step {
+      display:none;
+    }
+
+    .step.active {
+      display:block;
+    }
+
+    .card {
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:#fff;
+      box-shadow:0 8px 25px rgba(74,43,20,.08);
+      padding:24px;
+    }
+
+    .card h2 {
+      color:var(--brown);
+      font-family:Georgia,serif;
+      font-size:25px;
+      margin-bottom:18px;
+    }
+
+    .cart-item {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:17px 0;
+      border-bottom:1px solid #f0e4d4;
+    }
+
+    .cart-item:last-child { border-bottom:0; }
+
+    .item-name {
+      color:var(--brown);
+      font-family:Georgia,serif;
+      font-size:18px;
+      font-weight:700;
+    }
+
+    .item-details {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:5px;
+    }
+
+    .item-total {
+      color:var(--brown);
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .products-total {
+      display:flex;
+      justify-content:space-between;
+      padding-top:18px;
+      font-size:19px;
+      font-weight:800;
+      color:var(--brown);
+    }
+
+    .empty {
+      text-align:center;
+      color:var(--muted);
+      padding:30px 10px;
+      line-height:1.7;
+    }
+
+    .empty a {
+      color:var(--brown);
+      font-weight:700;
+    }
+
+    .form-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .field.full {
+      grid-column:1 / -1;
+    }
+
+    label {
+      color:var(--brown);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    input, select, textarea {
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:11px;
+      padding:12px 13px;
+      min-height:45px;
+      background:#fff;
+      color:var(--dark-brown);
+      font:inherit;
+      outline:none;
+    }
+
+    textarea {
+      min-height:90px;
+      resize:vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(197,138,50,.12);
+    }
+
+    .required {
+      color:#a05c3b;
+    }
+
+    .error {
+      color:#a05c3b;
+      font-size:12px;
+      min-height:16px;
+      margin-top:12px;
+    }
+
+    .actions {
+      display:flex;
+      justify-content:flex-end;
+      margin-top:22px;
+    }
+
+    .next-btn, .buy-now {
+      border:0;
+      border-radius:12px;
+      background:var(--brown);
+      color:#fff;
+      padding:13px 24px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .next-btn:hover, .buy-now:hover {
+      background:#8a542b;
+    }
+
+    .summary {
+      background:var(--cream);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+    }
+
+    .summary-row {
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      padding:10px 0;
+      color:var(--brown);
+    }
+
+    .summary-row + .summary-row {
+      border-top:1px solid var(--border);
+    }
+
+    .summary-row.total {
+      font-size:21px;
+      font-weight:800;
+      padding-top:16px;
+    }
+
+    .delivery-note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      margin-top:13px;
+    }
+
+    .customer-preview {
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+      margin-bottom:18px;
+    }
+
+    .buy-now {
+      width:100%;
+      margin-top:18px;
+      font-size:16px;
+      padding:15px;
+    }
+
+    @media (max-width:600px) {
+      .navbar {
+        width:94%;
+        padding:10px 12px;
+        border-radius:15px;
+      }
+
+      .logo { font-size:16px; }
+
+      main {
+        padding:45px 0 55px;
+      }
+
+      .card {
+        padding:18px;
+        border-radius:17px;
+      }
+
+      .form-grid {
+        grid-template-columns:1fr;
+      }
+
+      .field.full {
+        grid-column:auto;
+      }
+
+      .cart-item {
+        align-items:flex-start;
+      }
+
+      .item-name { font-size:16px; }
+
+      .actions {
+        justify-content:stretch;
+      }
+
+      .next-btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="shop.html" class="logo">Havan <span>Samagree</span></a>
+    <a href="shop.html" class="back">← Back to Shop</a>
+  </nav>
+
+  <main>
+    <section class="heading">
+      <div class="om">ॐ</div>
+      <h1>Complete Your Order</h1>
+      <p>Review your cart and enter your delivery details.</p>
+    </section>
+
+    <!-- STEP 1: CART -->
+    <section id="step1" class="step active">
+      <div class="card">
+        <h2>1. Your Cart</h2>
+        <div id="cartItems"></div>
+        <div class="products-total">
+          <span>Products Total</span>
+          <span id="productsTotal">₹0</span>
+        </div>
+
+        <div class="actions">
+          <button id="nextToDetails" class="next-btn" type="button">NEXT →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: CUSTOMER DETAILS -->
+    <section id="step2" class="step">
+      <div class="card">
+        <h2>2. Delivery Details</h2>
+
+        <form id="deliveryForm" novalidate>
+          <div class="form-grid">
+
+            <div class="field">
+              <label for="name">Full Name <span class="required">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input id="phone" name="phone" type="tel" inputmode="numeric"
+                     autocomplete="tel" maxlength="10" required>
+            </div>
+
+            <div class="field">
+              <label for="pincode">PIN Code <span class="required">*</span></label>
+              <input id="pincode" name="pincode" type="text" inputmode="numeric"
+                     autocomplete="postal-code" maxlength="6" required>
+            </div>
+
+            <div class="field">
+              <label for="state">State <span class="required">*</span></label>
+              <select id="state" name="state" required>
+                <option value="">Select State</option>
+                <option>Andhra Pradesh</option>
+                <option>Arunachal Pradesh</option>
+                <option>Assam</option>
+                <option>Bihar</option>
+                <option>Chhattisgarh</option>
+                <option>Goa</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Himachal Pradesh</option>
+                <option>Jharkhand</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Manipur</option>
+                <option>Meghalaya</option>
+                <option>Mizoram</option>
+                <option>Nagaland</option>
+                <option>Odisha</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Sikkim</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Tripura</option>
+                <option>Uttar Pradesh</option>
+                <option>Uttarakhand</option>
+                <option>West Bengal</option>
+                <option>Delhi</option>
+                <option>Jammu and Kashmir</option>
+                <option>Ladakh</option>
+                <option>Puducherry</option>
+                <option>Chandigarh</option>
+                <option>Dadra and Nagar Haveli and Daman and Diu</option>
+                <option>Lakshadweep</option>
+                <option>Andaman and Nicobar Islands</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="address">Delivery Address <span class="required">*</span></label>
+              <textarea id="address" name="address"
+                        autocomplete="street-address"
+                        placeholder="House / flat number, street, area, landmark..."
+                        required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="city">City / Town <span class="required">*</span></label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" required>
+            </div>
+
+            <div class="field">
+              <label for="landmark">Landmark</label>
+              <input id="landmark" name="landmark" type="text">
+            </div>
+
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="alternatePhone">Alternate Phone</label>
+              <input id="alternatePhone" name="alternatePhone" type="tel" inputmode="numeric" maxlength="10">
+            </div>
+
+          </div>
+
+          <div id="formError" class="error" aria-live="polite"></div>
+
+          <div class="actions">
+            <button class="next-btn" type="submit">NEXT →</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- STEP 3: FINAL SUMMARY -->
+    <section id="step3" class="step">
+      <div class="card">
+        <h2>3. Order Summary</h2>
+
+        <div id="customerPreview" class="customer-preview"></div>
+
+        <div class="summary">
+          <div class="summary-row">
+            <span>Products</span>
+            <strong id="summaryProducts">₹0</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Delivery Fee</span>
+            <strong id="deliveryFee">₹0</strong>
+          </div>
+
+          <div class="summary-row total">
+            <span>Payable Amount</span>
+            <strong id="payableAmount">₹0</strong>
+          </div>
+
+          <p class="delivery-note">
+            Delivery fee is currently a temporary demo calculation. A real courier/API
+            rate can be connected later.
+          </p>
+        </div>
+
+        <button id="buyNow" class="buy-now" type="button">BUY NOW</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CART_KEY = "havanSamagreeCart";
+
+    let cart = [];
+    let customer = {};
+    let productsTotal = 0;
+    let deliveryFee = 0;
+
+    function loadCart() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+        if (Array.isArray(parsed)) {
+          cart = parsed.filter(item =>
+            item &&
+            typeof item.product === "string" &&
+            Number.isFinite(Number(item.price)) &&
+            Number.isFinite(Number(item.quantity)) &&
+            Number(item.quantity) > 0
+          );
+        }
+      } catch (error) {
+        cart = [];
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function(char) {
+        const entities = {
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
+        };
+        return entities[char];
+      });
+    }
+
+    function calculateProductsTotal() {
+      return cart.reduce((sum, item) => {
+        return sum + Number(item.price) * Math.floor(Number(item.quantity));
+      }, 0);
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cartItems");
+
+      productsTotal = calculateProductsTotal();
+      document.getElementById("productsTotal").textContent = "₹" + productsTotal;
+
+      if (!cart.length) {
+        container.innerHTML = `
+          <div class="empty">
+            Your cart is empty.<br>
+            <a href="shop.html">Go back to the shop</a>
+          </div>
+        `;
+        document.getElementById("nextToDetails").disabled = true;
+        document.getElementById("nextToDetails").style.opacity = ".45";
+        document.getElementById("nextToDetails").style.pointerEvents = "none";
+        return;
+      }
+
+      container.innerHTML = cart.map(item => {
+        const price = Number(item.price);
+        const quantity = Math.floor(Number(item.quantity));
+        const itemTotal = price * quantity;
+
+        return `
+          <article class="cart-item">
+            <div>
+              <div class="item-name">${escapeHtml(item.product)}</div>
+              <div class="item-details">₹${price} each × ${quantity}</div>
+            </div>
+            <div class="item-total">₹${itemTotal}</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function showStep(number) {
+      document.querySelectorAll(".step").forEach(step => {
+        step.classList.remove("active");
+      });
+
+      document.getElementById("step" + number).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function calculateDeliveryFee() {
+      /*
+        Temporary demo delivery calculation.
+
+        Later this function can be replaced with a real courier/API quote.
+        For now:
+        - ₹49 for orders below ₹499
+        - FREE for ₹499 and above
+      */
+      if (productsTotal >= 499) return 0;
+      return 49;
+    }
+
+    function validatePhone(phone) {
+      return /^[6-9]\d{9}$/.test(phone);
+    }
+
+    function validatePincode(pincode) {
+      return /^\d{6}$/.test(pincode);
+    }
+
+    document.getElementById("nextToDetails").addEventListener("click", function() {
+      if (!cart.length) return;
+      showStep(2);
+    });
+
+    document.getElementById("deliveryForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const error = document.getElementById("formError");
+      error.textContent = "";
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const pincode = document.getElementById("pincode").value.trim();
+      const state = document.getElementById("state").value;
+      const address = document.getElementById("address").value.trim();
+      const city = document.getElementById("city").value.trim();
+
+      if (!name || !phone || !pincode || !state || !address || !city) {
+        error.textContent = "Please fill in all required fields.";
+        return;
+      }
+
+      if (!validatePhone(phone)) {
+        error.textContent = "Enter a valid 10-digit Indian mobile number.";
+        document.getElementById("phone").focus();
+        return;
+      }
+
+      if (!validatePincode(pincode)) {
+        error.textContent = "Enter a valid 6-digit PIN code.";
+        document.getElementById("pincode").focus();
+        return;
+      }
+
+      customer = {
+        name,
+        phone,
+        pincode,
+        state,
+        address,
+        city,
+        landmark: document.getElementById("landmark").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        alternatePhone: document.getElementById("alternatePhone").value.trim()
+      };
+
+      deliveryFee = calculateDeliveryFee();
+
+      document.getElementById("summaryProducts").textContent = "₹" + productsTotal;
+      document.getElementById("deliveryFee").textContent =
+        deliveryFee === 0 ? "FREE" : "₹" + deliveryFee;
+      document.getElementById("payableAmount").textContent =
+        "₹" + (productsTotal + deliveryFee);
+
+      document.getElementById("customerPreview").innerHTML = `
+        <strong>${escapeHtml(customer.name)}</strong><br>
+        ${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>
+        ${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>
+        Phone: ${escapeHtml(customer.phone)}
+      `;
+
+      showStep(3);
+    });
+
+    document.getElementById("buyNow").addEventListener("click", function() {
+      window.location.href = "final.html";
+    });
+
+    loadCart();
+    renderCart();
+  </script>
+
+</body>
+</html>
