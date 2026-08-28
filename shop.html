@@ -361,6 +361,169 @@
       transform: translate(-50%, 0);
     }
 
+
+    /* CART DRAWER */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(61, 36, 20, 0.28);
+      z-index: 1500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .cart-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(430px, 94vw);
+      height: 100%;
+      background: #fff;
+      z-index: 1600;
+      box-shadow: -12px 0 35px rgba(61, 36, 20, 0.18);
+      transform: translateX(105%);
+      transition: transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.show {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 22px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cart-header h2 {
+      color: var(--brown);
+      font-family: Georgia, serif;
+      font-size: 25px;
+    }
+
+    .cart-close {
+      border: 0;
+      background: #f7eee3;
+      color: var(--brown);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px 20px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: #806c5b;
+      padding: 55px 10px;
+      line-height: 1.6;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f0e4d4;
+    }
+
+    .cart-item h3 {
+      color: var(--brown);
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+      color: #806c5b;
+      font-size: 13px;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .qty-btn {
+      border: 1px solid var(--border);
+      background: #fffaf2;
+      color: var(--brown);
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .remove-btn {
+      border: 0;
+      background: transparent;
+      color: #a05c3b;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    .cart-total {
+      border-top: 1px solid var(--border);
+      padding: 18px 20px;
+      background: #fffaf2;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      color: var(--brown);
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 13px;
+    }
+
+    .proceed-btn {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: var(--brown);
+      color: white;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .proceed-btn.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-overlay,
+      .cart-drawer {
+        transition: none;
+      }
+    }
+
     /* TABLET */
     @media (max-width: 900px) {
       .products {
@@ -647,45 +810,148 @@
     <p style="margin-top:8px;">© 2026 Havan Samagree. All rights reserved.</p>
   </footer>
 
+
+  <!-- CART DRAWER -->
+  <div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
+
+  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="cart-close" type="button" onclick="closeCart()" aria-label="Close cart">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items">
+      <div class="cart-empty">Your cart is empty.</div>
+    </div>
+
+    <div class="cart-total">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <a id="proceedBtn" class="proceed-btn disabled" href="buy.html">Proceed to Buy</a>
+    </div>
+  </aside>
+
   <div id="cartMessage" class="cart-message">
     Added to your cart
   </div>
 
   <script>
-    let cartCount = 0;
+    const CART_KEY = "havanSamagreeCart";
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+    function saveCart() {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
 
     function addToCart(product, price) {
-      cartCount++;
-      document.getElementById("cartCount").textContent = cartCount;
+      const existing = cart.find(item => item.product === product);
+
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ product, price, quantity: 1 });
+      }
+
+      saveCart();
+      updateCartUI();
 
       const message = document.getElementById("cartMessage");
       message.textContent = product + " added to cart";
       message.classList.add("show");
 
       clearTimeout(window.cartTimer);
-
       window.cartTimer = setTimeout(function () {
         message.classList.remove("show");
       }, 1800);
+    }
+
+    function changeQuantity(index, amount) {
+      if (!cart[index]) return;
+
+      cart[index].quantity += amount;
+
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    function removeFromCart(index) {
+      if (!cart[index]) return;
+
+      cart.splice(index, 1);
+      saveCart();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      document.getElementById("cartCount").textContent = count;
+      document.getElementById("cartTotal").textContent = "₹" + total;
+
+      const items = document.getElementById("cartItems");
+      const proceed = document.getElementById("proceedBtn");
+
+      if (cart.length === 0) {
+        items.innerHTML = '<div class="cart-empty">Your cart is empty.<br>Add a product to continue.</div>';
+        proceed.classList.add("disabled");
+        return;
+      }
+
+      proceed.classList.remove("disabled");
+
+      items.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <div>
+            <h3>${escapeHtml(item.product)}</h3>
+            <div class="cart-item-price">₹${item.price} each</div>
+
+            <div class="cart-item-actions">
+              <button class="qty-btn" type="button" onclick="changeQuantity(${index}, -1)">−</button>
+              <strong>${item.quantity}</strong>
+              <button class="qty-btn" type="button" onclick="changeQuantity(${index}, 1)">+</button>
+              <button class="remove-btn" type="button" onclick="removeFromCart(${index})">Remove</button>
+            </div>
+          </div>
+
+          <strong>₹${item.price * item.quantity}</strong>
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        const entities = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        };
+        return entities[char];
+      });
     }
 
     function showCart() {
-      const message = document.getElementById("cartMessage");
-
-      if (cartCount === 0) {
-        message.textContent = "Your cart is empty";
-      } else {
-        message.textContent = cartCount + " item" + (cartCount > 1 ? "s" : "") + " in your cart";
-      }
-
-      message.classList.add("show");
-
-      clearTimeout(window.cartTimer);
-
-      window.cartTimer = setTimeout(function () {
-        message.classList.remove("show");
-      }, 1800);
+      updateCartUI();
+      document.getElementById("cartOverlay").classList.add("show");
+      document.getElementById("cartDrawer").classList.add("show");
+      document.body.style.overflow = "hidden";
     }
+
+    function closeCart() {
+      document.getElementById("cartOverlay").classList.remove("show");
+      document.getElementById("cartDrawer").classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    updateCartUI();
   </script>
 
 </body>
