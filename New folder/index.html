@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17100a">
+  <title>ॐ — Mantra & Sacred Elements</title>
+  <style>
+    :root{
+      --gold:#f3c66b;
+      --cream:#fff6df;
+      --glass:rgba(30,20,12,.34);
+      --line:rgba(255,235,190,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--cream);
+      font-family: "Noto Sans Devanagari","Nirmala UI","Segoe UI",sans-serif;
+      background:#160e08 url("assets/bg.png") center/cover no-repeat;
+      min-height:100vh;
+      overflow-x:hidden;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    body::-webkit-scrollbar{display:none;width:0;height:0;}
+    body::before{
+      content:"";
+      position:fixed; inset:0; z-index:-1;
+      background:
+        linear-gradient(180deg,rgba(10,7,4,.43),rgba(13,8,4,.64)),
+        radial-gradient(circle at 50% 24%,rgba(255,190,75,.13),transparent 35%);
+      pointer-events:none;
+    }
+
+    .nav{
+      position:fixed; top:16px; left:50%; transform:translateX(-50%);
+      width:min(1100px,calc(100% - 28px));
+      z-index:20;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:11px 16px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:rgba(25,16,9,.28);
+      backdrop-filter:blur(18px) saturate(130%);
+      -webkit-backdrop-filter:blur(18px) saturate(130%);
+      box-shadow:0 12px 45px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.08);
+    }
+    .brand{font-size:1.35rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
+    .nav a{color:#fff3d4;text-decoration:none;font-size:.92rem;margin-left:20px;opacity:.9}
+    .nav a:hover{color:var(--gold)}
+    .mpoxel-link{color:var(--gold);text-decoration:none;font-weight:700}
+    .mpoxel-link:hover{color:#fff0bd}
+    .hero{
+      min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      padding:120px 20px 70px;
+    }
+    .om{
+      font-family: "Noto Sans Devanagari","Nirmala UI",serif;
+      font-size:clamp(8rem,25vw,17rem);
+      line-height:.8;
+      color:var(--gold);
+      text-shadow:0 0 18px rgba(255,195,76,.35),0 0 70px rgba(255,176,40,.2);
+      animation:omFloat 3.8s ease-in-out infinite, omGlow 2.2s ease-in-out infinite alternate;
+      user-select:none;
+    }
+    @keyframes omFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.025)}}
+    @keyframes omGlow{from{filter:brightness(.95)}to{filter:brightness(1.22)}}
+
+    .eyebrow{margin-top:28px;color:#f8dfaa;letter-spacing:.28em;text-transform:uppercase;font-size:.75rem}
+    h1{font-size:clamp(2rem,5vw,4.4rem);margin:14px 0 10px;line-height:1.08}
+    .subtitle{max-width:700px;color:#f5e6c9;opacity:.82;font-size:1rem;line-height:1.8;margin:0 auto}
+
+    .mantra-stage{
+      width:min(900px,100%);
+      margin-top:55px;
+      min-height:190px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:28px 20px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:rgba(20,12,7,.25);
+      backdrop-filter:blur(9px);
+      -webkit-backdrop-filter:blur(9px);
+      box-shadow:0 20px 80px rgba(0,0,0,.2);
+    }
+    .mantra-om{
+      color:var(--gold);
+      font-size:2.1rem;
+      opacity:0;
+      transform:scale(.55);
+    }
+    .mantra-om.show{animation:omIn .9s cubic-bezier(.2,.8,.2,1) forwards}
+    .mantra-text{
+      margin-top:9px;
+      font-size:clamp(1.15rem,3vw,1.85rem);
+      line-height:1.75;
+      min-height:3.4em;
+      opacity:0;
+      transform:translateY(18px);
+      text-shadow:0 2px 15px rgba(0,0,0,.5);
+    }
+    .mantra-text.show{animation:lineIn 1.05s ease forwards}
+    @keyframes omIn{0%{opacity:0;transform:scale(.5)}55%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+    @keyframes lineIn{to{opacity:1;transform:translateY(0)}}
+
+    .section{
+      padding:85px 0 110px;
+      background:linear-gradient(180deg,rgba(12,7,4,.06),rgba(10,6,3,.46));
+    }
+    .section-title{text-align:center;margin-bottom:28px;padding:0 20px}
+    .section-title h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 8px}
+    .section-title p{margin:0;color:#ead9bb;opacity:.8}
+
+    .marquee-wrap{
+      overflow:hidden;
+      width:100%;
+      mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      margin:18px 0;
+    }
+    .marquee{
+      display:flex;
+      width:max-content;
+      gap:18px;
+      animation:scroll 30s linear infinite;
+      padding:4px 0;
+    }
+    .marquee.reverse{animation-direction:reverse;animation-duration:34s}
+    .marquee.slow{animation-duration:42s}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    .card{
+      width:270px;height:190px;flex:0 0 auto;
+      border:1px solid rgba(255,231,182,.22);
+      border-radius:24px;
+      padding:9px;
+      background:rgba(22,14,8,.42);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 14px 40px rgba(0,0,0,.25);
+      transition:transform .25s ease;
+    }
+    .card:hover{transform:translateY(-7px) rotate(-1deg)}
+    .card img{
+      width:100%;height:100%;object-fit:contain;
+      border-radius:17px;
+      display:block;
+      background:rgba(255,255,255,.025);
+    }
+    .tall{height:230px}
+    .wide{width:320px}
+
+
+    .buy-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:8px 20px 52px;
+      background:rgba(8,5,3,.28);
+    }
+    .buy-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:180px;
+      height:50px;
+      padding:0 28px;
+      border:1px solid rgba(243,198,107,.55);
+      border-radius:14px;
+      background:rgba(243,198,107,.10);
+      color:var(--gold);
+      font:700 .88rem/1 "Segoe UI",sans-serif;
+      letter-spacing:.22em;
+      text-decoration:none;
+      text-transform:uppercase;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      transition:background .2s ease,border-color .2s ease,transform .2s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .buy-btn::after{
+      content:"→";
+      margin-left:12px;
+      font-size:1rem;
+      letter-spacing:0;
+      transition:transform .2s ease;
+    }
+    .buy-btn:hover{
+      background:rgba(243,198,107,.18);
+      border-color:rgba(243,198,107,.82);
+      transform:translateY(-2px);
+    }
+    .buy-btn:hover::after{transform:translateX(3px)}
+    .buy-btn:active{transform:translateY(0)}
+    .buy-btn:focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+    }
+
+    footer{
+      text-align:center;padding:30px 20px 45px;
+      color:#dbc9a8;font-size:.82rem;
+      background:rgba(8,5,3,.48);
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    @media (max-width:650px){
+      .nav{top:10px;border-radius:18px}
+      .nav a{margin-left:10px;font-size:.78rem}
+      .brand{font-size:1.1rem}
+      .hero{padding-top:105px}
+      .mantra-stage{margin-top:38px;border-radius:22px}
+      .card{width:220px;height:155px}
+      .wide{width:260px}
+      .tall{height:195px}
+    }
+    @media (max-width:650px){
+      .nav{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+      .mantra-stage{backdrop-filter:none;-webkit-backdrop-filter:none}
+      .card{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+      .buy-btn{min-width:165px;height:48px;padding:0 22px;box-shadow:0 6px 18px rgba(0,0,0,.16)}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">Ganpati Creations</div>
+    <div>
+      <a href="#home">About</a>
+      <a href="#mantras">Mantra</a>
+      <a href="#sacred">Products</a>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div class="om" aria-label="Om">ॐ</div>
+      <div class="eyebrow">शान्ति • ध्यान • परम्परा</div>
+      <h1>WE SELL HAVAN SAMAGRI</h1>
+      <p class="subtitle">Products for Havan &amp; Puja</p>
+
+      <div class="mantra-stage" id="mantras">
+        <div class="mantra-om" id="mantraOm">ॐ</div>
+        <div class="mantra-text" id="mantraText"></div>
+      </div>
+    </section>
+
+    <section class="section" id="sacred">
+      <div class="section-title">
+        <h2>Our Main Products</h2>
+        <p>Find all the Havan-related products you need here.</p>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee">
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+        </div>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee reverse">
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+        </div>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee slow">
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+        </div>
+      </div>
+    </section>
+    <div class="buy-wrap">
+      <a class="buy-btn" href="shop.html">BUY</a>
+    </div>
+  </main>
+
+  <footer>Website by <a class="mpoxel-link" href="https://mpoxel.in">Mpoxel.in</a></footer>
+
+  <script>
+    const mantras = [
+      "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
+      "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥",
+      "ॐ नमः शिवाय॥",
+      "ॐ सह नाववतु। सह नौ भुनक्तु। सह वीर्यं करवावहै॥",
+      "ॐ शान्तिः शान्तिः शान्तिः॥"
+    ];
+
+    const om = document.getElementById("mantraOm");
+    const text = document.getElementById("mantraText");
+    let i = 0;
+
+    function showMantra(){
+      om.classList.remove("show");
+      text.classList.remove("show");
+      void om.offsetWidth;
+      void text.offsetWidth;
+
+      om.classList.add("show");
+      setTimeout(() => {
+        text.textContent = mantras[i];
+        text.classList.add("show");
+      }, 650);
+
+      i = (i + 1) % mantras.length;
+    }
+
+    showMantra();
+    setInterval(showMantra, 5000);
+  </script>
+</body>
+</html>
