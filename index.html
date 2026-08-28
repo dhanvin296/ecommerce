@@ -1,717 +1,339 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17100a">
+  <title>ॐ — Mantra & Sacred Elements</title>
+  <style>
+    :root{
+      --gold:#f3c66b;
+      --cream:#fff6df;
+      --glass:rgba(30,20,12,.34);
+      --line:rgba(255,235,190,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--cream);
+      font-family: "Noto Sans Devanagari","Nirmala UI","Segoe UI",sans-serif;
+      background:#160e08 url("assets/bg.png") center/cover no-repeat;
+      min-height:100vh;
+      overflow-x:hidden;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    body::-webkit-scrollbar{display:none;width:0;height:0;}
+    body::before{
+      content:"";
+      position:fixed; inset:0; z-index:-1;
+      background:
+        linear-gradient(180deg,rgba(10,7,4,.43),rgba(13,8,4,.64)),
+        radial-gradient(circle at 50% 24%,rgba(255,190,75,.13),transparent 35%);
+      pointer-events:none;
+    }
 
-<title>Puja Samagri</title>
+    .nav{
+      position:fixed; top:16px; left:50%; transform:translateX(-50%);
+      width:min(1100px,calc(100% - 28px));
+      z-index:20;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:11px 16px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:rgba(25,16,9,.28);
+      backdrop-filter:blur(18px) saturate(130%);
+      -webkit-backdrop-filter:blur(18px) saturate(130%);
+      box-shadow:0 12px 45px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.08);
+    }
+    .brand{font-size:1.35rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
+    .nav a{color:#fff3d4;text-decoration:none;font-size:.92rem;margin-left:20px;opacity:.9}
+    .nav a:hover{color:var(--gold)}
+    .mpoxel-link{color:var(--gold);text-decoration:none;font-weight:700}
+    .mpoxel-link:hover{color:#fff0bd}
+    .hero{
+      min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      padding:120px 20px 70px;
+    }
+    .om{
+      font-family: "Noto Sans Devanagari","Nirmala UI",serif;
+      font-size:clamp(8rem,25vw,17rem);
+      line-height:.8;
+      color:var(--gold);
+      text-shadow:0 0 18px rgba(255,195,76,.35),0 0 70px rgba(255,176,40,.2);
+      animation:omFloat 3.8s ease-in-out infinite, omGlow 2.2s ease-in-out infinite alternate;
+      user-select:none;
+    }
+    @keyframes omFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.025)}}
+    @keyframes omGlow{from{filter:brightness(.95)}to{filter:brightness(1.22)}}
 
-<style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#140b05;color:#fff7e6;font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+    .eyebrow{margin-top:28px;color:#f8dfaa;letter-spacing:.28em;text-transform:uppercase;font-size:.75rem}
+    h1{font-size:clamp(2rem,5vw,4.4rem);margin:14px 0 10px;line-height:1.08}
+    .subtitle{max-width:700px;color:#f5e6c9;opacity:.82;font-size:1rem;line-height:1.8;margin:0 auto}
 
-.scroll-space{height:620vh;position:relative}
-.scene{position:fixed;inset:0;overflow:hidden;background:#140b05;transition:opacity .45s ease}
+    .mantra-stage{
+      width:min(900px,100%);
+      margin-top:55px;
+      min-height:190px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:28px 20px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:rgba(20,12,7,.25);
+      backdrop-filter:blur(9px);
+      -webkit-backdrop-filter:blur(9px);
+      box-shadow:0 20px 80px rgba(0,0,0,.2);
+    }
+    .mantra-om{
+      color:var(--gold);
+      font-size:2.1rem;
+      opacity:0;
+      transform:scale(.55);
+    }
+    .mantra-om.show{animation:omIn .9s cubic-bezier(.2,.8,.2,1) forwards}
+    .mantra-text{
+      margin-top:9px;
+      font-size:clamp(1.15rem,3vw,1.85rem);
+      line-height:1.75;
+      min-height:3.4em;
+      opacity:0;
+      transform:translateY(18px);
+      text-shadow:0 2px 15px rgba(0,0,0,.5);
+    }
+    .mantra-text.show{animation:lineIn 1.05s ease forwards}
+    @keyframes omIn{0%{opacity:0;transform:scale(.5)}55%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+    @keyframes lineIn{to{opacity:1;transform:translateY(0)}}
 
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.04);will-change:transform,filter}
-.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(17,8,3,.15),rgba(17,8,3,.34)),radial-gradient(circle at center,transparent 22%,rgba(8,3,1,.58) 100%);pointer-events:none}
+    .section{
+      padding:85px 0 110px;
+      background:linear-gradient(180deg,rgba(12,7,4,.06),rgba(10,6,3,.46));
+    }
+    .section-title{text-align:center;margin-bottom:28px;padding:0 20px}
+    .section-title h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 8px}
+    .section-title p{margin:0;color:#ead9bb;opacity:.8}
 
-.asset{position:absolute;left:50%;top:50%;width:min(78vw,900px);transform:translate(-50%,-50%) translateY(100px) scale(.72);opacity:0;filter:drop-shadow(0 22px 30px rgba(0,0,0,.4));will-change:transform,opacity;pointer-events:none}
-#fire{z-index:3}
-#people{z-index:4;width:min(94vw,1250px)}
-#dung{z-index:5;width:min(70vw,800px)}
+    .marquee-wrap{
+      overflow:hidden;
+      width:100%;
+      mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      margin:18px 0;
+    }
+    .marquee{
+      display:flex;
+      width:max-content;
+      gap:18px;
+      animation:scroll 30s linear infinite;
+      padding:4px 0;
+    }
+    .marquee.reverse{animation-direction:reverse;animation-duration:34s}
+    .marquee.slow{animation-duration:42s}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-.opening-copy{position:absolute;z-index:9;left:50%;top:50%;width:min(900px,92vw);transform:translate(-50%,-50%) translateY(60px);opacity:0;text-align:center;will-change:transform,opacity}
-.eyebrow{display:block;margin-bottom:18px;font:700 clamp(10px,1.2vw,14px)/1 Arial,sans-serif;letter-spacing:.34em;color:#ffe0a0}
-.opening-copy h1{margin:0;font-size:clamp(48px,9vw,118px);line-height:.88;letter-spacing:.045em;color:#ffd27a;text-shadow:0 3px 0 #8c4b17,0 8px 30px rgba(0,0,0,.7)}
-.opening-copy h1 em{font-style:normal;color:#fff0c5}
-.opening-copy p{margin:25px auto 18px;max-width:620px;font:500 clamp(14px,1.6vw,19px)/1.6 Arial,sans-serif;color:#fff3d8;text-shadow:0 2px 10px #000}
-.opening-line{display:block;width:70px;height:1px;margin:0 auto 12px;background:#ffd27a}
-.opening-copy small{font:600 11px/1 Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,247,230,.75)}
-
-.info{position:absolute;z-index:8;left:50%;bottom:15%;width:min(850px,90vw);transform:translate(-50%,40px);text-align:center;opacity:0;will-change:transform,opacity;pointer-events:none}
-.section-label{display:block;margin-bottom:12px;font:700 11px/1 Arial,sans-serif;letter-spacing:.28em;color:#ffe0a0;text-shadow:0 2px 10px #000}
-.info h2{margin:0 0 12px;font-size:clamp(28px,4.5vw,58px);line-height:1;color:#ffd27a;text-shadow:0 3px 18px #000}
-.sales-info p{max-width:760px;padding:0 8px}.info p{max-width:720px;margin:0 auto;font:500 clamp(14px,1.5vw,19px)/1.6 Arial,sans-serif;color:#fff3d8;text-shadow:0 2px 10px #000}
-
-.scroll-hint{position:fixed;z-index:12;bottom:24px;left:50%;transform:translateX(-50%);font:600 11px/1 Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,247,230,.8);transition:opacity .3s}
-.scroll-hint::after{content:"↓";display:block;text-align:center;font-size:22px;margin-top:6px;animation:bounce 1.4s infinite}
-@keyframes bounce{50%{transform:translateY(6px)}}
-.vignette{position:absolute;inset:0;z-index:10;pointer-events:none;box-shadow:inset 0 0 180px rgba(0,0,0,.48)}
-
-/* GAYATRI */
-.mantra-div{position:relative;z-index:20;min-height:72vh;padding:100px 20px;display:flex;align-items:center;justify-content:center;background:#140b05;color:#fff7e6;text-align:center}
-.mantra-inner{width:min(850px,92vw)}
-.mantra-kicker{display:block;margin-bottom:14px;font:700 11px/1 Arial,sans-serif;letter-spacing:.3em;color:#a46627}
-.mantra-inner h2{margin:0;font-size:clamp(38px,6vw,72px);color:#6f3d18;line-height:1}
-.mantra-ornament{margin:20px auto;font-size:34px;color:#a46627}
-.gayatri{margin:0 auto;font-family:"Noto Serif Devanagari","Nirmala UI","Mangal",serif;font-size:clamp(21px,3vw,34px);line-height:1.8;color:#4d2a14}
-.mantra-meaning{max-width:650px;margin:25px auto 0;font:500 15px/1.7 Arial,sans-serif;color:#725b49}
-
-/* SHOP */
-.shop-section{position:relative;z-index:20;min-height:100vh;background:#fff;color:#3a2112;padding:90px 20px 120px;display:flex;align-items:center;justify-content:center}
-.shop-inner{width:min(1100px,94vw);text-align:center}
-.shop-kicker{font:700 11px/1 Arial,sans-serif;letter-spacing:.28em;color:#a46627}
-.shop-inner>h2{margin:12px 0;font-size:clamp(36px,5vw,64px);line-height:1;color:#6f3d18}
-.shop-intro{max-width:650px;margin:0 auto 38px;font:500 15px/1.65 Arial,sans-serif;color:#725b49}
-.products-grid{width:min(1100px,100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 auto}
-.product-card{background:#fffdf9;border:1px solid #eadbc8;border-radius:22px;overflow:hidden;text-align:left;box-shadow:0 20px 60px rgba(83,48,22,.14);display:flex;flex-direction:column}
-.product-image-wrap{height:280px;background:linear-gradient(145deg,#f7ead8,#fffaf3);display:flex;align-items:center;justify-content:center;padding:22px}
-.product-image-wrap img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 20px rgba(70,40,15,.16))}
-.product-info{padding:28px;display:flex;flex-direction:column;flex:1}
-.product-tag{font:700 10px/1 Arial,sans-serif;letter-spacing:.18em;color:#a46627;margin-bottom:12px}
-.product-info h3{margin:0 0 12px;font-size:clamp(25px,2.5vw,36px);color:#4d2a14}
-.product-description{font:500 15px/1.65 Arial,sans-serif;color:#725b49;margin:0 0 20px}
-.price{font:700 30px Georgia,serif;color:#8b4d1c;margin-top:auto;margin-bottom:18px}
-.price span{font:14px Arial,sans-serif;color:#927d6b;margin-left:6px}
-.order-btn{width:100%;border:0;border-radius:999px;min-height:52px;padding:15px 25px;background:#8b4d1c;color:#fff;font:700 13px/1 Arial,sans-serif;letter-spacing:.08em;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 25px rgba(139,77,28,.22)}
-.order-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(139,77,28,.28)}
-.products-status{font:500 14px/1.5 Arial,sans-serif;color:#927d6b;margin:28px 0 0;text-align:center}
-
-/* BIRDS */
-.bird-layer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.bird{position:absolute;width:34px;height:18px;opacity:0;will-change:transform,left;animation:flyAcross 16s linear infinite}
-.bird::before,.bird::after{content:"";position:absolute;top:7px;width:17px;height:8px;border-top:3px solid rgba(255,255,255,.95);border-radius:100% 100% 0 0}
-.bird::before{right:16px;transform-origin:right center;animation:flapLeft .5s ease-in-out infinite alternate}
-.bird::after{left:16px;transform-origin:left center;animation:flapRight .5s ease-in-out infinite alternate}
-.b1{top:22%;animation-duration:13s;--birdScale:.65}.b2{top:15%;animation-duration:17s;animation-delay:2.5s;--birdScale:.45}.b3{top:29%;animation-duration:11s;animation-delay:5s;--birdScale:.85}.b4{top:12%;animation-duration:19s;animation-delay:1.2s;--birdScale:.5}.b5{top:26%;animation-duration:15s;animation-delay:7s;--birdScale:.7}
-@keyframes flapLeft{0%{transform:rotate(-22deg) skewY(-8deg)}100%{transform:rotate(28deg) skewY(8deg)}}
-@keyframes flapRight{0%{transform:rotate(22deg) skewY(8deg)}100%{transform:rotate(-28deg) skewY(-8deg)}}
-@keyframes flyAcross{0%{left:-10%;opacity:0;transform:translateY(0) scale(var(--birdScale))}5%{opacity:.85}45%{transform:translateY(-20px) scale(var(--birdScale))}50%{transform:translateY(-25px) scale(var(--birdScale))}90%{opacity:.85}100%{left:110%;opacity:0;transform:translateY(15px) scale(var(--birdScale))}}
-
-/* MOBILE */
-@media(max-width:700px){
-  .scroll-space{height:320vh}
-  .asset{width:112vw;max-width:none}
-  #fire{width:104vw}
-  #people{width:128vw}
-  #dung{width:108vw}
-
-  .opening-copy{width:90vw}
-  .eyebrow{font-size:8px;letter-spacing:.18em;margin-bottom:10px}
-  .opening-copy h1{font-size:clamp(38px,11.5vw,68px)}
-  .opening-copy p{font-size:12px;line-height:1.4;margin:14px auto 11px;max-width:300px}
-
-  .info{
-    width:90vw;
-    bottom:12%;
-    padding:0 4px;
-  }
-  .section-label{font-size:8px;letter-spacing:.16em;margin-bottom:7px}
-  .info h2{
-    font-size:clamp(23px,7vw,34px);
-    line-height:1.05;
-    margin-bottom:7px;
-  }
-  .info p{font-size:12px;line-height:1.4;max-width:330px}
-
-  .scroll-hint{
-    bottom:max(12px,env(safe-area-inset-bottom));
-    font-size:8px;
-    will-change:opacity;
-  }
-
-  /* GAYATRI: compact enough for a normal portrait viewport */
-  .mantra-div{
-    min-height:70vh;
-    padding:56px 14px 60px;
-    background:#140b05;
-  }
-  .mantra-inner{
-    width:100%;
-    padding:24px 14px;
-    border-radius:20px;
-    background:rgba(20,11,5,.28);
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-  }
-  .mantra-kicker{font-size:8px;margin-bottom:11px;letter-spacing:.22em}
-  .mantra-inner h2{
-    font-size:clamp(32px,9.5vw,48px);
-    line-height:1;
-  }
-  .mantra-ornament{margin:12px auto;font-size:25px}
-  .gayatri{
-    font-size:clamp(16px,4.7vw,23px);
-    line-height:1.65;
-    color:#fff9e8;
-  }
-  .mantra-meaning{
-    max-width:330px;
-    margin:20px auto 0;
-    font-size:12px;
-    line-height:1.5;
-    color:rgba(255,244,216,.9);
-  }
-
-  /* SHOP: remove the huge vertical gaps on portrait phones */
-  .shop-section{
-    min-height:0;
-    padding:64px 12px calc(76px + env(safe-area-inset-bottom));
-    align-items:flex-start;
-  }
-  .shop-inner{width:100%}
-  .shop-kicker{font-size:8px;letter-spacing:.2em}
-  .shop-inner>h2{
-    font-size:clamp(30px,9vw,44px);
-    line-height:1;
-    margin:9px 0;
-  }
-  .shop-intro{
-    font-size:13px;
-    line-height:1.5;
-    margin:0 auto 28px;
-    max-width:330px;
-  }
-  .products-grid{
-    grid-template-columns:1fr;
-    gap:16px;
-  }
-  .product-card{border-radius:16px}
-  .product-image-wrap{
-    height:220px;
-    padding:16px;
-  }
-  .product-info{
-    padding:23px 18px 24px;
-  }
-  .product-tag{font-size:8px;letter-spacing:.14em;margin-bottom:8px}
-  .product-info h3{
-    font-size:clamp(24px,7vw,32px);
-    line-height:1.05;
-    margin-bottom:8px;
-  }
-  .product-description{
-    font-size:12px;
-    line-height:1.45;
-    margin-bottom:14px;
-  }
-  .price{
-    font-size:25px;
-    margin-bottom:13px;
-  }
-  .order-btn{
-    min-height:48px;
-    padding:12px 18px;
-    font-size:11px;
-  }
-
-  .bg{transform:none!important;filter:none!important}
-  .vignette{box-shadow:inset 0 0 70px rgba(0,0,0,.32)}
-}
-
-@media(max-width:700px) and (max-height:700px){
-  .mantra-div{padding-top:42px;padding-bottom:46px}
-  .mantra-inner{padding:21px 12px}
-  .gayatri{line-height:1.55}
-  .mantra-meaning{margin-top:16px;font-size:11px}
-  .shop-section{padding-top:48px;padding-bottom:58px}
-  .product-image-wrap{height:200px}
-  .product-info{padding:20px 16px 21px}
-}
-
-@media(max-width:380px){
-  .info{bottom:14%}
-  .info p{font-size:12.5px}
-  .gayatri{font-size:16px}
-  .product-info{padding:24px 18px 27px}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .bird{animation:none;display:none}
-}
+    .card{
+      width:270px;height:190px;flex:0 0 auto;
+      border:1px solid rgba(255,231,182,.22);
+      border-radius:24px;
+      padding:9px;
+      background:rgba(22,14,8,.42);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 14px 40px rgba(0,0,0,.25);
+      transition:transform .25s ease;
+    }
+    .card:hover{transform:translateY(-7px) rotate(-1deg)}
+    .card img{
+      width:100%;height:100%;object-fit:contain;
+      border-radius:17px;
+      display:block;
+      background:rgba(255,255,255,.025);
+    }
+    .tall{height:230px}
+    .wide{width:320px}
 
 
+    .buy-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:8px 20px 52px;
+      background:rgba(8,5,3,.28);
+    }
+    .buy-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:180px;
+      height:50px;
+      padding:0 28px;
+      border:1px solid rgba(243,198,107,.55);
+      border-radius:14px;
+      background:rgba(243,198,107,.10);
+      color:var(--gold);
+      font:700 .88rem/1 "Segoe UI",sans-serif;
+      letter-spacing:.22em;
+      text-decoration:none;
+      text-transform:uppercase;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      transition:background .2s ease,border-color .2s ease,transform .2s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .buy-btn::after{
+      content:"→";
+      margin-left:12px;
+      font-size:1rem;
+      letter-spacing:0;
+      transition:transform .2s ease;
+    }
+    .buy-btn:hover{
+      background:rgba(243,198,107,.18);
+      border-color:rgba(243,198,107,.82);
+      transform:translateY(-2px);
+    }
+    .buy-btn:hover::after{transform:translateX(3px)}
+    .buy-btn:active{transform:translateY(0)}
+    .buy-btn:focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+    }
 
+    footer{
+      text-align:center;padding:30px 20px 45px;
+      color:#dbc9a8;font-size:.82rem;
+      background:rgba(8,5,3,.48);
+      border-top:1px solid rgba(255,255,255,.08);
+    }
 
+    @media (max-width:650px){
+      .nav{top:10px;border-radius:18px}
+      .nav a{margin-left:10px;font-size:.78rem}
+      .brand{font-size:1.1rem}
+      .hero{padding-top:105px}
+      .mantra-stage{margin-top:38px;border-radius:22px}
+      .card{width:220px;height:155px}
+      .wide{width:260px}
+      .tall{height:195px}
+    }
+    @media (max-width:650px){
+      .nav{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+      .mantra-stage{backdrop-filter:none;-webkit-backdrop-filter:none}
+      .card{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+      .buy-btn{min-width:165px;height:48px;padding:0 22px;box-shadow:0 6px 18px rgba(0,0,0,.16)}
+    }
 
-/* GLASS SCROLLBAR + NAV */
-/* FROSTED / BLURRED SCROLLBAR */
-html{
-  scrollbar-width:thin;
-  scrollbar-color:rgba(255,245,220,.42) rgba(255,255,255,.045);
-  overscroll-behavior-y:auto;
-}
-body{
-  scrollbar-gutter:stable;
-}
-.scene,
-.asset,
-.opening-copy,
-.info{
-  transform:translateZ(0);
-}
-
-.asset,
-.bg{
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-}
-
-@media(max-width:700px){
-  html{
-    scrollbar-width:none;
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior-y:auto;
-  }
-  ::-webkit-scrollbar{
-    width:4px;
-    height:4px;
-  }
-  .scene{
-    contain:paint;
-  }
-  ::-webkit-scrollbar-track{
-    background:transparent;
-    box-shadow:none;
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-  }
-  ::-webkit-scrollbar-thumb{
-    border:0;
-    box-shadow:none;
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-    background:rgba(255,245,220,.48);
-  }
-}
-
-@media(max-width:700px){
-  .asset{
-    filter:none;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .scene,.asset,.opening-copy,.info{
-    transform:none;
-  }
-}
-::-webkit-scrollbar{
-  width:11px;
-  height:11px;
-}
-::-webkit-scrollbar-track{
-  background:rgba(255,255,255,.035);
-  border-left:1px solid rgba(255,255,255,.06);
-  box-shadow:inset 0 0 10px rgba(255,255,255,.07);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-}
-::-webkit-scrollbar-thumb{
-  min-height:70px;
-  background:linear-gradient(
-    180deg,
-    rgba(255,248,220,.48),
-    rgba(255,220,157,.27)
-  );
-  border:2px solid rgba(255,255,255,.10);
-  border-radius:999px;
-  box-shadow:
-    inset 0 0 7px rgba(255,255,255,.22),
-    0 0 10px rgba(255,224,165,.20);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-}
-::-webkit-scrollbar-thumb:hover{
-  background:rgba(255,240,200,.78);
-}
-
-.site-nav{
-  background:rgba(12,7,4,.16)!important;
-  border-bottom:1px solid rgba(255,255,255,.14);
-  backdrop-filter:blur(14px) saturate(125%)!important;
-  -webkit-backdrop-filter:blur(14px) saturate(125%)!important;
-  box-shadow:0 8px 30px rgba(0,0,0,.10);
-}
-
-/* TRANSPARENT NAVBAR */
-.site-nav{
-  position:fixed;
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transform:translateY(-110%);
-  transition:opacity .32s ease,transform .32s ease,visibility .32s ease;
-  will-change:opacity,transform;
-
-  top:0;left:0;right:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  min-height:64px;
-  padding:12px clamp(16px,4vw,48px);
-  background:rgba(0,0,0,.08);
-  border-bottom:1px solid rgba(255,255,255,.12);
-  color:#fff8e6;
-  font-family:Arial,sans-serif;
-  backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
-}
-.site-nav .brand{
-  color:#fff3cc;
-  text-decoration:none;
-  font:700 18px/1 Georgia,"Times New Roman",serif;
-  letter-spacing:.04em;
-  text-shadow:0 2px 10px rgba(0,0,0,.65);
-}
-.site-nav .links{
-  display:flex;
-  gap:clamp(14px,2.5vw,32px);
-  align-items:center;
-}
-.site-nav a{
-  color:rgba(255,248,230,.92);
-  text-decoration:none;
-  font:600 12px/1 Arial,sans-serif;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  text-shadow:0 2px 8px rgba(0,0,0,.65);
-}
-.site-nav a:hover{color:#ffe6a8}
-.site-nav.is-visible{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  transform:translateY(0);
-}
-@media(prefers-reduced-motion:reduce){
-  .site-nav{transition:none}
-}
-
-@media(max-width:700px){
-  /* Mobile scroll performance: keep animated layers on the compositor. */
-  .scene{
-    isolation:isolate;
-    contain:layout paint style;
-  }
-  .bg,.asset,.opening-copy,.info,.scroll-hint{
-    -webkit-backface-visibility:hidden;
-    backface-visibility:hidden;
-  }
-  .site-nav{
-    /* Keep the glass look, but avoid an expensive full-screen blur region. */
-    backdrop-filter:blur(7px)!important;
-    -webkit-backdrop-filter:blur(7px)!important;
-    will-change:transform,opacity;
-  }
-  .mantra-div,.shop-section,.site-footer{
-    contain:content;
-  }
-  .product-card{
-    contain:layout paint;
-  }
-  .product-image-wrap img{
-    content-visibility:auto;
-  }
-}
-
-
-@media(max-width:700px){
-  .site-nav{min-height:54px;padding:10px 14px;background:rgba(12,7,4,.14)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important}
-  .site-nav .brand{font-size:15px}
-  .site-nav .links{gap:12px}
-  .site-nav a{font-size:9px;letter-spacing:.07em}
-}
-
-
-/* FOOTER */
-.site-footer{
-  position:relative;
-  z-index:20;
-  padding:34px 20px calc(34px + env(safe-area-inset-bottom));
-  background:#140b05;
-  color:rgba(255,247,230,.72);
-  text-align:center;
-  font:500 12px/1.5 Arial,sans-serif;
-  letter-spacing:.04em;
-}
-.site-footer p{margin:0}
-.site-footer a{
-  color:#ffd27a;
-  text-decoration:none;
-  font-weight:700;
-  transition:opacity .2s ease;
-}
-.site-footer a:hover{opacity:.72}
-@media(max-width:700px){
-  .site-footer{
-    padding:28px 16px calc(30px + env(safe-area-inset-bottom));
-    font-size:11px;
-  }
-}
-
-</style>
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+    }
+  </style>
 </head>
-
-
-<body id="top">
-
-<nav class="site-nav" aria-label="Main navigation">
-  <a class="brand" href="#top">Puja Samagri</a>
-  <div class="links">
-    <a href="#top">Home</a>
-    <a href="#gayatri">Gayatri</a>
-    <a href="#shop">Shop</a>
-  </div>
-</nav>
-
-
-
-<!-- =======================================================
-     LONG SCROLL AREA
-======================================================= -->
-
-<div class="scroll-space">
-  <div class="scene">
-
-    <img src="bg.png" alt="Traditional Indian puja setting" class="bg">
-    <div class="shade"></div>
-
-    <img src="fire.png" alt="Havan fire" class="asset" id="fire">
-    <img src="people.png" alt="People performing a puja ceremony" class="asset" id="people">
-    <img src="dung.png" alt="Traditional cow dung cakes for havan" class="asset" id="dung">
-
-    <div class="bird-layer" aria-hidden="true">
-      <div class="bird b1"></div>
-      <div class="bird b2"></div>
-      <div class="bird b3"></div>
-      <div class="bird b4"></div>
-      <div class="bird b5"></div>
+<body>
+  <nav class="nav">
+    <div class="brand">Ganpati Creations</div>
+    <div>
+      <a href="#home">About</a>
+      <a href="#mantras">Mantra</a>
+      <a href="#sacred">Products</a>
     </div>
+  </nav>
 
-    <div class="opening-copy" id="openingCopy">
-      <span class="eyebrow">TRADITIONAL • PURE • RITUAL</span>
-      <h1>WELCOME TO<br><em>OUR SHOP</em></h1>
-      <p>Traditional havan samagri for sacred ceremonies.</p>
-      <span class="opening-line"></span>
-      <small>Scroll to explore</small>
+  <main id="home">
+    <section class="hero">
+      <div class="om" aria-label="Om">ॐ</div>
+      <div class="eyebrow">शान्ति • ध्यान • परम्परा</div>
+      <h1>WE SELL HAVAN SAMAGRI</h1>
+      <p class="subtitle">Products for Havan &amp; Puja</p>
+
+      <div class="mantra-stage" id="mantras">
+        <div class="mantra-om" id="mantraOm">ॐ</div>
+        <div class="mantra-text" id="mantraText"></div>
+      </div>
+    </section>
+
+    <section class="section" id="sacred">
+      <div class="section-title">
+        <h2>Our Main Products</h2>
+        <p>Find all the Havan-related products you need here.</p>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee">
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+        </div>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee reverse">
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+        </div>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee slow">
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+        </div>
+      </div>
+    </section>
+    <div class="buy-wrap">
+      <a class="buy-btn" href="shop.html">BUY</a>
     </div>
+  </main>
 
-    <div class="info sales-info" id="infoFire">
-      <span class="section-label">HAVAN SAMAGRI</span>
-      <h2>WE SELL HAVAN SAMAGRI</h2>
-      <p>Traditional puja essentials for havan, yajna and sacred ceremonies, carefully selected for your rituals.</p>
-    </div>
+  <footer>Website by <a class="mpoxel-link" href="https://mpoxel.in">Mpoxel.in</a></footer>
 
-    <div class="info sales-info" id="infoPeople">
-      <span class="section-label">FOR EVERY CEREMONY</span>
-      <h2>Made For Sacred Gatherings</h2>
-      <p>Bring the traditional atmosphere of a havan to family ceremonies, festivals, prayers and special occasions.</p>
-    </div>
+  <script>
+    const mantras = [
+      "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
+      "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥",
+      "ॐ नमः शिवाय॥",
+      "ॐ सह नाववतु। सह नौ भुनक्तु। सह वीर्यं करवावहै॥",
+      "ॐ शान्तिः शान्तिः शान्तिः॥"
+    ];
 
-    <div class="info sales-info" id="infoDung">
-      <span class="section-label">TRADITIONAL ESSENTIAL</span>
-      <h2>COW DUNG CAKES / UPLA</h2>
-      <p>Traditional upla, commonly used as a fuel in havan and associated with longstanding ritual practices.</p>
-    </div>
-    <div class="vignette"></div>
+    const om = document.getElementById("mantraOm");
+    const text = document.getElementById("mantraText");
+    let i = 0;
 
-    <div class="scroll-hint">
-      SCROLL DOWN
-    </div>
-  </div>
-</div>
-<div class="mantra-div" id="gayatri">
+    function showMantra(){
+      om.classList.remove("show");
+      text.classList.remove("show");
+      void om.offsetWidth;
+      void text.offsetWidth;
 
-  <div class="mantra-inner">
-    <span class="mantra-kicker">SACRED CHANT</span>
-    <h2>GAYATRI MANTRA</h2>
-    <div class="mantra-ornament">ॐ</div>
+      om.classList.add("show");
+      setTimeout(() => {
+        text.textContent = mantras[i];
+        text.classList.add("show");
+      }, 650);
 
-    <p class="gayatri">
-      ॐ भूर्भुवः स्वः<br>
-      तत्सवितुर्वरेण्यं<br>
-      भर्गो देवस्य धीमहि<br>
-      धियो यो नः प्रचोदयात् ॥
-    </p>
-
-    <p class="mantra-meaning">
-      We meditate upon the divine light of Savitṛ.
-      May it inspire and illuminate our understanding.
-    </p>
-  </div>
-</div>
-
-<!-- =======================================================
-     SHOP SECTION — FIREBASE PRODUCTS
-======================================================= -->
-
-<div class="shop-section" id="shop">
-  <div class="shop-inner">
-    <span class="shop-kicker">SHOP HAVAN ESSENTIALS</span>
-    <h2>Our Ritual Essentials</h2>
-    <p class="shop-intro">Choose what you need for your next havan.<br>Traditional havan samagri selected for your puja, yajna and sacred ceremonies.</p>
-
-    <div id="productsGrid" class="products-grid" aria-live="polite"></div>
-    <p id="productsStatus" class="products-status">Loading products…</p>
-  </div>
-</div>
-
-<!-- =======================================================
-     JAVASCRIPT
-======================================================= -->
-
-<script>
-(() => {
-  const fire=document.getElementById("fire");
-  const people=document.getElementById("people");
-  const dung=document.getElementById("dung");
-
-  const infoFire=document.getElementById("infoFire");
-  const infoPeople=document.getElementById("infoPeople");
-  const infoDung=document.getElementById("infoDung");
-
-  const openingCopy=document.getElementById("openingCopy");
-  const scene=document.querySelector(".scene");
-  const bg=document.querySelector(".bg");
-  const hint=document.querySelector(".scroll-hint");
-  const scrollSpace=document.querySelector(".scroll-space");
-  const siteNav=document.querySelector(".site-nav");
-  const mantra=document.getElementById("gayatri");
-
-  function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
-  function ease(t){return t*t*(3-2*t)}
-  function range(p,start,end){
-    return ease(clamp((p-start)/(end-start),0,1))
-  }
-
-  function showImage(el,p,start,end,exitStart,exitEnd){
-    const enter=range(p,start,end);
-    const exit=range(p,exitStart,exitEnd);
-    el.style.opacity=enter*(1-exit);
-    const y=(1-enter)*100-exit*55;
-    const scale=.72+enter*.28-exit*.12;
-    el.style.transform=`translate3d(-50%,-50%,0) translateY(${y}px) scale(${scale})`;
-  }
-
-  function showText(el,p,start,end,exitStart,exitEnd){
-    const enter=range(p,start,end);
-    const exit=range(p,exitStart,exitEnd);
-    el.style.opacity=enter*(1-exit);
-    el.style.transform=`translate3d(-50%,${40-enter*40+exit*30}px,0)`;
-  }
-
-  let maxSceneScroll=1;
-  let framePending=false;
-  let lastP=-1;
-  let lastNavState=null;
-  let isMobile=window.innerWidth<=700;
-  let mantraTop=0;
-  let shopTop=0;
-
-  function measure(){
-    maxSceneScroll=Math.max(1,scrollSpace.offsetHeight-window.innerHeight);
-    isMobile=window.innerWidth<=700;
-    // Read layout only during resize/initialization, never during scrolling.
-    mantraTop=mantra.offsetTop;
-    shopTop=document.getElementById("shop").offsetTop;
-  }
-
-  function render(){
-    framePending=false;
-
-    const y=window.scrollY;
-    const p=clamp(y/maxSceneScroll,0,1);
-
-    // Avoid classList work on every scroll frame.
-    const shouldShowNav=y>=mantraTop-24 && y<shopTop-24;
-    if(shouldShowNav!==lastNavState){
-      siteNav.classList.toggle("is-visible",shouldShowNav);
-      lastNavState=shouldShowNav;
+      i = (i + 1) % mantras.length;
     }
 
-    // Skip duplicate positions, but always allow the first frame.
-    if(p===lastP) return;
-    lastP=p;
-
-    const openIn=range(p,0,.09);
-    const openOut=range(p,.10,.17);
-    openingCopy.style.opacity=openIn*(1-openOut);
-    openingCopy.style.transform=
-      `translate3d(-50%,-50%,0) translateY(${60-openIn*60+openOut*30}px)`;
-
-    showImage(fire,p,.08,.18,.27,.36);
-    showText(infoFire,p,.14,.23,.29,.37);
-    showImage(people,p,.31,.41,.50,.59);
-    showText(infoPeople,p,.37,.47,.52,.61);
-
-    if(isMobile){
-      showImage(dung,p,.53,.63,.72,.91);
-      showText(infoDung,p,.59,.69,.74,.91);
-    }else{
-      showImage(dung,p,.53,.63,.72,.81);
-      showText(infoDung,p,.59,.69,.74,.83);
-      bg.style.transform=`translate3d(0,0,0) scale(${1.04+p*.035})`;
-    }
-
-    const sceneOut=isMobile ? range(p,.90,.96) : range(p,.985,1);
-    scene.style.opacity=1-sceneOut;
-    scene.style.pointerEvents=sceneOut>.98?"none":"auto";
-    hint.style.opacity=p<.045?1:0;
-  }
-
-  function requestRender(){
-    if(framePending) return;
-    framePending=true;
-    requestAnimationFrame(render);
-  }
-
-  window.addEventListener("scroll",requestRender,{passive:true});
-  window.addEventListener("resize",()=>{
-    measure();
-    lastP=-1;
-    lastNavState=null;
-    requestRender();
-  },{passive:true});
-
-  measure();
-  requestRender();
-})();
-</script>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-  import { firebaseConfig } from "./firebase-config.js";
-
-  const grid=document.getElementById("productsGrid");
-  const status=document.getElementById("productsStatus");
-
-  async function loadProducts(){
-    try{
-      const app=initializeApp(firebaseConfig);
-      const db=getFirestore(app);
-      const snap=await getDocs(query(collection(db,"products"),orderBy("createdAt","desc")));
-      grid.innerHTML="";
-      if(snap.empty){ status.textContent="No products listed yet."; return; }
-      status.textContent="";
-      snap.forEach(doc=>{
-        const p=doc.data();
-        const card=document.createElement("article");
-        card.className="product-card";
-        card.innerHTML=`<div class="product-image-wrap"><img src="${escapeHtml(p.imageUrl||"")}" alt="${escapeHtml(p.name||"Product")}" loading="lazy" decoding="async"></div>
-          <div class="product-info"><span class="product-tag">${escapeHtml(p.tag||"HAVAN SAMAGRI")}</span>
-          <h3>${escapeHtml(p.name||"Untitled Product")}</h3>
-          <p class="product-description">${escapeHtml(p.description||"")}</p>
-          <div class="price">₹${Number(p.price||0).toLocaleString("en-IN")} <span>${escapeHtml(p.unit||"per pack")}</span></div>
-          <button class="order-btn" type="button">ORDER NOW</button></div>`;
-        grid.appendChild(card);
-      });
-    }catch(err){
-      console.error(err);
-      status.textContent="Products could not be loaded. Check Firebase configuration and rules.";
-    }
-  }
-  function escapeHtml(v){return String(v).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
-  loadProducts();
-</script>
-
-<footer class="site-footer">
-  <p>Site made by <a href="https://mpoxel.in" target="_blank" rel="noopener noreferrer">mpoxel.in</a></p>
-</footer>
+    showMantra();
+    setInterval(showMantra, 5000);
+  </script>
 </body>
 </html>
