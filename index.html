@@ -227,9 +227,86 @@
     @media (prefers-reduced-motion:reduce){
       *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
     }
+
+    .audio-permission{
+      position:fixed; inset:0; z-index:100;
+      display:flex; align-items:center; justify-content:center;
+      padding:20px;
+      background:rgba(5,3,1,.58);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+    .audio-permission-box{
+      width:min(430px,100%);
+      padding:32px 26px 26px;
+      text-align:center;
+      border:1px solid rgba(243,198,107,.38);
+      border-radius:26px;
+      background:rgba(24,15,8,.88);
+      box-shadow:0 24px 80px rgba(0,0,0,.45);
+    }
+    .audio-permission-om{
+      color:var(--gold);
+      font-size:4.5rem;
+      line-height:.9;
+      text-shadow:0 0 30px rgba(255,195,76,.28);
+    }
+    .audio-permission h2{
+      margin:18px 0 8px;
+      color:var(--cream);
+      font-size:1.55rem;
+    }
+    .audio-permission p{
+      margin:0 auto 22px;
+      max-width:350px;
+      color:#ead9bb;
+      line-height:1.6;
+      font-size:.92rem;
+    }
+    .audio-permission-actions{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .audio-permission-actions button{
+      min-height:46px;
+      padding:0 18px;
+      border-radius:12px;
+      border:1px solid rgba(243,198,107,.5);
+      font:700 .78rem/1 "Segoe UI",sans-serif;
+      letter-spacing:.08em;
+      cursor:pointer;
+    }
+    #enableOm{
+      background:var(--gold);
+      color:#24170b;
+    }
+    #skipOm{
+      background:rgba(255,255,255,.05);
+      color:#f5e6c9;
+    }
+    @media (max-width:650px){
+      .audio-permission-box{padding:28px 20px 22px}
+      .audio-permission-actions button{width:100%}
+    }
+
   </style>
 </head>
 <body>
+
+  <div class="audio-permission" id="audioPermission" role="dialog" aria-modal="true" aria-labelledby="audioPermissionTitle">
+    <div class="audio-permission-box">
+      <div class="audio-permission-om">ॐ</div>
+      <h2 id="audioPermissionTitle">Enable OM Sound?</h2>
+      <p>Would you like to hear the peaceful ॐ sound in the background while you browse?</p>
+      <div class="audio-permission-actions">
+        <button type="button" id="enableOm">YES, PLAY OM</button>
+        <button type="button" id="skipOm">NO, THANKS</button>
+      </div>
+    </div>
+  </div>
+
   <nav class="nav">
     <div class="brand">Ganpati Creations</div>
     <div>
@@ -304,7 +381,30 @@
 
   <footer>Website by <a class="mpoxel-link" href="https://mpoxel.in">Mpoxel.in</a></footer>
 
+  <!-- Background Om audio. It starts only after the visitor gives permission. -->
+  <audio id="omAudio" src="om.mp3" loop preload="auto" aria-label="ॐ background sound"></audio>
+
   <script>
+    const omAudio = document.getElementById("omAudio");
+    const audioPermission = document.getElementById("audioPermission");
+    const enableOm = document.getElementById("enableOm");
+    const skipOm = document.getElementById("skipOm");
+
+    omAudio.volume = 0.42;
+
+    enableOm.addEventListener("click", async () => {
+      try {
+        await omAudio.play();
+        audioPermission.remove();
+      } catch (err) {
+        // If playback still fails, keep the permission dialog visible.
+      }
+    });
+
+    skipOm.addEventListener("click", () => {
+      audioPermission.remove();
+    });
+
     const mantras = [
       "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
       "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥",
