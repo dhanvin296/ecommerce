@@ -286,6 +286,67 @@
       padding:15px;
     }
 
+
+    .payment-methods {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:18px;
+    }
+    .payment-option {
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:15px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .payment-option:has(input:checked) {
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(197,138,50,.12);
+      background:#fffaf2;
+    }
+    .payment-option input { width:auto; min-height:auto; accent-color:var(--brown); }
+    .payment-option strong { display:block; color:var(--brown); font-size:14px; }
+    .payment-option span { display:block; color:var(--muted); font-size:12px; margin-top:3px; }
+    .status-note {
+      margin-top:12px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      min-height:18px;
+    }
+    .success-overlay {
+      position:fixed; inset:0; z-index:5000;
+      display:none; align-items:center; justify-content:center;
+      padding:20px; background:rgba(61,36,20,.35);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    }
+    .success-overlay.show { display:flex; }
+    .success-modal {
+      width:min(430px,100%); padding:30px 24px; text-align:center;
+      border:1px solid var(--border); border-radius:22px; background:#fff;
+      box-shadow:0 20px 70px rgba(61,36,20,.22);
+    }
+    .success-icon {
+      width:64px; height:64px; margin:0 auto 14px; border-radius:50%;
+      display:grid; place-items:center; background:#fff4dc; color:var(--brown);
+      font-size:30px; font-weight:900;
+    }
+    .success-modal h2 { color:var(--brown); font-family:Georgia,serif; margin-bottom:7px; }
+    .success-modal p { color:var(--muted); line-height:1.6; font-size:14px; }
+    .success-modal button {
+      margin-top:20px; width:100%; border:0; border-radius:12px;
+      background:var(--brown); color:#fff; padding:13px 16px;
+      font-weight:800; cursor:pointer;
+    }
+    .busy { opacity:.6; pointer-events:none; }
+    @media(max-width:600px){ .payment-methods{grid-template-columns:1fr;} }
+
     @media (max-width:600px) {
       .navbar {
         width:94%;
@@ -327,6 +388,7 @@
       }
     }
   </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -490,194 +552,316 @@
           </div>
 
           <p class="delivery-note">
-            Delivery fee is currently a temporary demo calculation. A real courier/API
-            rate can be connected later.
+            Delivery fee is fetched from the Delhivery rate API for the selected destination and payment mode.
           </p>
         </div>
 
-        <button id="buyNow" class="buy-now" type="button">BUY NOW</button>
+        <h2 style="margin-top:24px;margin-bottom:12px;font-size:21px;">4. Payment Method</h2>
+        <div class="payment-methods" role="radiogroup" aria-label="Payment method">
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="cod" checked>
+            <div><strong>Cash on Delivery</strong><span>Pay when your package arrives.</span></div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="online">
+            <div><strong>Online Payment</strong><span>Pay securely with Razorpay.</span></div>
+          </label>
+        </div>
+        <div id="paymentStatus" class="status-note" aria-live="polite"></div>
+
+        <button id="buyNow" class="buy-now" type="button">PLACE ORDER</button>
       </div>
     </section>
   </main>
 
-  <script>
-    const CART_KEY = "havanSamagreeCart";
 
+  <div id="successOverlay" class="success-overlay" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <div class="success-modal">
+      <div class="success-icon">✓</div>
+      <h2 id="successTitle">Order Placed!</h2>
+      <p id="successMessage">Your order has been placed and is arriving soon.</p>
+      <button id="closeSuccess" type="button">CONTINUE</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+    // =============================
+    // 1) FILL YOUR FIREBASE CONFIG
+    // =============================
+    const FIREBASE_CONFIG = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_FIREBASE_APP_ID"
+    };
+
+    // =============================
+    // 2) FRONTEND SETTINGS
+    // =============================
+    const RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID"; // ONLY Key ID goes here. NEVER put Key Secret in HTML.
+    const API_BASE_URL = ""; // e.g. "https://your-api.example.com". Leave blank if same domain.
+    const BUSINESS_NAME = "Havan Samagree";
+
+    // The backend gets the real Delhivery rate. If your products have weights in the cart,
+    // each cart item may contain weightGrams. Otherwise this default is used.
+    const DEFAULT_ITEM_WEIGHT_GRAMS = 500;
+
+    const firebaseConfigured = !Object.values(FIREBASE_CONFIG).some(v => String(v).startsWith("YOUR_"));
+    let firebaseApp = null;
+    let auth = null;
+    let db = null;
+    let currentUser = null;
+
+    if (firebaseConfigured) {
+      firebaseApp = initializeApp(FIREBASE_CONFIG);
+      auth = getAuth(firebaseApp);
+      db = getFirestore(firebaseApp);
+      try {
+        const result = await signInAnonymously(auth);
+        currentUser = result.user;
+      } catch (error) {
+        console.error("Firebase anonymous sign-in failed:", error);
+      }
+    }
+
+    const CART_KEY = "havanSamagreeCart";
     let cart = [];
     let customer = {};
     let productsTotal = 0;
     let deliveryFee = 0;
+    let paymentMethod = "cod";
+    let orderFinalized = false;
+
+    function apiUrl(path) {
+      return API_BASE_URL.replace(/\/$/, "") + path;
+    }
+
+    async function apiFetch(path, options = {}) {
+      const response = await fetch(apiUrl(path), {
+        ...options,
+        headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Server request failed.");
+      return data;
+    }
 
     function loadCart() {
       try {
         const parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-
         if (Array.isArray(parsed)) {
-          cart = parsed.filter(item =>
-            item &&
-            typeof item.product === "string" &&
-            Number.isFinite(Number(item.price)) &&
-            Number.isFinite(Number(item.quantity)) &&
-            Number(item.quantity) > 0
-          );
+          cart = parsed.filter(item => item && typeof item.product === "string" && Number.isFinite(Number(item.price)) && Number.isFinite(Number(item.quantity)) && Number(item.quantity) > 0);
         }
-      } catch (error) {
-        cart = [];
-      }
+      } catch { cart = []; }
     }
 
     function escapeHtml(value) {
-      return String(value).replace(/[&<>"']/g, function(char) {
-        const entities = {
-          "&":"&amp;",
-          "<":"&lt;",
-          ">":"&gt;",
-          '"':"&quot;",
-          "'":"&#039;"
-        };
-        return entities[char];
-      });
+      return String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));
     }
 
     function calculateProductsTotal() {
-      return cart.reduce((sum, item) => {
-        return sum + Number(item.price) * Math.floor(Number(item.quantity));
-      }, 0);
+      return cart.reduce((sum, item) => sum + Number(item.price) * Math.floor(Number(item.quantity)), 0);
+    }
+
+    function calculateWeightGrams() {
+      return Math.max(1, cart.reduce((sum, item) => {
+        const itemWeight = Number(item.weightGrams) > 0 ? Number(item.weightGrams) : DEFAULT_ITEM_WEIGHT_GRAMS;
+        return sum + itemWeight * Math.floor(Number(item.quantity));
+      }, 0));
     }
 
     function renderCart() {
       const container = document.getElementById("cartItems");
-
       productsTotal = calculateProductsTotal();
       document.getElementById("productsTotal").textContent = "₹" + productsTotal;
-
       if (!cart.length) {
-        container.innerHTML = `
-          <div class="empty">
-            Your cart is empty.<br>
-            <a href="shop.html">Go back to the shop</a>
-          </div>
-        `;
+        container.innerHTML = '<div class="empty">Your cart is empty.<br><a href="shop.html">Go back to the shop</a></div>';
         document.getElementById("nextToDetails").disabled = true;
         document.getElementById("nextToDetails").style.opacity = ".45";
         document.getElementById("nextToDetails").style.pointerEvents = "none";
         return;
       }
-
       container.innerHTML = cart.map(item => {
         const price = Number(item.price);
         const quantity = Math.floor(Number(item.quantity));
-        const itemTotal = price * quantity;
-
-        return `
-          <article class="cart-item">
-            <div>
-              <div class="item-name">${escapeHtml(item.product)}</div>
-              <div class="item-details">₹${price} each × ${quantity}</div>
-            </div>
-            <div class="item-total">₹${itemTotal}</div>
-          </article>
-        `;
+        return `<article class="cart-item"><div><div class="item-name">${escapeHtml(item.product)}</div><div class="item-details">₹${price} each × ${quantity}</div></div><div class="item-total">₹${price * quantity}</div></article>`;
       }).join("");
     }
 
     function showStep(number) {
-      document.querySelectorAll(".step").forEach(step => {
-        step.classList.remove("active");
-      });
-
+      document.querySelectorAll(".step").forEach(step => step.classList.remove("active"));
       document.getElementById("step" + number).classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function calculateDeliveryFee() {
-      /*
-        Temporary demo delivery calculation.
+    function validatePhone(phone) { return /^[6-9]\d{9}$/.test(phone); }
+    function validatePincode(pincode) { return /^\d{6}$/.test(pincode); }
 
-        Later this function can be replaced with a real courier/API quote.
-        For now:
-        - ₹49 for orders below ₹499
-        - FREE for ₹499 and above
-      */
-      if (productsTotal >= 499) return 0;
-      return 49;
+    function setStatus(message, isError = false) {
+      const el = document.getElementById("paymentStatus");
+      el.textContent = message || "";
+      el.style.color = isError ? "#a05c3b" : "var(--muted)";
     }
 
-    function validatePhone(phone) {
-      return /^[6-9]\d{9}$/.test(phone);
+    async function fetchDelhiveryRate() {
+      setStatus("Calculating Delhivery delivery charge…");
+      const result = await apiFetch("/api/delhivery/rate", {
+        method: "POST",
+        body: JSON.stringify({
+          destinationPincode: customer.pincode,
+          weightGrams: calculateWeightGrams(),
+          paymentMode: paymentMethod === "cod" ? "COD" : "Pre-paid",
+          codAmount: paymentMethod === "cod" ? productsTotal : 0
+        })
+      });
+      if (!Number.isFinite(Number(result.deliveryFee))) throw new Error("Delhivery returned an invalid delivery charge.");
+      deliveryFee = Number(result.deliveryFee);
+      document.getElementById("deliveryFee").textContent = deliveryFee === 0 ? "FREE" : "₹" + deliveryFee;
+      document.getElementById("payableAmount").textContent = "₹" + (productsTotal + deliveryFee);
+      setStatus("Delhivery delivery charge calculated.");
+      return deliveryFee;
     }
 
-    function validatePincode(pincode) {
-      return /^\d{6}$/.test(pincode);
+    async function saveOrderToFirebase({ paymentId = null, razorpayOrderId = null }) {
+      if (!firebaseConfigured || !db || !currentUser) {
+        throw new Error("Firebase is not configured. Fill FIREBASE_CONFIG and enable Anonymous Authentication.");
+      }
+      const order = {
+        userId: currentUser.uid,
+        items: cart.map(item => ({ product: String(item.product), price: Number(item.price), quantity: Math.floor(Number(item.quantity)), weightGrams: Number(item.weightGrams) > 0 ? Number(item.weightGrams) : DEFAULT_ITEM_WEIGHT_GRAMS })),
+        customer,
+        paymentMethod,
+        paymentStatus: paymentMethod === "cod" ? "cod_pending" : "paid",
+        productsTotal,
+        deliveryFee,
+        total: productsTotal + deliveryFee,
+        razorpayPaymentId: paymentId,
+        razorpayOrderId,
+        createdAt: serverTimestamp()
+      };
+      const orderRef = await addDoc(collection(db, "orders"), order);
+      await setDoc(doc(db, "users", currentUser.uid), {
+        uid: currentUser.uid,
+        name: customer.name, phone: customer.phone, email: customer.email || "",
+        address: customer.address, city: customer.city, state: customer.state,
+        pincode: customer.pincode, landmark: customer.landmark || "",
+        alternatePhone: customer.alternatePhone || "", updatedAt: serverTimestamp()
+      }, { merge: true });
+      return orderRef.id;
     }
 
-    document.getElementById("nextToDetails").addEventListener("click", function() {
-      if (!cart.length) return;
-      showStep(2);
-    });
+    function showSuccess(orderId) {
+      document.getElementById("successMessage").textContent = `Order ${orderId.slice(0, 8).toUpperCase()} has been placed. It is arriving soon.`;
+      document.getElementById("successOverlay").classList.add("show");
+    }
 
-    document.getElementById("deliveryForm").addEventListener("submit", function(event) {
+    async function completeOrder(paymentId = null, razorpayOrderId = null) {
+      if (orderFinalized) return;
+      orderFinalized = true;
+      const orderId = await saveOrderToFirebase({ paymentId, razorpayOrderId });
+      localStorage.removeItem(CART_KEY);
+      showSuccess(orderId);
+    }
+
+    document.getElementById("nextToDetails").addEventListener("click", () => { if (cart.length) showStep(2); });
+
+    document.getElementById("deliveryForm").addEventListener("submit", async event => {
       event.preventDefault();
-
       const error = document.getElementById("formError");
       error.textContent = "";
-
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const pincode = document.getElementById("pincode").value.trim();
       const state = document.getElementById("state").value;
       const address = document.getElementById("address").value.trim();
       const city = document.getElementById("city").value.trim();
+      if (!name || !phone || !pincode || !state || !address || !city) { error.textContent = "Please fill in all required fields."; return; }
+      if (!validatePhone(phone)) { error.textContent = "Enter a valid 10-digit Indian mobile number."; document.getElementById("phone").focus(); return; }
+      if (!validatePincode(pincode)) { error.textContent = "Enter a valid 6-digit PIN code."; document.getElementById("pincode").focus(); return; }
 
-      if (!name || !phone || !pincode || !state || !address || !city) {
-        error.textContent = "Please fill in all required fields.";
-        return;
-      }
-
-      if (!validatePhone(phone)) {
-        error.textContent = "Enter a valid 10-digit Indian mobile number.";
-        document.getElementById("phone").focus();
-        return;
-      }
-
-      if (!validatePincode(pincode)) {
-        error.textContent = "Enter a valid 6-digit PIN code.";
-        document.getElementById("pincode").focus();
-        return;
-      }
-
-      customer = {
-        name,
-        phone,
-        pincode,
-        state,
-        address,
-        city,
-        landmark: document.getElementById("landmark").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        alternatePhone: document.getElementById("alternatePhone").value.trim()
-      };
-
-      deliveryFee = calculateDeliveryFee();
-
+      customer = { name, phone, pincode, state, address, city, landmark: document.getElementById("landmark").value.trim(), email: document.getElementById("email").value.trim(), alternatePhone: document.getElementById("alternatePhone").value.trim() };
+      paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "cod";
       document.getElementById("summaryProducts").textContent = "₹" + productsTotal;
-      document.getElementById("deliveryFee").textContent =
-        deliveryFee === 0 ? "FREE" : "₹" + deliveryFee;
-      document.getElementById("payableAmount").textContent =
-        "₹" + (productsTotal + deliveryFee);
-
-      document.getElementById("customerPreview").innerHTML = `
-        <strong>${escapeHtml(customer.name)}</strong><br>
-        ${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>
-        ${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>
-        Phone: ${escapeHtml(customer.phone)}
-      `;
-
+      document.getElementById("customerPreview").innerHTML = `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
       showStep(3);
+      try { await fetchDelhiveryRate(); } catch (err) {
+        setStatus(err.message || "Could not calculate Delhivery delivery charge.", true);
+        document.getElementById("buyNow").disabled = true;
+        document.getElementById("buyNow").style.opacity = ".5";
+      }
     });
 
-    document.getElementById("buyNow").addEventListener("click", function() {
-      window.location.href = "final.html";
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
+      input.addEventListener("change", async () => {
+        paymentMethod = input.value;
+        document.getElementById("buyNow").disabled = false;
+        document.getElementById("buyNow").style.opacity = "1";
+        if (customer.pincode) {
+          try { await fetchDelhiveryRate(); } catch (err) { setStatus(err.message || "Could not update delivery charge.", true); }
+        }
+      });
+    });
+
+    document.getElementById("buyNow").addEventListener("click", async () => {
+      const button = document.getElementById("buyNow");
+      button.classList.add("busy");
+      setStatus("Preparing your order…");
+      try {
+        // Re-fetch the courier rate immediately before payment/order placement.
+        await fetchDelhiveryRate();
+        const total = productsTotal + deliveryFee;
+        if (paymentMethod === "cod") {
+          await completeOrder();
+          return;
+        }
+
+        if (RAZORPAY_KEY_ID.startsWith("YOUR_")) throw new Error("Fill RAZORPAY_KEY_ID in buy.html first.");
+        const order = await apiFetch("/api/razorpay/create-order", {
+          method: "POST",
+          body: JSON.stringify({ amount: total, receipt: "hs_" + Date.now() })
+        });
+
+        const options = {
+          key: RAZORPAY_KEY_ID, amount: order.amount, currency: order.currency || "INR",
+          name: BUSINESS_NAME, description: "Havan Samagree order", order_id: order.id,
+          prefill: { name: customer.name, email: customer.email || undefined, contact: "+91" + customer.phone },
+          theme: { color: "#6b3f20" },
+          handler: async function(response) {
+            try {
+              setStatus("Verifying payment…");
+              const verified = await apiFetch("/api/razorpay/verify-payment", { method: "POST", body: JSON.stringify(response) });
+              if (!verified.verified) throw new Error("Payment verification failed.");
+              await completeOrder(response.razorpay_payment_id, response.razorpay_order_id);
+            } catch (err) {
+              orderFinalized = false;
+              setStatus(err.message || "Payment verification failed. Do not place the order again until you check Razorpay.", true);
+              button.classList.remove("busy");
+            }
+          },
+          modal: { ondismiss: () => { setStatus("Payment window closed. No order was placed."); button.classList.remove("busy"); } }
+        };
+        const rzp = new Razorpay(options);
+        rzp.on("payment.failed", function(response) {
+          setStatus(response.error?.description || "Payment failed. No order was placed.", true);
+          button.classList.remove("busy");
+        });
+        rzp.open();
+      } catch (err) {
+        orderFinalized = false;
+        setStatus(err.message || "Could not place the order.", true);
+        button.classList.remove("busy");
+      }
+    });
+
+    document.getElementById("closeSuccess").addEventListener("click", () => {
+      document.getElementById("successOverlay").classList.remove("show");
+      window.location.href = "shop.html";
     });
 
     loadCart();

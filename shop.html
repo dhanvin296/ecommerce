@@ -638,6 +638,297 @@
         transition: none;
       }
     }
+
+    /* AI ASSISTANT */
+    .ai-assistant-button{
+      position:fixed;
+      left:20px;
+      bottom:20px;
+      width:58px;
+      height:58px;
+      border:1px solid rgba(197,138,50,.55);
+      border-radius:50%;
+      background:linear-gradient(145deg,#7a4926,#4b2b18);
+      color:#fff7e8;
+      box-shadow:0 10px 28px rgba(61,36,20,.28), inset 0 1px rgba(255,255,255,.15);
+      z-index:2100;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:25px;
+      transition:transform .2s ease,box-shadow .2s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .ai-assistant-button:hover{
+      transform:translateY(-3px) scale(1.04);
+      box-shadow:0 14px 34px rgba(61,36,20,.34), inset 0 1px rgba(255,255,255,.18);
+    }
+
+    .ai-assistant-button:focus-visible{
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+    }
+
+    .ai-assistant-button .ai-face{
+      width:30px;
+      height:30px;
+      border:2px solid #f5dfb3;
+      border-radius:50%;
+      position:relative;
+    }
+
+    .ai-assistant-button .ai-face::before{
+      content:"";
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:#f5dfb3;
+      left:7px;
+      top:8px;
+      box-shadow:10px 0 0 #f5dfb3;
+    }
+
+    .ai-assistant-button .ai-face::after{
+      content:"";
+      position:absolute;
+      width:10px;
+      height:5px;
+      border-bottom:2px solid #f5dfb3;
+      border-radius:0 0 10px 10px;
+      left:8px;
+      top:15px;
+    }
+
+    .ai-assistant-overlay{
+      position:fixed;
+      inset:0;
+      z-index:2050;
+      background:rgba(61,36,20,.13);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease;
+    }
+
+    .ai-assistant-overlay.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .ai-assistant{
+      position:fixed;
+      left:20px;
+      bottom:90px;
+      width:min(390px,calc(100vw - 40px));
+      height:min(570px,calc(100vh - 125px));
+      min-height:390px;
+      z-index:2150;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      background:#fffdf9;
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow:0 20px 55px rgba(61,36,20,.25);
+      opacity:0;
+      transform:translateY(18px) scale(.96);
+      pointer-events:none;
+      transition:opacity .2s ease,transform .2s ease;
+    }
+
+    .ai-assistant.show{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      pointer-events:auto;
+    }
+
+    .ai-header{
+      padding:16px 17px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background:linear-gradient(135deg,#6b3f20,#4b2b18);
+      color:#fffaf2;
+    }
+
+    .ai-header-info{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      min-width:0;
+    }
+
+    .ai-header-icon{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.38);
+      display:grid;
+      place-items:center;
+      color:#f5dfb3;
+      font-size:18px;
+      flex:0 0 auto;
+    }
+
+    .ai-header strong{
+      display:block;
+      font-size:14px;
+      line-height:1.2;
+    }
+
+    .ai-status{
+      margin-top:3px;
+      font-size:11px;
+      opacity:.75;
+    }
+
+    .ai-close{
+      width:38px;
+      height:38px;
+      border:0;
+      border-radius:10px;
+      background:rgba(255,255,255,.10);
+      color:#fff;
+      font-size:22px;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+
+    .ai-close:hover{background:rgba(255,255,255,.18)}
+
+    .ai-messages{
+      flex:1;
+      min-height:0;
+      overflow-y:auto;
+      padding:16px;
+      background:
+        radial-gradient(circle at 80% 10%,rgba(197,138,50,.08),transparent 28%),
+        #fffdf9;
+    }
+
+    .ai-message{
+      max-width:88%;
+      padding:10px 12px;
+      margin-bottom:10px;
+      border-radius:14px;
+      font-size:13px;
+      line-height:1.55;
+      word-wrap:break-word;
+    }
+
+    .ai-message.bot{
+      margin-right:auto;
+      background:#f5ede2;
+      color:#4b2b18;
+      border-bottom-left-radius:5px;
+    }
+
+    .ai-message.user{
+      margin-left:auto;
+      background:var(--brown);
+      color:#fff;
+      border-bottom-right-radius:5px;
+    }
+
+    .ai-message a{
+      color:inherit;
+      font-weight:800;
+    }
+
+    .ai-quick{
+      padding:10px 12px 2px;
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+      border-top:1px solid #f0e3d2;
+      background:#fff;
+    }
+
+    .ai-quick button{
+      border:1px solid var(--border);
+      background:#fffaf2;
+      color:var(--brown);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:11px;
+      font-weight:700;
+      cursor:pointer;
+      min-height:36px;
+    }
+
+    .ai-quick button:hover{
+      background:#f7eee3;
+    }
+
+    .ai-input-row{
+      display:flex;
+      gap:8px;
+      padding:10px 12px 12px;
+      border-top:1px solid #f0e3d2;
+      background:#fff;
+    }
+
+    .ai-input{
+      min-width:0;
+      flex:1;
+      height:43px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      padding:0 12px;
+      color:var(--dark-brown);
+      font-size:13px;
+      outline:none;
+      background:#fffdf9;
+    }
+
+    .ai-input:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(197,138,50,.10);
+    }
+
+    .ai-send{
+      width:43px;
+      height:43px;
+      border:0;
+      border-radius:11px;
+      background:var(--brown);
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+
+    .ai-send:hover{background:#8a542b}
+
+    @media (max-width:600px){
+      .ai-assistant-button{
+        left:14px;
+        bottom:14px;
+        width:55px;
+        height:55px;
+      }
+
+      .ai-assistant{
+        left:12px;
+        bottom:80px;
+        width:calc(100vw - 24px);
+        height:min(570px,calc(100vh - 105px));
+        min-height:380px;
+        border-radius:19px;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .ai-assistant-button,
+      .ai-assistant-overlay,
+      .ai-assistant{
+        transition:none;
+      }
+    }
+
   </style>
 </head>
 
@@ -837,7 +1128,225 @@
     Added to your cart
   </div>
 
+
+  <!-- NO-API LOCAL AI ASSISTANT -->
+  <div id="aiAssistantOverlay" class="ai-assistant-overlay" aria-hidden="true"></div>
+
+  <aside id="aiAssistant" class="ai-assistant" aria-label="Havan Samagree AI Assistant" aria-hidden="true">
+    <div class="ai-header">
+      <div class="ai-header-info">
+        <div class="ai-header-icon">ॐ</div>
+        <div>
+          <strong>Havan Assistant</strong>
+          <div class="ai-status">Offline • Instant answers</div>
+        </div>
+      </div>
+      <button type="button" class="ai-close" id="aiClose" aria-label="Close assistant">×</button>
+    </div>
+
+    <div class="ai-messages" id="aiMessages" aria-live="polite"></div>
+
+    <div class="ai-quick" id="aiQuick">
+      <button type="button" data-question="Who is your delivery partner?">Delivery partner</button>
+      <button type="button" data-question="How can I directly contact you?">Direct contact</button>
+      <button type="button" data-question="What products do you sell?">Products</button>
+      <button type="button" data-question="What are your payment options?">Payment</button>
+    </div>
+
+    <form class="ai-input-row" id="aiForm">
+      <input
+        class="ai-input"
+        id="aiInput"
+        type="text"
+        autocomplete="off"
+        placeholder="Ask a question..."
+        aria-label="Ask the assistant a question"
+        maxlength="180"
+      >
+      <button class="ai-send" type="submit" aria-label="Send question">➤</button>
+    </form>
+  </aside>
+
+  <button type="button" id="aiOpen" class="ai-assistant-button" aria-label="Open Havan Samagree AI Assistant" aria-expanded="false">
+    <span class="ai-face" aria-hidden="true"></span>
+  </button>
+
+
   <script>
+
+    /* Local rule-based assistant — no API or external service required. */
+    const aiOpen = document.getElementById("aiOpen");
+    const aiAssistant = document.getElementById("aiAssistant");
+    const aiOverlay = document.getElementById("aiAssistantOverlay");
+    const aiClose = document.getElementById("aiClose");
+    const aiMessages = document.getElementById("aiMessages");
+    const aiForm = document.getElementById("aiForm");
+    const aiInput = document.getElementById("aiInput");
+    const aiQuick = document.getElementById("aiQuick");
+
+    function aiAddMessage(text, type){
+      const message = document.createElement("div");
+      message.className = "ai-message " + type;
+      message.textContent = text;
+      aiMessages.appendChild(message);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    function aiOpenAssistant(){
+      aiAssistant.classList.add("show");
+      aiOverlay.classList.add("show");
+      aiAssistant.setAttribute("aria-hidden","false");
+      aiOverlay.setAttribute("aria-hidden","false");
+      aiOpen.setAttribute("aria-expanded","true");
+
+      if(!aiMessages.children.length){
+        aiAddMessage("Namaste! I can answer common questions about Havan Samagree, delivery, contact, products and payment.","bot");
+      }
+
+      setTimeout(() => aiInput.focus(), 80);
+    }
+
+    function aiCloseAssistant(){
+      aiAssistant.classList.remove("show");
+      aiOverlay.classList.remove("show");
+      aiAssistant.setAttribute("aria-hidden","true");
+      aiOverlay.setAttribute("aria-hidden","true");
+      aiOpen.setAttribute("aria-expanded","false");
+    }
+
+    function aiNormalize(value){
+      return String(value || "")
+        .toLowerCase()
+        .replace(/[^\w\s]/g," ")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+
+    function aiAnswer(question){
+      const q = aiNormalize(question);
+
+      if(!q){
+        return "Please type a question.";
+      }
+
+      /* Delivery */
+      if(
+        q.includes("delivery partner") ||
+        q.includes("delivery company") ||
+        q.includes("who delivers") ||
+        q.includes("shipping partner") ||
+        q.includes("courier partner") ||
+        q.includes("delivery")
+      ){
+        return "Our delivery partner is Delhivery.";
+      }
+
+      /* Direct contact / WhatsApp */
+      if(
+        q.includes("directly contact") ||
+        q.includes("direct contact") ||
+        q.includes("contact you") ||
+        q.includes("contact number") ||
+        q.includes("whatsapp") ||
+        q.includes("whats app") ||
+        q.includes("phone number") ||
+        q.includes("mobile number") ||
+        q.includes("customer care") ||
+        q.includes("support number")
+      ){
+        return "You can directly contact us on WhatsApp: 75062 02080.";
+      }
+
+      /* Products */
+      if(
+        q.includes("product") ||
+        q.includes("what do you sell") ||
+        q.includes("havan samagree") ||
+        q.includes("havan items") ||
+        q.includes("puja items")
+      ){
+        return "We sell Havan Samagree essentials such as Mango Havan Wood, Havan Cow Dung Cakes, Ganga Jal and Kala Til.";
+      }
+
+      /* Payment */
+      if(
+        q.includes("payment") ||
+        q.includes("pay") ||
+        q.includes("cash on delivery") ||
+        q.includes("cod") ||
+        q.includes("online payment")
+      ){
+        return "For payment and checkout options, please continue through the Proceed to Buy page after adding your products to the cart.";
+      }
+
+      /* Shipping time */
+      if(
+        q.includes("how long") ||
+        q.includes("delivery time") ||
+        q.includes("when will") ||
+        q.includes("arrive") ||
+        q.includes("shipping time")
+      ){
+        return "For the exact delivery estimate, please check the delivery information shown during checkout.";
+      }
+
+      /* Greetings */
+      if(
+        q === "hi" ||
+        q === "hello" ||
+        q === "hey" ||
+        q === "namaste" ||
+        q === "namaskar"
+      ){
+        return "Namaste! How can I help you with your Havan Samagree order?";
+      }
+
+      /* Order / cart */
+      if(
+        q.includes("cart") ||
+        q.includes("order") ||
+        q.includes("buy")
+      ){
+        return "You can add products to the cart using the ADD buttons, then open Cart and choose Proceed to Buy.";
+      }
+
+      return "I can answer common questions about delivery, direct WhatsApp contact, products, payment, orders and shipping. Try asking: “Who is your delivery partner?”";
+    }
+
+    function aiAsk(question){
+      const clean = String(question || "").trim().slice(0,180);
+      if(!clean) return;
+
+      aiAddMessage(clean,"user");
+      aiInput.value = "";
+
+      window.setTimeout(() => {
+        aiAddMessage(aiAnswer(clean),"bot");
+      }, 220);
+    }
+
+    aiOpen.addEventListener("click", aiOpenAssistant);
+    aiClose.addEventListener("click", aiCloseAssistant);
+    aiOverlay.addEventListener("click", aiCloseAssistant);
+
+    aiForm.addEventListener("submit", function(event){
+      event.preventDefault();
+      aiAsk(aiInput.value);
+    });
+
+    aiQuick.addEventListener("click", function(event){
+      const button = event.target.closest("button[data-question]");
+      if(!button) return;
+      aiAsk(button.dataset.question);
+    });
+
+    document.addEventListener("keydown", function(event){
+      if(event.key === "Escape" && aiAssistant.classList.contains("show")){
+        aiCloseAssistant();
+      }
+    });
+
+
     const CART_KEY = "havanSamagreeCart";
     let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
 
