@@ -72,6 +72,131 @@
       text-align:center;
       padding:120px 20px 70px;
     }
+    /* Sacred water-offering scene around the OM */
+    .om-sacred-stage{
+      position:relative;
+      width:min(1180px,100vw);
+      height:clamp(390px,48vw,620px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      isolation:isolate;
+      margin:0 auto;
+    }
+
+    .sage{
+      position:absolute;
+      top:50%;
+      width:clamp(250px,30vw,410px);
+      height:clamp(375px,45vw,615px);
+      z-index:4;
+      pointer-events:none;
+      transform:translateY(-50%);
+      filter:drop-shadow(0 18px 28px rgba(0,0,0,.22));
+    }
+
+    .sage img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    .sage-left{
+      left:clamp(-30px,1vw,24px);
+    }
+
+    .sage-left img{
+      transform:scaleX(-1);
+    }
+
+    .sage-right{
+      right:clamp(-30px,1vw,24px);
+    }
+
+    .om-sacred-stage .om-orbit{
+      z-index:5;
+      width:clamp(290px,38vw,510px);
+      height:clamp(290px,38vw,510px);
+    }
+
+    /* Extra animated water makes the offering visibly split around the OM. */
+    .water-split{
+      position:absolute;
+      left:50%;
+      top:53%;
+      width:clamp(220px,31vw,380px);
+      height:130px;
+      transform:translate(-50%,-50%);
+      z-index:6;
+      pointer-events:none;
+    }
+
+    .split-stream{
+      position:absolute;
+      top:45%;
+      width:46%;
+      height:4px;
+      border-radius:999px;
+      background:linear-gradient(90deg,rgba(255,255,255,0),rgba(177,235,255,.95),rgba(255,255,255,.18));
+      box-shadow:0 0 8px rgba(130,220,255,.8),0 0 18px rgba(80,190,255,.35);
+      opacity:.9;
+      animation:waterSplit 1.8s ease-in-out infinite;
+    }
+
+    .split-left{
+      right:50%;
+      transform-origin:right center;
+      transform:rotate(18deg);
+    }
+
+    .split-right{
+      left:50%;
+      transform-origin:left center;
+      transform:rotate(-18deg);
+      background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(177,235,255,.95),rgba(255,255,255,0));
+    }
+
+    .water-split i{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:#dff8ff;
+      box-shadow:0 0 8px #8ee5ff;
+      left:50%;
+      top:47%;
+      opacity:0;
+      animation:waterDroplet 1.8s ease-out infinite;
+    }
+
+    .water-split i:nth-of-type(1){--dx:-70px;--dy:-35px;animation-delay:.05s}
+    .water-split i:nth-of-type(2){--dx:72px;--dy:-30px;animation-delay:.25s}
+    .water-split i:nth-of-type(3){--dx:-105px;--dy:5px;animation-delay:.45s}
+    .water-split i:nth-of-type(4){--dx:110px;--dy:8px;animation-delay:.65s}
+    .water-split i:nth-of-type(5){--dx:-135px;--dy:35px;animation-delay:.85s}
+    .water-split i:nth-of-type(6){--dx:140px;--dy:32px;animation-delay:1.05s}
+    .water-split i:nth-of-type(7){--dx:-92px;--dy:-8px;animation-delay:1.25s}
+    .water-split i:nth-of-type(8){--dx:94px;--dy:-4px;animation-delay:1.45s}
+
+    @keyframes waterSplit{
+      0%,100%{opacity:.35;filter:blur(.2px);transform:rotate(18deg) scaleX(.72)}
+      50%{opacity:1;filter:blur(0);transform:rotate(18deg) scaleX(1.08)}
+    }
+
+    .split-right{animation-name:waterSplitRight}
+
+    @keyframes waterSplitRight{
+      0%,100%{opacity:.35;filter:blur(.2px);transform:rotate(-18deg) scaleX(.72)}
+      50%{opacity:1;filter:blur(0);transform:rotate(-18deg) scaleX(1.08)}
+    }
+
+    @keyframes waterDroplet{
+      0%{opacity:0;transform:translate(0,0) scale(.5)}
+      18%{opacity:1}
+      100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.25)}
+    }
+
     .om-orbit{
       position:relative;
       width:clamp(310px,42vw,560px);
@@ -324,6 +449,33 @@
     }
 
     @media (max-width:650px){
+      .om-sacred-stage{
+        height:clamp(330px,94vw,470px);
+        width:100%;
+      }
+
+      .sage{
+        width:clamp(175px,43vw,250px);
+        height:clamp(265px,65vw,380px);
+      }
+
+      .sage-left{left:-52px}
+      .sage-right{right:-52px}
+
+      .om-sacred-stage .om-orbit{
+        width:min(62vw,310px);
+        height:min(62vw,310px);
+        
+      }
+
+      .water-split{
+        width:48vw;
+        height:100px;
+      }
+
+      .split-stream{height:3px}
+      .water-split i{width:3px;height:3px}
+
       .om-orbit{
         width:min(88vw,430px);
         height:min(88vw,430px);
@@ -372,7 +524,239 @@
     .buy-btn{background:linear-gradient(135deg,rgba(243,198,107,.16),rgba(118,70,27,.20))}
 
         .seo-context{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-      </style>
+      
+
+    /* ===== FINAL RESPONSIVE SACRED HERO FIX ===== */
+    .om-sacred-stage{
+      /* Change this ONE value to move the complete scene up/down. */
+      --scene-y:-55px;
+      position:relative;
+      top:auto;
+      margin:var(--scene-y) auto 0;
+      width:min(1180px,100%);
+      max-width:100%;
+      flex:0 1 auto;
+      overflow:visible;
+    }
+
+    /* Keep the desktop composition proportional. */
+    .sage{max-width:36vw;}
+
+    @media (max-width:650px){
+      html,body{width:100%;max-width:100%;overflow-x:hidden;}
+
+      .hero{
+        width:100%;
+        min-width:0;
+        padding:96px 8px 45px;
+        overflow:hidden;
+      }
+
+      .om-sacred-stage{
+        --scene-y:-22px;
+        width:100%;
+        max-width:100%;
+        height:82vw;
+        min-height:275px;
+        max-height:345px;
+        margin:var(--scene-y) auto 0;
+        flex-shrink:0;
+      }
+
+      /* Two sages remain visible without creating horizontal overflow. */
+      .sage{
+        width:34vw;
+        height:56vw;
+        max-width:150px;
+        max-height:245px;
+        top:50%;
+      }
+
+      .sage-left{left:-4vw;}
+      .sage-right{right:-4vw;}
+
+      /* OM stays centered between them. */
+      .om-sacred-stage .om-orbit{
+        width:46vw;
+        height:46vw;
+        max-width:205px;
+        max-height:205px;
+        min-width:165px;
+        min-height:165px;
+      }
+
+      .om-sacred-stage .om{
+        font-size:clamp(6rem,19vw,8rem);
+      }
+
+      /* Make the split-water effect fit between the sages. */
+      .water-split{
+        width:38vw;
+        max-width:165px;
+        height:90px;
+        top:53%;
+      }
+
+      .split-stream{width:45%;height:3px;}
+
+      .water-split i:nth-of-type(1){--dx:-38px;--dy:-25px}
+      .water-split i:nth-of-type(2){--dx:40px;--dy:-22px}
+      .water-split i:nth-of-type(3){--dx:-58px;--dy:3px}
+      .water-split i:nth-of-type(4){--dx:60px;--dy:5px}
+      .water-split i:nth-of-type(5){--dx:-72px;--dy:22px}
+      .water-split i:nth-of-type(6){--dx:74px;--dy:20px}
+      .water-split i:nth-of-type(7){--dx:-48px;--dy:-6px}
+      .water-split i:nth-of-type(8){--dx:50px;--dy:-4px}
+
+      .eyebrow{
+        margin-top:12px;
+        font-size:.64rem;
+        letter-spacing:.16em;
+      }
+
+      h1{
+        max-width:100%;
+        font-size:clamp(1.55rem,7.2vw,2.2rem);
+        line-height:1.12;
+        overflow-wrap:anywhere;
+      }
+
+      .subtitle{
+        max-width:94vw;
+        font-size:.9rem;
+      }
+
+      .nav{
+        width:calc(100% - 16px);
+        max-width:calc(100% - 16px);
+        padding:9px 11px;
+        gap:8px;
+      }
+
+      .nav > div:last-child{
+        display:flex;
+        align-items:center;
+        gap:9px;
+        min-width:0;
+      }
+
+      .nav a{
+        margin-left:0;
+        font-size:.68rem;
+        white-space:nowrap;
+      }
+
+      .brand{
+        font-size:.88rem;
+        letter-spacing:.08em;
+        white-space:nowrap;
+      }
+
+      .mantra-stage{
+        width:100%;
+        max-width:100%;
+        min-height:165px;
+        margin-top:30px;
+        padding:22px 12px;
+      }
+
+      .mantra-text{
+        max-width:100%;
+        font-size:clamp(1rem,4.5vw,1.35rem);
+        overflow-wrap:anywhere;
+      }
+
+      .section-title h2{font-size:clamp(1.55rem,7vw,2.2rem);}
+      .section-title p{font-size:.88rem;}
+
+      .card{max-width:82vw;}
+      .buy-wrap{padding-left:12px;padding-right:12px;}
+    }
+  
+    /* ===== FINAL OM SIZE + TRIANGLE ORBIT FIX =====
+       Keeps the existing layout, but makes the OM/disc substantially larger
+       and keeps the triangles on a clean circular orbit. */
+    .om-sacred-stage .om-orbit{
+      width:clamp(360px,44vw,580px);
+      height:clamp(360px,44vw,580px);
+    }
+
+    .om-sacred-stage .om-light{
+      width:84%;
+      height:84%;
+    }
+
+    .om-sacred-stage .om-disc{
+      width:76%;
+      height:76%;
+      border-width:3px;
+      box-shadow:
+        0 0 0 12px rgba(75,37,14,.20),
+        0 0 46px rgba(255,164,45,.30),
+        inset 0 0 42px rgba(24,10,3,.58);
+    }
+
+    .om-sacred-stage .om{
+      font-size:clamp(10rem,29vw,21rem);
+      line-height:.78;
+      text-shadow:
+        0 0 22px rgba(255,195,76,.42),
+        0 0 85px rgba(255,176,40,.24);
+    }
+
+    .om-sacred-stage .om-triangles{
+      animation:triangleOrbit 16s linear infinite;
+      transform-origin:50% 50%;
+      will-change:transform;
+    }
+
+    .om-sacred-stage .om-triangle{
+      border-left-width:11px;
+      border-right-width:11px;
+      border-bottom-width:29px;
+      transform:
+        rotate(var(--angle))
+        translateY(calc(clamp(180px,20.2vw,290px) * -1));
+      transform-origin:50% 0;
+      will-change:transform;
+    }
+
+    .om-sacred-stage .om-triangle:nth-child(even){
+      border-left-width:9px;
+      border-right-width:9px;
+      border-bottom-width:23px;
+    }
+
+    @media (max-width:650px){
+      .om-sacred-stage .om-orbit{
+        width:min(54vw,235px);
+        height:min(54vw,235px);
+        min-width:185px;
+        min-height:185px;
+      }
+
+      .om-sacred-stage .om-light{
+        width:84%;
+        height:84%;
+      }
+
+      .om-sacred-stage .om-disc{
+        width:76%;
+        height:76%;
+      }
+
+      .om-sacred-stage .om{
+        font-size:clamp(7rem,22vw,10rem);
+      }
+
+      .om-sacred-stage .om-triangle{
+        transform:
+          rotate(var(--angle))
+          translateY(calc(min(26vw,116px) * -1));
+      }
+    }
+
+  </style>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -397,12 +781,20 @@
   <main id="home">
     <section class="hero">
       <p class="seo-context" aria-label="Dhanvin Online Havan Samagri">Dhanvin Online — Havan Samagri and Puja essentials</p>
-      <div class="om-orbit" aria-label="Om">
-        <div class="om-light"></div>
-        <div class="om-disc"></div>
-        <div class="om-triangles" aria-hidden="true"></div>
-        <div class="om">ॐ</div>
-      </div>
+      <div class="om-sacred-stage" aria-label="Om surrounded by sages offering water">
+<div class="water-split" aria-hidden="true">
+          <span class="split-stream split-left"></span>
+          <span class="split-stream split-right"></span>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+
+        <div class="om-orbit">
+          <div class="om-light"></div>
+          <div class="om-disc"></div>
+          <div class="om-triangles" aria-hidden="true"></div>
+          <div class="om">ॐ</div>
+        </div>
+</div>
       <div class="eyebrow">शान्ति • ध्यान • परम्परा</div>
       <h1>WE SELL HAVAN SAMAGRI</h1>
       <p class="subtitle">Products for Havan &amp; Puja</p>
@@ -502,12 +894,13 @@
     window.addEventListener("touchstart", startOmOnFirstInteraction, {passive:true, once:false});
     window.addEventListener("keydown", startOmOnFirstInteraction, {passive:true, once:false});
 
-    // Create the rotating triangular ring around the brown OM disc.
+    // Create a denser, evenly spaced triangular ring around the OM disc.
     const triangleRing = document.querySelector(".om-triangles");
-    for(let n = 0; n < 18; n++){
+    const TRIANGLE_COUNT = 24;
+    for(let n = 0; n < TRIANGLE_COUNT; n++){
       const triangle = document.createElement("span");
       triangle.className = "om-triangle";
-      triangle.style.setProperty("--angle", `${n * 20}deg`);
+      triangle.style.setProperty("--angle", `${n * (360 / TRIANGLE_COUNT)}deg`);
       triangleRing.appendChild(triangle);
     }
 
@@ -543,3 +936,11 @@
   </script>
 </body>
 </html>
+<style>
+/* Side sages removed: keep the OM composition centered and mobile-friendly. */
+.sage-left,.sage-right,.sage{display:none !important;}
+.om-sacred-stage{padding-left:0 !important;padding-right:0 !important;}
+@media (max-width:650px){
+  .om-sacred-stage{width:100%;max-width:100vw;overflow:hidden;}
+}
+</style>
