@@ -4,7 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#6b3f20">
-  <title>Buy | Havan Samagree</title>
+  <title>Complete Your Order | Dhanvin Online</title>
+  <meta name="description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+  <meta name="keywords" content="Dhanvin Online checkout, Havan Samagri order, Havan Samagree checkout, Puja Samagri delivery">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://dhanvin.online/buy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dhanvin Online">
+  <meta property="og:title" content="Complete Your Order | Dhanvin Online">
+  <meta property="og:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+  <meta property="og:url" content="https://dhanvin.online/buy.html">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Complete Your Order | Dhanvin Online">
+  <meta name="twitter:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+
 
   <style>
     :root {
@@ -387,14 +401,70 @@
         width:100%;
       }
     }
+
+    /* DHANVIN ONLINE VISUAL POLISH — checkout structure preserved */
+    :root{
+      --brown:#63391d;
+      --dark-brown:#2f1a0e;
+      --gold:#c9943e;
+      --cream:#fffaf1;
+      --border:#e8d4b4;
+      --muted:#786553;
+    }
+    body{
+      background:
+        radial-gradient(circle at 50% 0%,rgba(201,148,62,.08),transparent 32%),
+        linear-gradient(180deg,#fffdf9,#fff);
+    }
+    .navbar{
+      border-color:rgba(201,148,62,.34);
+      box-shadow:0 12px 32px rgba(63,35,14,.10),inset 0 1px rgba(255,255,255,.85);
+    }
+    .card{
+      background:linear-gradient(180deg,#fff,#fffdf9);
+      border-color:rgba(232,212,180,.92);
+      box-shadow:0 14px 38px rgba(74,43,20,.09);
+    }
+    .heading h1{letter-spacing:-1px}
+    .heading .om{text-shadow:0 5px 22px rgba(201,148,62,.20)}
+    input,select,textarea{
+      background:#fffdfa;
+      transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+    }
+    input:hover,select:hover,textarea:hover{border-color:#d9bd91}
+    .summary{
+      background:linear-gradient(145deg,#fff8e9,#fffdf9);
+    }
+    .payment-option{
+      background:linear-gradient(145deg,#fff,#fffaf1);
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+    }
+    .payment-option:hover{transform:translateY(-2px)}
+    .payment-option:has(input:checked){
+      background:linear-gradient(145deg,#fff8e9,#fffdf9);
+      border-color:rgba(201,148,62,.72);
+      box-shadow:0 0 0 3px rgba(201,148,62,.10),0 8px 20px rgba(74,43,20,.06);
+    }
+    .next-btn,.buy-now{background:linear-gradient(135deg,#6f4122,#4b2a16);box-shadow:0 10px 22px rgba(78,41,17,.15)}
+    .next-btn:hover,.buy-now:hover{background:linear-gradient(135deg,#7d4a27,#552f19);filter:brightness(1.06)}
+
   </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CheckoutPage",
+    "name":"Complete Your Order | Dhanvin Online",
+    "url":"https://dhanvin.online/buy.html",
+    "isPartOf":{"@type":"WebSite","name":"Dhanvin Online","url":"https://dhanvin.online/"}
+  }
+  </script>
 </head>
 
 <body>
 
   <nav class="navbar">
-    <a href="shop.html" class="logo">Havan <span>Samagree</span></a>
+    <a href="shop.html" class="logo" aria-label="Dhanvin Online shop">Dhanvin <span>Online</span></a>
     <a href="shop.html" class="back">← Back to Shop</a>
   </nav>
 
