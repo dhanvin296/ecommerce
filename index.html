@@ -120,82 +120,6 @@
       height:clamp(290px,38vw,510px);
     }
 
-    /* Extra animated water makes the offering visibly split around the OM. */
-    .water-split{
-      position:absolute;
-      left:50%;
-      top:53%;
-      width:clamp(220px,31vw,380px);
-      height:130px;
-      transform:translate(-50%,-50%);
-      z-index:6;
-      pointer-events:none;
-    }
-
-    .split-stream{
-      position:absolute;
-      top:45%;
-      width:46%;
-      height:4px;
-      border-radius:999px;
-      background:linear-gradient(90deg,rgba(255,255,255,0),rgba(177,235,255,.95),rgba(255,255,255,.18));
-      box-shadow:0 0 8px rgba(130,220,255,.8),0 0 18px rgba(80,190,255,.35);
-      opacity:.9;
-      animation:waterSplit 1.8s ease-in-out infinite;
-    }
-
-    .split-left{
-      right:50%;
-      transform-origin:right center;
-      transform:rotate(18deg);
-    }
-
-    .split-right{
-      left:50%;
-      transform-origin:left center;
-      transform:rotate(-18deg);
-      background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(177,235,255,.95),rgba(255,255,255,0));
-    }
-
-    .water-split i{
-      position:absolute;
-      width:4px;
-      height:4px;
-      border-radius:50%;
-      background:#dff8ff;
-      box-shadow:0 0 8px #8ee5ff;
-      left:50%;
-      top:47%;
-      opacity:0;
-      animation:waterDroplet 1.8s ease-out infinite;
-    }
-
-    .water-split i:nth-of-type(1){--dx:-70px;--dy:-35px;animation-delay:.05s}
-    .water-split i:nth-of-type(2){--dx:72px;--dy:-30px;animation-delay:.25s}
-    .water-split i:nth-of-type(3){--dx:-105px;--dy:5px;animation-delay:.45s}
-    .water-split i:nth-of-type(4){--dx:110px;--dy:8px;animation-delay:.65s}
-    .water-split i:nth-of-type(5){--dx:-135px;--dy:35px;animation-delay:.85s}
-    .water-split i:nth-of-type(6){--dx:140px;--dy:32px;animation-delay:1.05s}
-    .water-split i:nth-of-type(7){--dx:-92px;--dy:-8px;animation-delay:1.25s}
-    .water-split i:nth-of-type(8){--dx:94px;--dy:-4px;animation-delay:1.45s}
-
-    @keyframes waterSplit{
-      0%,100%{opacity:.35;filter:blur(.2px);transform:rotate(18deg) scaleX(.72)}
-      50%{opacity:1;filter:blur(0);transform:rotate(18deg) scaleX(1.08)}
-    }
-
-    .split-right{animation-name:waterSplitRight}
-
-    @keyframes waterSplitRight{
-      0%,100%{opacity:.35;filter:blur(.2px);transform:rotate(-18deg) scaleX(.72)}
-      50%{opacity:1;filter:blur(0);transform:rotate(-18deg) scaleX(1.08)}
-    }
-
-    @keyframes waterDroplet{
-      0%{opacity:0;transform:translate(0,0) scale(.5)}
-      18%{opacity:1}
-      100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.25)}
-    }
 
     .om-orbit{
       position:relative;
@@ -588,27 +512,7 @@
       .om-sacred-stage .om{
         font-size:clamp(6rem,19vw,8rem);
       }
-
-      /* Make the split-water effect fit between the sages. */
-      .water-split{
-        width:38vw;
-        max-width:165px;
-        height:90px;
-        top:53%;
-      }
-
-      .split-stream{width:45%;height:3px;}
-
-      .water-split i:nth-of-type(1){--dx:-38px;--dy:-25px}
-      .water-split i:nth-of-type(2){--dx:40px;--dy:-22px}
-      .water-split i:nth-of-type(3){--dx:-58px;--dy:3px}
-      .water-split i:nth-of-type(4){--dx:60px;--dy:5px}
-      .water-split i:nth-of-type(5){--dx:-72px;--dy:22px}
-      .water-split i:nth-of-type(6){--dx:74px;--dy:20px}
-      .water-split i:nth-of-type(7){--dx:-48px;--dy:-6px}
-      .water-split i:nth-of-type(8){--dx:50px;--dy:-4px}
-
-      .eyebrow{
+.eyebrow{
         margin-top:12px;
         font-size:.64rem;
         letter-spacing:.16em;
@@ -674,8 +578,7 @@
     }
   
     /* ===== FINAL OM SIZE + TRIANGLE ORBIT FIX =====
-       Keeps the existing layout, but makes the OM/disc substantially larger
-       and keeps the triangles on a clean circular orbit. */
+       Triangles follow the exact circumference of the OM disc. */
     .om-sacred-stage .om-orbit{
       width:clamp(360px,44vw,580px);
       height:clamp(360px,44vw,580px);
@@ -716,8 +619,9 @@
       border-bottom-width:29px;
       transform:
         rotate(var(--angle))
-        translateY(calc(clamp(180px,20.2vw,290px) * -1));
+        translateY(-38%);
       transform-origin:50% 0;
+
       will-change:transform;
     }
 
@@ -728,11 +632,12 @@
     }
 
     @media (max-width:650px){
+      /* Large enough to be the hero animation, but still contained on small phones. */
       .om-sacred-stage .om-orbit{
-        width:min(54vw,235px);
-        height:min(54vw,235px);
-        min-width:185px;
-        min-height:185px;
+        width:min(78vw,360px);
+        height:min(78vw,360px);
+        min-width:250px;
+        min-height:250px;
       }
 
       .om-sacred-stage .om-light{
@@ -746,16 +651,41 @@
       }
 
       .om-sacred-stage .om{
-        font-size:clamp(7rem,22vw,10rem);
+        font-size:clamp(8.5rem,29vw,12rem);
+      }
+
+      /* Triangle ring sits exactly on the OM disc circumference.
+         Disc diameter = 76% of orbit, so its radius = 38% of orbit. */
+      .om-sacred-stage .om-triangle{
+        transform:
+          rotate(var(--angle))
+          translateY(calc(min(78vw,360px) * -0.38));
+      }
+    }
+
+    @media (max-width:380px){
+      .om-sacred-stage .om-orbit{
+        width:86vw;
+        height:86vw;
+        min-width:240px;
+        min-height:240px;
+      }
+
+      .om-sacred-stage .om{
+        font-size:clamp(7.5rem,30vw,9.5rem);
       }
 
       .om-sacred-stage .om-triangle{
         transform:
           rotate(var(--angle))
-          translateY(calc(min(26vw,116px) * -1));
+          translateY(calc(86vw * -0.38));
       }
     }
-
+.sage-left,.sage-right,.sage{display:none !important;}
+.om-sacred-stage{padding-left:0 !important;padding-right:0 !important;}
+@media (max-width:650px){
+  .om-sacred-stage{width:100%;max-width:100vw;overflow:hidden;}
+}
   </style>
   <script type="application/ld+json">
   {
@@ -782,13 +712,7 @@
     <section class="hero">
       <p class="seo-context" aria-label="Dhanvin Online Havan Samagri">Dhanvin Online — Havan Samagri and Puja essentials</p>
       <div class="om-sacred-stage" aria-label="Om surrounded by sages offering water">
-<div class="water-split" aria-hidden="true">
-          <span class="split-stream split-left"></span>
-          <span class="split-stream split-right"></span>
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="om-orbit">
+<div class="om-orbit">
           <div class="om-light"></div>
           <div class="om-disc"></div>
           <div class="om-triangles" aria-hidden="true"></div>
@@ -934,13 +858,9 @@
     showMantra();
     setInterval(showMantra, 5000);
   </script>
-</body>
-</html>
+
 <style>
 /* Side sages removed: keep the OM composition centered and mobile-friendly. */
-.sage-left,.sage-right,.sage{display:none !important;}
-.om-sacred-stage{padding-left:0 !important;padding-right:0 !important;}
-@media (max-width:650px){
-  .om-sacred-stage{width:100%;max-width:100vw;overflow:hidden;}
-}
 </style>
+</body>
+</html>

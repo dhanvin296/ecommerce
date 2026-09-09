@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#6b3f20">
   <title>Shop Havan Samagri Online | Dhanvin Online</title>
   <meta name="description" content="Buy Havan Samagri and traditional Puja essentials online from Dhanvin Online. Browse Havan wood, cow dung cakes, Ganga Jal and Kala Til.">
@@ -736,8 +736,9 @@
       left:20px;
       bottom:90px;
       width:min(390px,calc(100vw - 40px));
-      height:min(570px,calc(100vh - 125px));
+      height:min(600px,calc(100dvh - 125px));
       min-height:390px;
+      max-height:calc(100dvh - 125px);
       z-index:2150;
       display:flex;
       flex-direction:column;
@@ -917,21 +918,138 @@
 
     .ai-send:hover{background:#8a542b}
 
+    /* AI ASSISTANT — MOBILE OPTIMIZED */
     @media (max-width:600px){
       .ai-assistant-button{
         left:14px;
-        bottom:14px;
-        width:55px;
-        height:55px;
+        bottom:max(14px, env(safe-area-inset-bottom));
+        width:54px;
+        height:54px;
+        font-size:23px;
+      }
+
+      .ai-assistant-button .ai-face{
+        width:28px;
+        height:28px;
       }
 
       .ai-assistant{
-        left:12px;
-        bottom:80px;
-        width:calc(100vw - 24px);
-        height:min(570px,calc(100vh - 105px));
-        min-height:380px;
-        border-radius:19px;
+        left:10px;
+        right:10px;
+        bottom:calc(76px + env(safe-area-inset-bottom));
+        width:auto;
+        height:min(620px, calc(100dvh - 92px - env(safe-area-inset-bottom)));
+        min-height:0;
+        max-height:calc(100dvh - 92px - env(safe-area-inset-bottom));
+        border-radius:18px;
+      }
+
+      .ai-header{
+        padding:13px 14px;
+        min-height:62px;
+      }
+
+      .ai-header-icon{
+        width:34px;
+        height:34px;
+        font-size:16px;
+      }
+
+      .ai-header strong{
+        font-size:13px;
+      }
+
+      .ai-status{
+        font-size:10px;
+      }
+
+      .ai-close{
+        width:36px;
+        height:36px;
+        font-size:20px;
+      }
+
+      .ai-messages{
+        padding:12px;
+        overscroll-behavior:contain;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .ai-message{
+        max-width:92%;
+        padding:9px 11px;
+        margin-bottom:8px;
+        font-size:13px;
+        line-height:1.48;
+      }
+
+      .ai-quick{
+        padding:8px 10px 3px;
+        gap:6px;
+        max-height:96px;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .ai-quick button{
+        padding:7px 9px;
+        min-height:34px;
+        font-size:10.5px;
+      }
+
+      .ai-input-row{
+        padding:8px 10px calc(10px + env(safe-area-inset-bottom));
+        gap:7px;
+      }
+
+      .ai-input{
+        height:44px;
+        font-size:16px; /* prevents iOS Safari zoom */
+        padding:0 11px;
+      }
+
+      .ai-send{
+        width:44px;
+        height:44px;
+        flex:0 0 44px;
+      }
+    }
+
+    /* SMALL PHONES */
+    @media (max-width:380px){
+      .ai-assistant{
+        left:8px;
+        right:8px;
+        bottom:calc(72px + env(safe-area-inset-bottom));
+        height:calc(100dvh - 84px - env(safe-area-inset-bottom));
+        max-height:calc(100dvh - 84px - env(safe-area-inset-bottom));
+        border-radius:16px;
+      }
+
+      .ai-header{
+        padding:11px 12px;
+      }
+
+      .ai-messages{
+        padding:10px;
+      }
+
+      .ai-quick button{
+        font-size:10px;
+        min-height:32px;
+      }
+    }
+
+    /* LANDSCAPE PHONES */
+    @media (max-width:600px) and (orientation:landscape){
+      .ai-assistant{
+        bottom:10px;
+        height:calc(100dvh - 20px);
+        max-height:calc(100dvh - 20px);
+      }
+
+      .ai-assistant-button{
+        bottom:12px;
       }
     }
 

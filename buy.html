@@ -675,7 +675,7 @@
     // 2) FRONTEND SETTINGS
     // =============================
     const RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID"; // ONLY Key ID goes here. NEVER put Key Secret in HTML.
-    const API_BASE_URL = ""; // e.g. "https://your-api.example.com". Leave blank if same domain.
+    const API_BASE_URL = "http://localhost:3000"; // Leave blank when the API server is on the same domain.
     const BUSINESS_NAME = "Havan Samagree";
 
     // The backend gets the real Delhivery rate. If your products have weights in the cart,
@@ -794,7 +794,7 @@
       deliveryFee = Number(result.deliveryFee);
       document.getElementById("deliveryFee").textContent = deliveryFee === 0 ? "FREE" : "₹" + deliveryFee;
       document.getElementById("payableAmount").textContent = "₹" + (productsTotal + deliveryFee);
-      setStatus("Delhivery delivery charge calculated.");
+      setStatus("Delivery charge calculated.");
       return deliveryFee;
     }
 
