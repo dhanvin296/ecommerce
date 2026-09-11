@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#6b3f20">
   <title>Complete Your Order | Dhanvin Online</title>
-  <meta name="description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+  <meta name="description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and place your order with Cash on Delivery.">
   <meta name="keywords" content="Dhanvin Online checkout, Havan Samagri order, Havan Samagree checkout, Puja Samagri delivery">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://dhanvin.online/buy.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Dhanvin Online">
   <meta property="og:title" content="Complete Your Order | Dhanvin Online">
-  <meta property="og:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+  <meta property="og:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and place your order with Cash on Delivery.">
   <meta property="og:url" content="https://dhanvin.online/buy.html">
   <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Complete Your Order | Dhanvin Online">
-  <meta name="twitter:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and choose Cash on Delivery or online payment.">
+  <meta name="twitter:description" content="Complete your Havan Samagri order securely on Dhanvin Online. Enter delivery details and place your order with Cash on Delivery.">
 
 
   <style>
@@ -138,6 +138,77 @@
 
     .cart-item:last-child { border-bottom:0; }
 
+    .cart-item {
+      display:grid;
+      grid-template-columns:78px minmax(0,1fr) auto;
+      align-items:center;
+      gap:16px;
+      padding:16px 0;
+      border-bottom:1px solid #f0e4d4;
+    }
+    .cart-item-image {
+      width:78px;
+      height:78px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:linear-gradient(145deg,#fff8e9,#fffdf9);
+      display:grid;
+      place-items:center;
+      flex:none;
+    }
+    .cart-item-image img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .cart-item-image .image-fallback {
+      color:var(--gold);
+      font-family:Georgia,serif;
+      font-size:25px;
+    }
+    .item-main { min-width:0; }
+    .item-name {
+      color:var(--brown);
+      font-family:Georgia,serif;
+      font-size:18px;
+      font-weight:700;
+      line-height:1.3;
+    }
+    .item-details {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:6px;
+      line-height:1.5;
+    }
+    .item-total {
+      color:var(--brown);
+      font-weight:800;
+      white-space:nowrap;
+      text-align:right;
+    }
+    .cart-count {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:28px;
+      height:24px;
+      padding:0 8px;
+      border-radius:999px;
+      background:#fff4dc;
+      color:var(--brown);
+      font-size:12px;
+      font-weight:800;
+      margin-left:5px;
+    }
+    @media (max-width:600px) {
+      .cart-item { grid-template-columns:62px minmax(0,1fr); gap:12px; }
+      .cart-item-image { width:62px; height:62px; border-radius:12px; }
+      .item-total { grid-column:2; text-align:left; margin-top:-5px; }
+      .item-name { font-size:16px; }
+    }
+
     .item-name {
       color:var(--brown);
       font-family:Georgia,serif;
@@ -176,6 +247,71 @@
     .empty a {
       color:var(--brown);
       font-weight:700;
+    }
+
+    .saved-address-card {
+      display:none;
+      margin-bottom:20px;
+      padding:16px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(145deg,#fff8e9,#fffdf9);
+    }
+    .saved-address-card.show { display:block; }
+    .saved-address-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .saved-address-title {
+      color:var(--brown);
+      font-weight:800;
+      font-size:15px;
+    }
+    .saved-address-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:#4f7a3a;
+      font-size:12px;
+      font-weight:700;
+    }
+    .saved-address-preview {
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      padding-right:8px;
+    }
+    .saved-address-actions {
+      display:flex;
+      gap:9px;
+      margin-top:13px;
+    }
+    .saved-address-btn {
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:#fff;
+      color:var(--brown);
+      padding:9px 13px;
+      font:inherit;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .saved-address-btn.primary {
+      background:var(--brown);
+      border-color:var(--brown);
+      color:#fff;
+    }
+    .saved-address-btn:hover { filter:brightness(1.04); }
+    .address-form-wrap.hidden { display:none; }
+    .address-form-note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      margin-bottom:15px;
     }
 
     .form-grid {
@@ -449,7 +585,7 @@
     .next-btn:hover,.buy-now:hover{background:linear-gradient(135deg,#7d4a27,#552f19);filter:brightness(1.06)}
 
   </style>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -495,6 +631,21 @@
     <section id="step2" class="step">
       <div class="card">
         <h2>2. Delivery Details</h2>
+
+        <div id="savedAddressCard" class="saved-address-card" aria-live="polite">
+          <div class="saved-address-head">
+            <div class="saved-address-title">Saved delivery address</div>
+            <div class="saved-address-badge">✓ Saved on this device</div>
+          </div>
+          <div id="savedAddressPreview" class="saved-address-preview"></div>
+          <div class="saved-address-actions">
+            <button id="useSavedAddress" class="saved-address-btn primary" type="button">DONE — USE THIS</button>
+            <button id="editSavedAddress" class="saved-address-btn" type="button" aria-label="Edit saved address">✎ Edit</button>
+          </div>
+        </div>
+
+        <div id="addressFormWrap" class="address-form-wrap">
+          <div id="addressFormNote" class="address-form-note">Enter your details once. We'll save them on this device for your next order.</div>
 
         <form id="deliveryForm" novalidate>
           <div class="form-grid">
@@ -595,6 +746,7 @@
             <button class="next-btn" type="submit">NEXT →</button>
           </div>
         </form>
+        </div>
       </div>
     </section>
 
@@ -611,7 +763,8 @@
             <strong id="summaryProducts">₹0</strong>
           </div>
 
-          <div class="summary-row">
+          <!-- Delivery charge is calculated in backend but never displayed to the customer. -->
+          <div class="summary-row" id="deliveryFeeRow" hidden aria-hidden="true">
             <span>Delivery Fee</span>
             <strong id="deliveryFee">₹0</strong>
           </div>
@@ -621,21 +774,32 @@
             <strong id="payableAmount">₹0</strong>
           </div>
 
-          <p class="delivery-note">
-            Delivery fee is fetched from the Delhivery rate API for the selected destination and payment mode.
-          </p>
+          <!-- Delhivery fee remains internal and is not shown on the checkout page. -->
         </div>
 
         <h2 style="margin-top:24px;margin-bottom:12px;font-size:21px;">4. Payment Method</h2>
         <div class="payment-methods" role="radiogroup" aria-label="Payment method">
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="cod" checked>
-            <div><strong>Cash on Delivery</strong><span>Pay when your package arrives.</span></div>
+            <div>
+              <strong>Cash on Delivery</strong>
+              <span>Pay when your package arrives.</span>
+            </div>
           </label>
+
+          <!-- ONLINE PAYMENT TEMPORARILY DISABLED
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="online">
-            <div><strong>Online Payment</strong><span>Pay securely with Razorpay.</span></div>
+            <div>
+              <strong>Online Payment</strong>
+              <span>Pay securely with Razorpay.</span>
+            </div>
           </label>
+          -->
+        </div>
+
+        <div class="status-note" style="margin-top:14px;">
+          Online payment is temporarily unavailable. Orders are currently accepted as Cash on Delivery.
         </div>
         <div id="paymentStatus" class="status-note" aria-live="polite"></div>
 
@@ -655,58 +819,57 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 
     // =============================
-    // 1) FILL YOUR FIREBASE CONFIG
+    // 2) EMAILJS CONFIG
     // =============================
-    const FIREBASE_CONFIG = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_FIREBASE_APP_ID"
-    };
+    // Get these 3 values from your EmailJS dashboard.
+    // The Public Key is safe to use in browser code.
+    const EMAILJS_PUBLIC_KEY = "xxKbfzJ4hfC7xCdvG";
+    const EMAILJS_SERVICE_ID = "service_k2vjze9";
+    const EMAILJS_TEMPLATE_ID = "template_aqole7m";
+
+    const emailjsConfigured =
+      !EMAILJS_PUBLIC_KEY.startsWith("YOUR_") &&
+      !EMAILJS_SERVICE_ID.startsWith("YOUR_") &&
+      !EMAILJS_TEMPLATE_ID.startsWith("YOUR_");
+
+    if (emailjsConfigured) {
+      emailjs.init({
+        publicKey: EMAILJS_PUBLIC_KEY,
+        limitRate: {
+          id: "dhanvin-orders",
+          throttle: 1000
+        }
+      });
+    }
 
     // =============================
-    // 2) FRONTEND SETTINGS
+    // 3) FRONTEND SETTINGS
     // =============================
-    const RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID"; // ONLY Key ID goes here. NEVER put Key Secret in HTML.
-    const API_BASE_URL = "http://localhost:3000"; // Leave blank when the API server is on the same domain.
+// ONLY Key ID goes here. NEVER put Key Secret in HTML.
+    const API_BASE_URL = "https://ecommerce-n53x.onrender.com";
     const BUSINESS_NAME = "Havan Samagree";
 
     // The backend gets the real Delhivery rate. If your products have weights in the cart,
     // each cart item may contain weightGrams. Otherwise this default is used.
     const DEFAULT_ITEM_WEIGHT_GRAMS = 500;
 
-    const firebaseConfigured = !Object.values(FIREBASE_CONFIG).some(v => String(v).startsWith("YOUR_"));
-    let firebaseApp = null;
-    let auth = null;
-    let db = null;
-    let currentUser = null;
-
-    if (firebaseConfigured) {
-      firebaseApp = initializeApp(FIREBASE_CONFIG);
-      auth = getAuth(firebaseApp);
-      db = getFirestore(firebaseApp);
-      try {
-        const result = await signInAnonymously(auth);
-        currentUser = result.user;
-      } catch (error) {
-        console.error("Firebase anonymous sign-in failed:", error);
-      }
-    }
 
     const CART_KEY = "havanSamagreeCart";
+    const SAVED_ADDRESS_KEY = "dhanvinSavedDeliveryAddress";
     let cart = [];
     let customer = {};
+    let savedCustomer = null;
     let productsTotal = 0;
     let deliveryFee = 0;
     let paymentMethod = "cod";
     let orderFinalized = false;
+
+    // TEMPORARY: online/Razorpay payment is disabled.
+    // Set to true later when you are ready to re-enable online payments.
+    const ONLINE_PAYMENT_ENABLED = false;
 
     function apiUrl(path) {
       return API_BASE_URL.replace(/\/$/, "") + path;
@@ -720,6 +883,86 @@
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || "Server request failed.");
       return data;
+    }
+
+    function loadSavedAddress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SAVED_ADDRESS_KEY) || "null");
+        if (saved && typeof saved === "object" && saved.name && saved.phone && saved.pincode && saved.state && saved.address && saved.city) {
+          savedCustomer = saved;
+        } else {
+          savedCustomer = null;
+        }
+      } catch {
+        savedCustomer = null;
+      }
+
+      const card = document.getElementById("savedAddressCard");
+      const preview = document.getElementById("savedAddressPreview");
+      if (!card || !preview) return;
+
+      if (!savedCustomer) {
+        card.classList.remove("show");
+        return;
+      }
+
+      preview.innerHTML =
+        `<strong>${escapeHtml(savedCustomer.name)}</strong><br>` +
+        `${escapeHtml(savedCustomer.address)}, ${escapeHtml(savedCustomer.city)}<br>` +
+        `${escapeHtml(savedCustomer.state)} - ${escapeHtml(savedCustomer.pincode)}<br>` +
+        `Phone: ${escapeHtml(savedCustomer.phone)}` +
+        (savedCustomer.landmark ? `<br>Landmark: ${escapeHtml(savedCustomer.landmark)}` : "");
+
+      card.classList.add("show");
+    }
+
+    function fillDeliveryForm(data) {
+      document.getElementById("name").value = data.name || "";
+      document.getElementById("phone").value = data.phone || "";
+      document.getElementById("pincode").value = data.pincode || "";
+      document.getElementById("state").value = data.state || "";
+      document.getElementById("address").value = data.address || "";
+      document.getElementById("city").value = data.city || "";
+      document.getElementById("landmark").value = data.landmark || "";
+      document.getElementById("email").value = data.email || "";
+      document.getElementById("alternatePhone").value = data.alternatePhone || "";
+    }
+
+    function saveDeliveryAddress(data) {
+      try {
+        localStorage.setItem(SAVED_ADDRESS_KEY, JSON.stringify({
+          name: data.name || "",
+          phone: data.phone || "",
+          pincode: data.pincode || "",
+          state: data.state || "",
+          address: data.address || "",
+          city: data.city || "",
+          landmark: data.landmark || "",
+          email: data.email || "",
+          alternatePhone: data.alternatePhone || ""
+        }));
+        savedCustomer = data;
+        loadSavedAddress();
+      } catch (error) {
+        console.warn("Could not save delivery address locally:", error);
+      }
+    }
+
+    function showSavedAddressMode() {
+      const wrap = document.getElementById("addressFormWrap");
+      const card = document.getElementById("savedAddressCard");
+      if (savedCustomer && wrap && card) {
+        wrap.classList.add("hidden");
+        card.classList.add("show");
+      }
+    }
+
+    function showAddressEditMode() {
+      const wrap = document.getElementById("addressFormWrap");
+      if (wrap) wrap.classList.remove("hidden");
+      if (savedCustomer) fillDeliveryForm(savedCustomer);
+      document.getElementById("savedAddressCard")?.classList.remove("show");
+      document.getElementById("formError").textContent = "";
     }
 
     function loadCart() {
@@ -746,10 +989,26 @@
       }, 0));
     }
 
+    function getItemImage(item) {
+      const candidates = [
+        item.image_url,
+        item.imageUrl,
+        item.image,
+        item.img,
+        item.thumbnail,
+        item.photo,
+        item.productImage,
+        item.product_image
+      ];
+      const value = candidates.find(v => typeof v === "string" && v.trim());
+      return value ? value.trim() : "";
+    }
+
     function renderCart() {
       const container = document.getElementById("cartItems");
       productsTotal = calculateProductsTotal();
       document.getElementById("productsTotal").textContent = "₹" + productsTotal;
+
       if (!cart.length) {
         container.innerHTML = '<div class="empty">Your cart is empty.<br><a href="shop.html">Go back to the shop</a></div>';
         document.getElementById("nextToDetails").disabled = true;
@@ -757,11 +1016,33 @@
         document.getElementById("nextToDetails").style.pointerEvents = "none";
         return;
       }
+
+      const totalUnits = cart.reduce((sum, item) => sum + Math.floor(Number(item.quantity)), 0);
       container.innerHTML = cart.map(item => {
         const price = Number(item.price);
         const quantity = Math.floor(Number(item.quantity));
-        return `<article class="cart-item"><div><div class="item-name">${escapeHtml(item.product)}</div><div class="item-details">₹${price} each × ${quantity}</div></div><div class="item-total">₹${price * quantity}</div></article>`;
+        const imageUrl = getItemImage(item);
+        const imageHtml = imageUrl
+          ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.product)}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=&quot;image-fallback&quot;>ॐ</span>'">`
+          : '<span class="image-fallback">ॐ</span>';
+
+        return `
+          <article class="cart-item">
+            <div class="cart-item-image">${imageHtml}</div>
+            <div class="item-main">
+              <div class="item-name">${escapeHtml(item.product)}</div>
+              <div class="item-details">₹${price} each × ${quantity}</div>
+            </div>
+            <div class="item-total">₹${price * quantity}</div>
+          </article>
+        `;
       }).join("");
+
+      // Keep the count useful without changing the existing layout.
+      const heading = document.querySelector("#step1 .card h2");
+      if (heading) {
+        heading.innerHTML = `1. Your Cart <span class="cart-count">${totalUnits} item${totalUnits === 1 ? "" : "s"}</span>`;
+      }
     }
 
     function showStep(number) {
@@ -792,38 +1073,107 @@
       });
       if (!Number.isFinite(Number(result.deliveryFee))) throw new Error("Delhivery returned an invalid delivery charge.");
       deliveryFee = Number(result.deliveryFee);
-      document.getElementById("deliveryFee").textContent = deliveryFee === 0 ? "FREE" : "₹" + deliveryFee;
-      document.getElementById("payableAmount").textContent = "₹" + (productsTotal + deliveryFee);
-      setStatus("Delivery charge calculated.");
+      // Delivery fee is intentionally NOT shown in the customer's bill.
+      document.getElementById("deliveryFee").textContent = "";
+      document.getElementById("payableAmount").textContent = "₹" + productsTotal;
+      setStatus("");
       return deliveryFee;
     }
+    function createOrderId() {
+      const now = new Date();
+      const stamp = [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        String(now.getDate()).padStart(2, "0"),
+        String(now.getHours()).padStart(2, "0"),
+        String(now.getMinutes()).padStart(2, "0"),
+        String(now.getSeconds()).padStart(2, "0")
+      ].join("");
+      const random = Math.random().toString(36).slice(2, 8).toUpperCase();
+      return `DH-${stamp}-${random}`;
+    }
 
-    async function saveOrderToFirebase({ paymentId = null, razorpayOrderId = null }) {
-      if (!firebaseConfigured || !db || !currentUser) {
-        throw new Error("Firebase is not configured. Fill FIREBASE_CONFIG and enable Anonymous Authentication.");
+    async function sendOrderEmail(orderId) {
+      if (!emailjsConfigured) {
+        console.warn("EmailJS is not configured. No order email was sent.");
+        return { sent: false, skipped: true };
       }
-      const order = {
-        userId: currentUser.uid,
-        items: cart.map(item => ({ product: String(item.product), price: Number(item.price), quantity: Math.floor(Number(item.quantity)), weightGrams: Number(item.weightGrams) > 0 ? Number(item.weightGrams) : DEFAULT_ITEM_WEIGHT_GRAMS })),
-        customer,
-        paymentMethod,
-        paymentStatus: paymentMethod === "cod" ? "cod_pending" : "paid",
-        productsTotal,
-        deliveryFee,
-        total: productsTotal + deliveryFee,
-        razorpayPaymentId: paymentId,
-        razorpayOrderId,
-        createdAt: serverTimestamp()
+
+      // This matches EmailJS's built-in "Order Confirmation" template:
+      // email, order_id, orders[], cost.shipping, cost.tax, cost.total.
+      const orders = cart.map(item => ({
+        name: String(item.product),
+        units: Math.floor(Number(item.quantity)),
+        price: Number(item.price),
+        image_url: getItemImage(item)
+      }));
+
+      const orderData = {
+        order_id: orderId,
+        email: customer.email || "",
+        order_date: new Date().toLocaleString("en-IN", {
+          dateStyle: "medium",
+          timeStyle: "short",
+          timeZone: "Asia/Kolkata"
+        }),
+
+        // Order Confirmation template fields.
+        orders,
+        cost: {
+          shipping: deliveryFee === 0 ? "FREE" : "₹" + deliveryFee,
+          tax: "",
+          total: "₹" + (productsTotal + deliveryFee)
+        },
+
+        // Additional fields retained for your own order email/customization.
+        business_name: BUSINESS_NAME,
+        payment_method: "Cash on Delivery",
+        payment_status: "COD - Pending",
+        customer_name: customer.name,
+        customer_phone: customer.phone,
+        customer_email: customer.email || "",
+        alternate_phone: customer.alternatePhone || "",
+        address: customer.address,
+        city: customer.city,
+        state: customer.state,
+        pincode: customer.pincode,
+        landmark: customer.landmark || "",
+        products_total: "₹" + productsTotal,
+        delivery_fee: deliveryFee === 0 ? "FREE" : "₹" + deliveryFee,
+        total_amount: "₹" + (productsTotal + deliveryFee),
+
+        // Human-readable fallback list.
+        items_text: cart.map(item =>
+          `${String(item.product)} — ₹${Number(item.price)} × ${Math.floor(Number(item.quantity))}`
+        ).join("\n"),
+
+        // Complete raw order data.
+        order_data: JSON.stringify({
+          orderId,
+          orderDate: new Date().toISOString(),
+          customer,
+          items: cart,
+          paymentMethod: "cod",
+          paymentStatus: "cod_pending",
+          productsTotal,
+          deliveryFee,
+          tax: "",
+          total: productsTotal + deliveryFee
+        }, null, 2)
       };
-      const orderRef = await addDoc(collection(db, "orders"), order);
-      await setDoc(doc(db, "users", currentUser.uid), {
-        uid: currentUser.uid,
-        name: customer.name, phone: customer.phone, email: customer.email || "",
-        address: customer.address, city: customer.city, state: customer.state,
-        pincode: customer.pincode, landmark: customer.landmark || "",
-        alternatePhone: customer.alternatePhone || "", updatedAt: serverTimestamp()
-      }, { merge: true });
-      return orderRef.id;
+
+      try {
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          orderData
+        );
+        console.log("Order email sent successfully.");
+        return { sent: true, skipped: false };
+      } catch (error) {
+        console.error("EmailJS order email failed:", error);
+        return { sent: false, skipped: false, error };
+      }
     }
 
     function showSuccess(orderId) {
@@ -834,8 +1184,22 @@
     async function completeOrder(paymentId = null, razorpayOrderId = null) {
       if (orderFinalized) return;
       orderFinalized = true;
-      const orderId = await saveOrderToFirebase({ paymentId, razorpayOrderId });
+
+      const orderId = createOrderId();
+
+      // Send the complete order details to your email through EmailJS.
+      const emailResult = await sendOrderEmail(orderId);
+
       localStorage.removeItem(CART_KEY);
+
+      if (emailResult.sent) {
+        setStatus("Order placed and order details emailed successfully.");
+      } else if (emailResult.skipped) {
+        setStatus("Order placed. Configure EmailJS to receive order emails.");
+      } else {
+        setStatus("Order placed, but the email notification could not be sent.");
+      }
+
       showSuccess(orderId);
     }
 
@@ -856,7 +1220,10 @@
       if (!validatePincode(pincode)) { error.textContent = "Enter a valid 6-digit PIN code."; document.getElementById("pincode").focus(); return; }
 
       customer = { name, phone, pincode, state, address, city, landmark: document.getElementById("landmark").value.trim(), email: document.getElementById("email").value.trim(), alternatePhone: document.getElementById("alternatePhone").value.trim() };
-      paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "cod";
+      saveDeliveryAddress(customer);
+      paymentMethod = ONLINE_PAYMENT_ENABLED
+        ? (document.querySelector('input[name="paymentMethod"]:checked')?.value || "cod")
+        : "cod";
       document.getElementById("summaryProducts").textContent = "₹" + productsTotal;
       document.getElementById("customerPreview").innerHTML = `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
       showStep(3);
@@ -869,7 +1236,7 @@
 
     document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
       input.addEventListener("change", async () => {
-        paymentMethod = input.value;
+        paymentMethod = ONLINE_PAYMENT_ENABLED ? input.value : "cod";
         document.getElementById("buyNow").disabled = false;
         document.getElementById("buyNow").style.opacity = "1";
         if (customer.pincode) {
@@ -886,42 +1253,17 @@
         // Re-fetch the courier rate immediately before payment/order placement.
         await fetchDelhiveryRate();
         const total = productsTotal + deliveryFee;
-        if (paymentMethod === "cod") {
+
+        // ONLINE PAYMENT IS TEMPORARILY DISABLED.
+        // COD is the only active payment method until ONLINE_PAYMENT_ENABLED is true.
+        if (!ONLINE_PAYMENT_ENABLED || paymentMethod === "cod") {
+          paymentMethod = "cod";
           await completeOrder();
           return;
         }
 
-        if (RAZORPAY_KEY_ID.startsWith("YOUR_")) throw new Error("Fill RAZORPAY_KEY_ID in buy.html first.");
-        const order = await apiFetch("/api/razorpay/create-order", {
-          method: "POST",
-          body: JSON.stringify({ amount: total, receipt: "hs_" + Date.now() })
-        });
-
-        const options = {
-          key: RAZORPAY_KEY_ID, amount: order.amount, currency: order.currency || "INR",
-          name: BUSINESS_NAME, description: "Havan Samagree order", order_id: order.id,
-          prefill: { name: customer.name, email: customer.email || undefined, contact: "+91" + customer.phone },
-          theme: { color: "#6b3f20" },
-          handler: async function(response) {
-            try {
-              setStatus("Verifying payment…");
-              const verified = await apiFetch("/api/razorpay/verify-payment", { method: "POST", body: JSON.stringify(response) });
-              if (!verified.verified) throw new Error("Payment verification failed.");
-              await completeOrder(response.razorpay_payment_id, response.razorpay_order_id);
-            } catch (err) {
-              orderFinalized = false;
-              setStatus(err.message || "Payment verification failed. Do not place the order again until you check Razorpay.", true);
-              button.classList.remove("busy");
-            }
-          },
-          modal: { ondismiss: () => { setStatus("Payment window closed. No order was placed."); button.classList.remove("busy"); } }
-        };
-        const rzp = new Razorpay(options);
-        rzp.on("payment.failed", function(response) {
-          setStatus(response.error?.description || "Payment failed. No order was placed.", true);
-          button.classList.remove("busy");
-        });
-        rzp.open();
+        // Future Razorpay flow can be restored here when online payments are enabled.
+        throw new Error("Online payment is temporarily unavailable.");
       } catch (err) {
         orderFinalized = false;
         setStatus(err.message || "Could not place the order.", true);
@@ -934,8 +1276,61 @@
       window.location.href = "shop.html";
     });
 
+    document.getElementById("useSavedAddress").addEventListener("click", async () => {
+      if (!savedCustomer) return;
+      fillDeliveryForm(savedCustomer);
+
+      customer = { ...savedCustomer };
+      paymentMethod = "cod";
+      document.getElementById("summaryProducts").textContent = "₹" + productsTotal;
+      document.getElementById("customerPreview").innerHTML =
+        `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
+
+      showStep(3);
+      try {
+        await fetchDelhiveryRate();
+      } catch (err) {
+        setStatus(err.message || "Could not calculate Delhivery delivery charge.", true);
+        document.getElementById("buyNow").disabled = true;
+        document.getElementById("buyNow").style.opacity = ".5";
+      }
+    });
+
+    document.getElementById("editSavedAddress").addEventListener("click", () => {
+      showAddressEditMode();
+    });
+
     loadCart();
     renderCart();
+    loadSavedAddress();
+
+    /*
+      EMAILJS TEMPLATE SETUP
+      ----------------------
+      In your EmailJS template, use variables such as:
+
+      {{order_id}}
+      {{order_date}}
+      {{business_name}}
+      {{customer_name}}
+      {{customer_phone}}
+      {{customer_email}}
+      {{alternate_phone}}
+      {{address}}
+      {{city}}
+      {{state}}
+      {{pincode}}
+      {{landmark}}
+      {{items_text}}
+      {{products_total}}
+      {{delivery_fee}}
+      {{total_amount}}
+      {{payment_method}}
+      {{payment_status}}
+      {{order_data}}
+
+      Set the EmailJS template "To Email" field to YOUR email address.
+    */
   </script>
 
 </body>
