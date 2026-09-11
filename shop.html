@@ -1637,6 +1637,16 @@
       updateCartUI();
     }
 
+    // Quantity units:
+    // Ganga Jal is sold by litre; all other products are sold by kilogram.
+    function getQuantityUnit(product) {
+      return String(product || "").toLowerCase().includes("ganga jal") ? "L" : "KG";
+    }
+
+    function formatQuantity(product, quantity) {
+      return `${quantity} ${getQuantityUnit(product)}`;
+    }
+
     function updateCartUI() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -1663,7 +1673,7 @@
 
             <div class="cart-item-actions">
               <button class="qty-btn" type="button" onclick="changeQuantity(${index}, -1)">−</button>
-              <strong>${item.quantity}</strong>
+              <strong>${formatQuantity(item.product, item.quantity)}</strong>
               <button class="qty-btn" type="button" onclick="changeQuantity(${index}, 1)">+</button>
               <button class="remove-btn" type="button" onclick="removeFromCart(${index})">Remove</button>
             </div>
