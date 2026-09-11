@@ -854,7 +854,7 @@
 
     // The backend gets the real Delhivery rate. If your products have weights in the cart,
     // each cart item may contain weightGrams. Otherwise this default is used.
-    const DEFAULT_ITEM_WEIGHT_GRAMS = 500;
+    const DEFAULT_ITEM_WEIGHT_GRAMS = 1000;
 
 
     const CART_KEY = "havanSamagreeCart";
@@ -984,9 +984,24 @@
 
     function calculateWeightGrams() {
       return Math.max(1, cart.reduce((sum, item) => {
-        const itemWeight = Number(item.weightGrams) > 0 ? Number(item.weightGrams) : DEFAULT_ITEM_WEIGHT_GRAMS;
+        const itemWeight = Number(item.weightGrams) > 0
+          ? Number(item.weightGrams)
+          : DEFAULT_ITEM_WEIGHT_GRAMS;
         return sum + itemWeight * Math.floor(Number(item.quantity));
       }, 0));
+    }
+
+    // Display product quantities with proper units:
+    // - Ganga Jal is measured in litres.
+    // - All other products are measured in kilograms.
+    function getQuantityUnit(item) {
+      const productName = String(item?.product || "").toLowerCase();
+      return productName.includes("ganga jal") ? "L" : "KG";
+    }
+
+    function formatQuantity(item, quantity) {
+      const unit = getQuantityUnit(item);
+      return `${quantity} ${unit}`;
     }
 
     function getItemImage(item) {
