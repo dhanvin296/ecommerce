@@ -3,255 +3,319 @@
 <head>
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#17100a">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2b1d12">
   <title>Dhanvin Online | Havan Samagri & Puja Essentials</title>
-  <meta name="description" content="Shop authentic Havan Samagri and traditional Puja essentials online at Dhanvin Online. Explore Havan wood, cow dung cakes, Ganga Jal, Kala Til and more.">
-  <meta name="keywords" content="Dhanvin Online, Havan Samagri, Havan Samagree, Puja Samagri, Havan products, Puja essentials, Havan wood, cow dung cakes, Ganga Jal, Kala Til">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Shop authentic Havan Samagri and traditional Puja essentials online at Dhanvin Online.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://dhanvin.online/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Dhanvin Online">
-  <meta property="og:title" content="Dhanvin Online | Havan Samagri &amp; Puja Essentials">
-  <meta property="og:description" content="Shop authentic Havan Samagri and traditional Puja essentials online at Dhanvin Online. Explore Havan wood, cow dung cakes, Ganga Jal, Kala Til and more.">
-  <meta property="og:url" content="https://dhanvin.online/">
-  <meta property="og:locale" content="en_IN">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Dhanvin Online | Havan Samagri &amp; Puja Essentials">
-  <meta name="twitter:description" content="Shop authentic Havan Samagri and traditional Puja essentials online at Dhanvin Online. Explore Havan wood, cow dung cakes, Ganga Jal, Kala Til and more.">
 
   <style>
     :root{
-      --gold:#f3c66b;
-      --cream:#fff6df;
-      --glass:rgba(30,20,12,.34);
-      --line:rgba(255,235,190,.22);
+      --gold:#b56a00;
+      --gold-2:#e08a00;
+      --cream:#24180d;
+      --ink:#100903;
+      --line:rgba(91,61,25,.18);
+      --glass:rgba(255,255,255,.72);
+      --surface:#ffffff;
+      --surface-2:#fffaf1;
+      --muted:#6f6254;
+      --shadow:0 18px 50px rgba(80,52,18,.12);
+      --nav-h:66px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
       color:var(--cream);
-      font-family: "Noto Sans Devanagari","Nirmala UI","Segoe UI",sans-serif;
-      background:#160e08 url("assets/bg.png") center/cover no-repeat;
-      min-height:100vh;
+      font-family:"Noto Sans Devanagari","Nirmala UI","Segoe UI",sans-serif;
+      background:linear-gradient(180deg,#fffdf9 0%,#f7f1e8 100%);
       overflow-x:hidden;
       scrollbar-width:none;
-      -ms-overflow-style:none;
     }
-    body::-webkit-scrollbar{display:none;width:0;height:0;}
-    body::before{
-      content:"";
-      position:fixed; inset:0; z-index:-1;
-      background:
-        linear-gradient(180deg,rgba(10,7,4,.43),rgba(13,8,4,.64)),
-        radial-gradient(circle at 50% 24%,rgba(255,190,75,.13),transparent 35%);
-      pointer-events:none;
-    }
+    body::-webkit-scrollbar{display:none}
+    img{max-width:100%}
+    a{-webkit-tap-highlight-color:transparent}
 
+    /* =========================
+       MOBILE-FIRST NAVIGATION
+       ========================= */
     .nav{
-      position:fixed; top:16px; left:50%; transform:translateX(-50%);
-      width:min(1100px,calc(100% - 28px));
-      z-index:20;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:11px 16px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      background:rgba(25,16,9,.28);
-      backdrop-filter:blur(18px) saturate(130%);
-      -webkit-backdrop-filter:blur(18px) saturate(130%);
-      box-shadow:0 12px 45px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.08);
-    }
-    .brand{font-size:1.35rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
-    .nav a{color:#fff3d4;text-decoration:none;font-size:.92rem;margin-left:20px;opacity:.9}
-    .nav a:hover{color:var(--gold)}
-    .mpoxel-link{color:var(--gold);text-decoration:none;font-weight:700}
-    .mpoxel-link:hover{color:#fff0bd}
-    .hero{
-      min-height:100vh;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center;
-      padding:120px 20px 70px;
-    }
-    /* Sacred water-offering scene around the OM */
-    .om-sacred-stage{
-      position:relative;
-      width:min(1180px,100vw);
-      height:clamp(390px,48vw,620px);
+      position:fixed;
+      top:max(10px,env(safe-area-inset-top));
+      left:50%;
+      transform:translateX(-50%);
+      width:min(1120px,calc(100% - 24px));
+      min-height:var(--nav-h);
+      z-index:100;
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:9px 12px 9px 18px;
+      border:1px solid rgba(91,61,25,.16);
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(14px) saturate(125%);
+      -webkit-backdrop-filter:blur(14px) saturate(125%);
+      box-shadow:0 12px 40px rgba(80,52,18,.12),inset 0 1px rgba(255,255,255,.8);
+    }
+    .brand{
+      color:var(--gold);
+      font-size:1.04rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      white-space:nowrap;
+      text-shadow:0 2px 12px rgba(243,198,107,.16);
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+    .nav-links a{
+      color:#3f3225;
+      text-decoration:none;
+      font-size:.86rem;
+      padding:10px 12px;
+      border-radius:12px;
+      opacity:.92;
+    }
+    .nav-links a:hover{color:var(--gold);background:rgba(243,198,107,.07)}
+    .menu-toggle{
+      display:none;
+      width:42px;
+      height:42px;
+      border:1px solid rgba(255,235,190,.25);
+      border-radius:12px;
+      background:rgba(255,255,255,.045);
+      color:#3f3225;
+      cursor:pointer;
+    }
+    .menu-toggle span,
+    .menu-toggle span::before,
+    .menu-toggle span::after{
+      display:block;
+      width:18px;
+      height:2px;
+      margin:auto;
+      border-radius:99px;
+      background:currentColor;
+      transition:transform .22s ease,opacity .22s ease;
+    }
+    .menu-toggle span::before,
+    .menu-toggle span::after{content:""}
+    .menu-toggle span::before{transform:translateY(-6px)}
+    .menu-toggle span::after{transform:translateY(4px)}
+    .nav.open .menu-toggle span{transform:rotate(45deg)}
+    .nav.open .menu-toggle span::before{transform:translateY(0) rotate(90deg)}
+    .nav.open .menu-toggle span::after{opacity:0}
+
+    /* =========================
+       HERO — THREE VISUAL LAYERS
+       1 = mountain background
+       1.5 = rising sun + OM
+       2 = temple foreground
+       ========================= */
+    .hero{
+      min-height:100svh;
+      padding:calc(var(--nav-h) + 30px) 16px 70px;
+      text-align:center;
+      position:relative;
       isolation:isolate;
+    }
+    .hero-scene{
+      position:relative;
+      width:min(1380px,100%);
+      height:clamp(470px,62vw,760px);
       margin:0 auto;
+      overflow:hidden;
+      isolation:isolate;
+      border-radius:0 0 34px 34px;
     }
-
-    .sage{
+    .hero-bg{
       position:absolute;
-      top:50%;
-      width:clamp(250px,30vw,410px);
-      height:clamp(375px,45vw,615px);
-      z-index:4;
-      pointer-events:none;
-      transform:translateY(-50%);
-      filter:drop-shadow(0 18px 28px rgba(0,0,0,.22));
-    }
-
-    .sage img{
+      inset:0;
+      z-index:1;
       width:100%;
       height:100%;
-      object-fit:contain;
+      object-fit:cover;
+      object-position:center;
       display:block;
+      user-select:none;
+      pointer-events:none;
+      transform:translateZ(0);
+    }
+    .hero-scene::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:4;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.02) 0%,transparent 34%,rgba(67,39,10,.08) 74%,rgba(67,39,10,.24) 100%),
+        radial-gradient(circle at 50% 43%,transparent 30%,rgba(255,255,255,.10) 100%);
     }
 
-    .sage-left{
-      left:clamp(-30px,1vw,24px);
-    }
-
-    .sage-left img{
-      transform:scaleX(-1);
-    }
-
-    .sage-right{
-      right:clamp(-30px,1vw,24px);
-    }
-
-    .om-sacred-stage .om-orbit{
-      z-index:5;
-      width:clamp(290px,38vw,510px);
-      height:clamp(290px,38vw,510px);
-    }
-
-
-    .om-orbit{
-      position:relative;
-      width:clamp(310px,42vw,560px);
-      height:clamp(310px,42vw,560px);
+    /* The sun intentionally sits BETWEEN the background and temple.
+       The temple overlaps its lower/central area to create the
+       requested "rising behind the temple" look. */
+    .sun-orb{
+      --sun-size:clamp(250px,31vw,430px);
+      position:absolute;
+      z-index:2;
+      left:50%;
+      top:clamp(92px,13vw,155px);
+      width:var(--sun-size);
+      height:var(--sun-size);
+      transform:translateX(-50%);
+      border-radius:50%;
       display:grid;
       place-items:center;
       isolation:isolate;
-      flex:0 0 auto;
-    }
-
-    /* Soft sacred light sits behind every other OM layer. */
-    .om-light{
-      position:absolute;
-      width:72%;
-      height:72%;
-      border-radius:50%;
-      z-index:0;
-      background:radial-gradient(circle,
-        rgba(255,225,135,.58) 0%,
-        rgba(255,181,55,.28) 24%,
-        rgba(226,125,28,.12) 48%,
-        transparent 72%);
-      filter:blur(24px);
-      transform:translateY(34px) scale(1.15);
-      animation:omLightPulse 2.4s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
-
-    /* Brown circular layer directly behind the OM glyph. */
-    .om-disc{
-      position:absolute;
-      width:64%;
-      height:64%;
-      border-radius:50%;
-      z-index:1;
       background:
-        radial-gradient(circle at 35% 30%,rgba(150,91,38,.98),rgba(84,42,17,.98) 68%,rgba(49,23,10,.98));
-      border:2px solid rgba(244,198,107,.32);
+        radial-gradient(circle at 50% 48%,rgba(255,249,202,.98) 0 17%,rgba(255,215,102,.98) 18% 38%,rgba(255,159,37,.55) 54%,rgba(255,123,18,.10) 70%,transparent 72%),
+        radial-gradient(circle,rgba(255,196,66,.30),transparent 70%);
       box-shadow:
-        0 0 0 10px rgba(75,37,14,.18),
-        0 0 38px rgba(255,164,45,.25),
-        inset 0 0 35px rgba(24,10,3,.55);
-      animation:discPulse 2.4s ease-in-out infinite alternate;
+        0 0 35px rgba(255,203,92,.72),
+        0 0 100px rgba(255,146,26,.38);
+      animation:sunBreath 3.6s ease-in-out infinite alternate;
       pointer-events:none;
     }
-
-    .om-triangles{
+    .sun-orb::before{
+      content:"";
       position:absolute;
-      inset:0;
-      z-index:2;
+      inset:-10px;
       border-radius:50%;
-      animation:triangleOrbit 14s linear infinite;
-      pointer-events:none;
+      z-index:-1;
+      background:conic-gradient(
+        from 0deg,
+        rgba(255,237,160,.15),
+        rgba(255,135,22,.82),
+        rgba(255,235,135,.18),
+        rgba(255,115,12,.86),
+        rgba(255,237,160,.15)
+      );
+      filter:blur(7px);
+      animation:sunSpin 14s linear infinite;
     }
-
-    .om-triangle{
+    .sun-ring{
+      position:absolute;
+      inset:9%;
+      border:2px solid rgba(255,231,137,.62);
+      border-radius:50%;
+      box-shadow:0 0 18px rgba(255,160,26,.55),inset 0 0 18px rgba(255,198,64,.26);
+    }
+    .sun-om{
+      position:relative;
+      z-index:3;
+      margin-top:-3%;
+      color:#fff1b1;
+      font-family:"Noto Sans Devanagari","Nirmala UI",serif;
+      font-size:clamp(5.8rem,13vw,10rem);
+      line-height:.75;
+      text-shadow:
+        0 0 12px rgba(255,255,220,.95),
+        0 0 35px rgba(255,165,34,.85),
+        0 0 80px rgba(255,134,16,.45);
+      animation:omPulse 2.5s ease-in-out infinite alternate;
+    }
+    .flame-ring{
+      position:absolute;
+      inset:-2%;
+      border-radius:50%;
+      animation:flameRing 18s linear infinite;
+    }
+    .flame{
       position:absolute;
       left:50%;
       top:50%;
-      width:0;
-      height:0;
-      border-left:9px solid transparent;
-      border-right:9px solid transparent;
-      border-bottom:24px solid rgba(243,198,107,.9);
-      filter:drop-shadow(0 0 6px rgba(255,180,55,.48));
+      width:13px;
+      height:24px;
       transform:
-        rotate(var(--angle))
-        translateY(calc(clamp(155px,21vw,280px) * -1));
+        rotate(var(--a))
+        translateY(calc(var(--sun-size) * -.52))
+        rotate(45deg);
       transform-origin:50% 0;
+      border-radius:70% 30% 70% 30%;
+      background:linear-gradient(135deg,#fff4ad 0 20%,#ffb52e 42%,#ff5a10 78%,transparent 79%);
+      filter:drop-shadow(0 0 5px rgba(255,142,25,.9));
+      animation:flameFlicker 1.1s ease-in-out infinite alternate;
+      animation-delay:var(--d);
     }
 
-    .om-triangle:nth-child(even){
-      border-bottom-color:rgba(176,103,37,.95);
-      border-left-width:7px;
-      border-right-width:7px;
-      border-bottom-width:19px;
-    }
-
-    .om-orbit .om{
-      position:relative;
+    .temple{
+      position:absolute;
       z-index:3;
-      margin:0;
-    }
-
-    @keyframes triangleOrbit{
-      from{transform:rotate(0deg)}
-      to{transform:rotate(360deg)}
-    }
-
-    @keyframes omLightPulse{
-      from{opacity:.62;transform:translateY(34px) scale(1.08)}
-      to{opacity:1;transform:translateY(34px) scale(1.24)}
-    }
-
-    @keyframes discPulse{
-      from{filter:brightness(.9);transform:scale(.98)}
-      to{filter:brightness(1.12);transform:scale(1.02)}
-    }
-
-    .om{
-      font-family: "Noto Sans Devanagari","Nirmala UI",serif;
-      font-size:clamp(8rem,25vw,17rem);
-      line-height:.8;
-      color:var(--gold);
-      margin:0;
-      transform:translateY(-2%);
-      position:relative;
-      text-shadow:0 0 18px rgba(255,195,76,.35),0 0 70px rgba(255,176,40,.2);
-      animation:omFloat 3.8s ease-in-out infinite, omGlow 2.2s ease-in-out infinite alternate;
+      left:50%;
+      bottom:-2%;
+      width:min(1040px,96%);
+      height:88%;
+      transform:translateX(-50%);
+      object-fit:contain;
+      object-position:center bottom;
+      display:block;
+      filter:drop-shadow(0 20px 26px rgba(0,0,0,.30));
       user-select:none;
+      pointer-events:none;
     }
-    @keyframes omFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.025)}}
-    @keyframes omGlow{from{filter:brightness(.95)}to{filter:brightness(1.22)}}
 
-    .eyebrow{margin-top:28px;color:#f8dfaa;letter-spacing:.28em;text-transform:uppercase;font-size:.75rem}
-    h1{font-size:clamp(2rem,5vw,4.4rem);margin:14px 0 10px;line-height:1.08}
-    .subtitle{max-width:700px;color:#f5e6c9;opacity:.82;font-size:1rem;line-height:1.8;margin:0 auto}
+    .hero-copy{
+      position:relative;
+      z-index:6;
+      max-width:850px;
+      margin:-5px auto 0;
+    }
+    .eyebrow{
+      margin:0 0 12px;
+      color:#9a5d08;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      font-size:.72rem;
+    }
+    h1{
+      font-size:clamp(2rem,5vw,4.35rem);
+      line-height:1.04;
+      letter-spacing:-.05em;
+      margin:0 0 12px;
+    }
+    .subtitle{
+      max-width:700px;
+      margin:0 auto;
+      color:#6f6254;
+      opacity:.86;
+      font-size:1rem;
+      line-height:1.7;
+    }
 
+    @keyframes sunBreath{from{filter:brightness(.96);transform:translateX(-50%) scale(.985)}to{filter:brightness(1.12);transform:translateX(-50%) scale(1.025)}}
+    @keyframes sunSpin{to{transform:rotate(360deg)}}
+    @keyframes omPulse{from{filter:brightness(.92);transform:scale(.98)}to{filter:brightness(1.2);transform:scale(1.035)}}
+    @keyframes flameRing{to{transform:rotate(360deg)}}
+    @keyframes flameFlicker{from{opacity:.65;scale:.82 .9}to{opacity:1;scale:1.12 1.22}}
+
+    /* =========================
+       MANTRA / LOWER CONTENT
+       ========================= */
     .mantra-stage{
+      position:relative;
+      z-index:6;
       width:min(900px,100%);
-      margin-top:55px;
       min-height:190px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      margin:42px auto 0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
       padding:28px 20px;
       border:1px solid var(--line);
       border-radius:30px;
-      background:rgba(20,12,7,.25);
+      background:rgba(255,255,255,.68);
+      box-shadow:0 24px 90px rgba(80,52,18,.10),inset 0 1px rgba(255,255,255,.8);
       backdrop-filter:blur(9px);
       -webkit-backdrop-filter:blur(9px);
-      box-shadow:0 20px 80px rgba(0,0,0,.2);
     }
     .mantra-om{
       color:var(--gold);
@@ -267,7 +331,7 @@
       min-height:3.4em;
       opacity:0;
       transform:translateY(18px);
-      text-shadow:0 2px 15px rgba(0,0,0,.5);
+      text-shadow:0 2px 15px rgba(80,52,18,.10);
     }
     .mantra-text.show{animation:lineIn 1.05s ease forwards}
     @keyframes omIn{0%{opacity:0;transform:scale(.5)}55%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
@@ -275,7 +339,9 @@
 
     .section{
       padding:85px 0 110px;
-      background:linear-gradient(180deg,rgba(12,7,4,.06),rgba(10,6,3,.46));
+      background:linear-gradient(180deg,#fffaf2,#f5ecdf);
+      content-visibility:auto;
+      contain-intrinsic-size:900px;
     }
     .section-title{text-align:center;margin-bottom:28px;padding:0 20px}
     .section-title h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 8px}
@@ -294,39 +360,42 @@
       gap:18px;
       animation:scroll 30s linear infinite;
       padding:4px 0;
+      will-change:transform;
     }
     .marquee.reverse{animation-direction:reverse;animation-duration:34s}
     .marquee.slow{animation-duration:42s}
-    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 
     .card{
-      width:270px;height:190px;flex:0 0 auto;
-      border:1px solid rgba(255,231,182,.22);
+      width:270px;
+      height:190px;
+      flex:0 0 auto;
+      border:1px solid rgba(91,61,25,.14);
       border-radius:24px;
       padding:9px;
-      background:rgba(22,14,8,.42);
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
-      box-shadow:0 14px 40px rgba(0,0,0,.25);
+      background:rgba(255,255,255,.78);
+      box-shadow:0 18px 46px rgba(80,52,18,.10),inset 0 1px rgba(255,255,255,.85);
       transition:transform .25s ease;
     }
     .card:hover{transform:translateY(-7px) rotate(-1deg)}
     .card img{
-      width:100%;height:100%;object-fit:contain;
+      width:100%;
+      height:100%;
+      object-fit:contain;
       border-radius:17px;
       display:block;
-      background:rgba(255,255,255,.025);
+      background:#fffaf2;
     }
+    .card img{content-visibility:auto}
     .tall{height:230px}
     .wide{width:320px}
-
 
     .buy-wrap{
       display:flex;
       justify-content:center;
       align-items:center;
       padding:8px 20px 52px;
-      background:rgba(8,5,3,.28);
+      background:rgba(255,255,255,.25);
     }
     .buy-btn{
       display:inline-flex;
@@ -337,357 +406,320 @@
       padding:0 28px;
       border:1px solid rgba(243,198,107,.55);
       border-radius:14px;
-      background:rgba(243,198,107,.10);
+      background:linear-gradient(135deg,rgba(243,198,107,.16),rgba(118,70,27,.20));
       color:var(--gold);
       font:700 .88rem/1 "Segoe UI",sans-serif;
       letter-spacing:.22em;
       text-decoration:none;
       text-transform:uppercase;
-      box-shadow:0 8px 24px rgba(0,0,0,.18);
       transition:background .2s ease,border-color .2s ease,transform .2s ease;
-      -webkit-tap-highlight-color:transparent;
     }
-    .buy-btn::after{
-      content:"→";
-      margin-left:12px;
-      font-size:1rem;
-      letter-spacing:0;
-      transition:transform .2s ease;
-    }
-    .buy-btn:hover{
-      background:rgba(243,198,107,.18);
-      border-color:rgba(243,198,107,.82);
-      transform:translateY(-2px);
-    }
-    .buy-btn:hover::after{transform:translateX(3px)}
-    .buy-btn:active{transform:translateY(0)}
-    .buy-btn:focus-visible{
-      outline:2px solid var(--gold);
-      outline-offset:3px;
-    }
+    .buy-btn::after{content:"→";margin-left:12px;font-size:1rem}
+    .buy-btn:hover{background:rgba(243,198,107,.18);border-color:rgba(243,198,107,.82);transform:translateY(-2px)}
 
     footer{
-      text-align:center;padding:30px 20px 45px;
-      color:#dbc9a8;font-size:.82rem;
-      background:rgba(8,5,3,.48);
-      border-top:1px solid rgba(255,255,255,.08);
+      text-align:center;
+      padding:30px 20px 45px;
+      color:#756656;
+      font-size:.82rem;
+      background:#f0e5d5;
+      border-top:1px solid rgba(91,61,25,.12);
+    }
+    .mpoxel-link{color:var(--gold);text-decoration:none;font-weight:700}
+
+    .seo-context{
+      position:absolute;
+      width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
     }
 
-    @media (max-width:650px){
-      .om-sacred-stage{
-        height:clamp(330px,94vw,470px);
-        width:100%;
-      }
-
-      .sage{
-        width:clamp(175px,43vw,250px);
-        height:clamp(265px,65vw,380px);
-      }
-
-      .sage-left{left:-52px}
-      .sage-right{right:-52px}
-
-      .om-sacred-stage .om-orbit{
-        width:min(62vw,310px);
-        height:min(62vw,310px);
-        
-      }
-
-      .water-split{
-        width:48vw;
-        height:100px;
-      }
-
-      .split-stream{height:3px}
-      .water-split i{width:3px;height:3px}
-
-      .om-orbit{
-        width:min(88vw,430px);
-        height:min(88vw,430px);
-      }
-      .om-triangle{
-        transform:
-          rotate(var(--angle))
-          translateY(calc(min(44vw,215px) * -1));
-      }
-
-      .nav{top:10px;border-radius:18px}
-      .nav a{margin-left:10px;font-size:.78rem}
-      .brand{font-size:1.1rem}
-      .hero{padding-top:105px}
-      .mantra-stage{margin-top:38px;border-radius:22px}
-      .card{width:220px;height:155px}
-      .wide{width:260px}
-      .tall{height:195px}
-    }
-    @media (max-width:650px){
-      .nav{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-      .mantra-stage{backdrop-filter:none;-webkit-backdrop-filter:none}
-      .card{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 22px rgba(0,0,0,.18)}
-      .buy-btn{min-width:165px;height:48px;padding:0 22px;box-shadow:0 6px 18px rgba(0,0,0,.16)}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
-    }
-
-
-    /* DHANVIN ONLINE VISUAL POLISH — home structure preserved */
-    .brand{letter-spacing:.12em;text-shadow:0 2px 12px rgba(243,198,107,.16)}
-    .hero h1{letter-spacing:-.8px}
-    .section-title h2{letter-spacing:-.5px}
-    .mantra-stage{
-      border-color:rgba(255,235,190,.28);
-      box-shadow:0 24px 90px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.05);
-    }
-    .card{
-      border-color:rgba(255,231,182,.27);
-      box-shadow:0 18px 46px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.05);
-    }
-    .card img{transition:transform .3s ease,filter .3s ease}
-    .card:hover img{transform:scale(1.025);filter:saturate(1.05)}
-    .buy-btn{background:linear-gradient(135deg,rgba(243,198,107,.16),rgba(118,70,27,.20))}
-
-        .seo-context{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-      
-
-    /* ===== FINAL RESPONSIVE SACRED HERO FIX ===== */
-    .om-sacred-stage{
-      /* Change this ONE value to move the complete scene up/down. */
-      --scene-y:-55px;
-      position:relative;
-      top:auto;
-      margin:var(--scene-y) auto 0;
-      width:min(1180px,100%);
-      max-width:100%;
-      flex:0 1 auto;
-      overflow:visible;
-    }
-
-    /* Keep the desktop composition proportional. */
-    .sage{max-width:36vw;}
-
-    @media (max-width:650px){
-      html,body{width:100%;max-width:100%;overflow-x:hidden;}
-
-      .hero{
-        width:100%;
-        min-width:0;
-        padding:96px 8px 45px;
-        overflow:hidden;
-      }
-
-      .om-sacred-stage{
-        --scene-y:-22px;
-        width:100%;
-        max-width:100%;
-        height:82vw;
-        min-height:275px;
-        max-height:345px;
-        margin:var(--scene-y) auto 0;
-        flex-shrink:0;
-      }
-
-      /* Two sages remain visible without creating horizontal overflow. */
-      .sage{
-        width:34vw;
-        height:56vw;
-        max-width:150px;
-        max-height:245px;
-        top:50%;
-      }
-
-      .sage-left{left:-4vw;}
-      .sage-right{right:-4vw;}
-
-      /* OM stays centered between them. */
-      .om-sacred-stage .om-orbit{
-        width:46vw;
-        height:46vw;
-        max-width:205px;
-        max-height:205px;
-        min-width:165px;
-        min-height:165px;
-      }
-
-      .om-sacred-stage .om{
-        font-size:clamp(6rem,19vw,8rem);
-      }
-.eyebrow{
-        margin-top:12px;
-        font-size:.64rem;
-        letter-spacing:.16em;
-      }
-
-      h1{
-        max-width:100%;
-        font-size:clamp(1.55rem,7.2vw,2.2rem);
-        line-height:1.12;
-        overflow-wrap:anywhere;
-      }
-
-      .subtitle{
-        max-width:94vw;
-        font-size:.9rem;
-      }
-
+    /* =========================
+       MOBILE
+       ========================= */
+    @media (max-width:700px){
+      :root{--nav-h:56px}
       .nav{
         width:calc(100% - 16px);
-        max-width:calc(100% - 16px);
-        padding:9px 11px;
-        gap:8px;
+        min-height:56px;
+        padding:7px 8px 7px 13px;
+        border-radius:16px;
+        backdrop-filter:blur(8px);
+        -webkit-backdrop-filter:blur(8px);
+      }
+      .brand{font-size:.84rem;letter-spacing:.08em}
+      .menu-toggle{display:block}
+      .nav-links{
+        position:absolute;
+        top:calc(100% + 8px);
+        left:0;
+        right:0;
+        display:grid;
+        gap:4px;
+        padding:8px;
+        border:1px solid rgba(255,235,190,.2);
+        border-radius:16px;
+        background:rgba(17,10,5,.96);
+        box-shadow:0 18px 45px rgba(0,0,0,.3);
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-7px) scale(.98);
+        transform-origin:top;
+        transition:opacity .18s ease,transform .18s ease,visibility .18s;
+      }
+      .nav.open .nav-links{
+        opacity:1;
+        visibility:visible;
+        transform:translateY(0) scale(1);
+      }
+      .nav-links a{
+        font-size:.82rem;
+        padding:12px;
+        text-align:center;
       }
 
-      .nav > div:last-child{
-        display:flex;
-        align-items:center;
-        gap:9px;
-        min-width:0;
+      .hero{
+        padding:calc(var(--nav-h) + 18px) 8px 48px;
       }
-
-      .nav a{
-        margin-left:0;
-        font-size:.68rem;
-        white-space:nowrap;
+      .hero-scene{
+        height:clamp(370px,112vw,520px);
+        border-radius:0 0 22px 22px;
       }
-
-      .brand{
-        font-size:.88rem;
-        letter-spacing:.08em;
-        white-space:nowrap;
+      .hero-bg{object-position:center}
+      .sun-orb{
+        --sun-size:min(61vw,260px);
+        top:clamp(78px,20vw,112px);
       }
-
+      .flame{
+        width:9px;
+        height:17px;
+      }
+      .temple{
+        width:124%;
+        max-width:none;
+        height:82%;
+        bottom:-1%;
+      }
+      .hero-copy{margin-top:-2px}
+      .eyebrow{font-size:.61rem;letter-spacing:.15em}
+      h1{font-size:clamp(1.65rem,8.2vw,2.35rem);letter-spacing:-.035em}
+      .subtitle{font-size:.88rem;line-height:1.55}
       .mantra-stage{
-        width:100%;
-        max-width:100%;
         min-height:165px;
-        margin-top:30px;
+        margin-top:28px;
         padding:22px 12px;
+        border-radius:22px;
+        backdrop-filter:none;
+        -webkit-backdrop-filter:none;
+        background:rgba(20,12,7,.48);
       }
-
       .mantra-text{
         max-width:100%;
         font-size:clamp(1rem,4.5vw,1.35rem);
         overflow-wrap:anywhere;
       }
-
-      .section-title h2{font-size:clamp(1.55rem,7vw,2.2rem);}
-      .section-title p{font-size:.88rem;}
-
-      .card{max-width:82vw;}
-      .buy-wrap{padding-left:12px;padding-right:12px;}
-    }
-  
-    /* ===== FINAL OM SIZE + TRIANGLE ORBIT FIX =====
-       Triangles follow the exact circumference of the OM disc. */
-    .om-sacred-stage .om-orbit{
-      width:clamp(360px,44vw,580px);
-      height:clamp(360px,44vw,580px);
-    }
-
-    .om-sacred-stage .om-light{
-      width:84%;
-      height:84%;
-    }
-
-    .om-sacred-stage .om-disc{
-      width:76%;
-      height:76%;
-      border-width:3px;
-      box-shadow:
-        0 0 0 12px rgba(75,37,14,.20),
-        0 0 46px rgba(255,164,45,.30),
-        inset 0 0 42px rgba(24,10,3,.58);
-    }
-
-    .om-sacred-stage .om{
-      font-size:clamp(10rem,29vw,21rem);
-      line-height:.78;
-      text-shadow:
-        0 0 22px rgba(255,195,76,.42),
-        0 0 85px rgba(255,176,40,.24);
-    }
-
-    .om-sacred-stage .om-triangles{
-      animation:triangleOrbit 16s linear infinite;
-      transform-origin:50% 50%;
-      will-change:transform;
-    }
-
-    .om-sacred-stage .om-triangle{
-      border-left-width:11px;
-      border-right-width:11px;
-      border-bottom-width:29px;
-      transform:
-        rotate(var(--angle))
-        translateY(-38%);
-      transform-origin:50% 0;
-
-      will-change:transform;
-    }
-
-    .om-sacred-stage .om-triangle:nth-child(even){
-      border-left-width:9px;
-      border-right-width:9px;
-      border-bottom-width:23px;
-    }
-
-    @media (max-width:650px){
-      /* Large enough to be the hero animation, but still contained on small phones. */
-      .om-sacred-stage .om-orbit{
-        width:min(78vw,360px);
-        height:min(78vw,360px);
-        min-width:250px;
-        min-height:250px;
+      .section{padding:62px 0 78px}
+      .section-title h2{font-size:clamp(1.55rem,7vw,2.2rem)}
+      .section-title p{font-size:.88rem}
+      .marquee-wrap{
+        mask-image:none;
+        -webkit-mask-image:none;
       }
-
-      .om-sacred-stage .om-light{
-        width:84%;
-        height:84%;
+      .marquee{gap:12px;animation-duration:38s}
+      .marquee.reverse{animation-duration:42s}
+      .marquee.slow{animation-duration:50s}
+      .card{
+        width:220px;
+        height:155px;
+        border-radius:18px;
+        padding:7px;
+        box-shadow:0 8px 22px rgba(0,0,0,.18);
+        background:rgba(22,14,8,.62);
       }
+      .wide{width:260px}
+      .tall{height:195px}
+      .buy-wrap{padding-left:12px;padding-right:12px}
+      .buy-btn{min-width:165px;height:48px;padding:0 22px}
+    }
 
-      .om-sacred-stage .om-disc{
-        width:76%;
-        height:76%;
-      }
+    /* =========================
+       LIGHT THEME FINISH
+       ========================= */
+    ::selection{background:rgba(224,138,0,.18);color:#24180d}
+    :focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+    .nav-links a:hover{color:#9a5d08;background:rgba(224,138,0,.08)}
+    .buy-btn{box-shadow:0 8px 24px rgba(181,106,0,.10)}
+    .mpoxel-link{color:#9a5d08}
 
-      .om-sacred-stage .om{
-        font-size:clamp(8.5rem,29vw,12rem);
-      }
-
-      /* Triangle ring sits exactly on the OM disc circumference.
-         Disc diameter = 76% of orbit, so its radius = 38% of orbit. */
-      .om-sacred-stage .om-triangle{
-        transform:
-          rotate(var(--angle))
-          translateY(calc(min(78vw,360px) * -0.38));
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.001ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
       }
     }
 
-    @media (max-width:380px){
-      .om-sacred-stage .om-orbit{
-        width:86vw;
-        height:86vw;
-        min-width:240px;
-        min-height:240px;
-      }
 
-      .om-sacred-stage .om{
-        font-size:clamp(7.5rem,30vw,9.5rem);
-      }
-
-      .om-sacred-stage .om-triangle{
-        transform:
-          rotate(var(--angle))
-          translateY(calc(86vw * -0.38));
-      }
+    /* =========================================================
+       DHANVIN — DEEP CREAM EDITION
+       Strict palette: dark cream / warm cream / light cream.
+       No white UI, no black text.
+       ========================================================= */
+    :root{
+      --cream-0:#f4e7d0;
+      --cream-1:#ead8bb;
+      --cream-2:#d5bc96;
+      --cream-3:#b99a6e;
+      --cream-4:#76583a;
+      --cream-5:#4b3522;
+      --cream-6:#2b1d12;
+      --cream-7:#1d130c;
+      --gold:#c5a16b;
+      --gold-2:#e0c28f;
+      --cream:var(--cream-0);
+      --ink:var(--cream-7);
+      --line:rgba(234,216,187,.20);
+      --glass:rgba(43,29,18,.72);
+      --surface:var(--cream-6);
+      --surface-2:var(--cream-5);
+      --muted:var(--cream-3);
+      --shadow:0 24px 70px rgba(29,19,12,.30);
     }
-.sage-left,.sage-right,.sage{display:none !important;}
-.om-sacred-stage{padding-left:0 !important;padding-right:0 !important;}
-@media (max-width:650px){
-  .om-sacred-stage{width:100%;max-width:100vw;overflow:hidden;}
-}
+
+    html{background:var(--cream-7)}
+    body{
+      color:var(--cream-0);
+      background:
+        radial-gradient(circle at 50% -10%,rgba(234,216,187,.16),transparent 42%),
+        linear-gradient(180deg,var(--cream-6) 0%,var(--cream-7) 100%);
+    }
+
+    .nav{
+      border:1px solid rgba(234,216,187,.24);
+      background:rgba(43,29,18,.82);
+      box-shadow:0 18px 55px rgba(29,19,12,.42),inset 0 1px rgba(244,231,208,.10);
+    }
+    .brand{color:var(--cream-1);text-shadow:0 2px 18px rgba(224,194,143,.18)}
+    .nav-links a{color:var(--cream-1)}
+    .nav-links a:hover{color:var(--cream-0);background:rgba(234,216,187,.10)}
+    .menu-toggle{
+      border-color:rgba(234,216,187,.24);
+      background:rgba(234,216,187,.06);
+      color:var(--cream-0);
+    }
+
+    .hero{background:linear-gradient(180deg,transparent 0%,rgba(29,19,12,.14) 100%)}
+    .hero-scene{
+      box-shadow:0 34px 90px rgba(29,19,12,.34);
+      border:1px solid rgba(234,216,187,.10);
+    }
+    .hero-scene::after{
+      background:
+        linear-gradient(180deg,rgba(29,19,12,.08) 0%,transparent 30%,rgba(29,19,12,.20) 68%,rgba(29,19,12,.78) 100%),
+        radial-gradient(circle at 50% 43%,transparent 28%,rgba(29,19,12,.30) 100%);
+    }
+
+    .hero-copy{filter:drop-shadow(0 10px 28px rgba(29,19,12,.28))}
+    .eyebrow{color:var(--cream-2)}
+    h1{color:var(--cream-0);text-shadow:0 4px 24px rgba(29,19,12,.45)}
+    .subtitle{color:var(--cream-1);opacity:.92}
+
+    .mantra-stage{
+      border-color:rgba(234,216,187,.24);
+      background:
+        linear-gradient(135deg,rgba(75,53,34,.86),rgba(43,29,18,.82));
+      box-shadow:0 28px 85px rgba(29,19,12,.36),inset 0 1px rgba(244,231,208,.11);
+    }
+    .mantra-om{color:var(--cream-1);text-shadow:0 0 22px rgba(224,194,143,.22)}
+    .mantra-text{color:var(--cream-0);text-shadow:0 3px 18px rgba(29,19,12,.45)}
+
+    .section{
+      background:
+        radial-gradient(circle at 50% 0%,rgba(234,216,187,.09),transparent 34%),
+        linear-gradient(180deg,var(--cream-7) 0%,var(--cream-6) 100%);
+    }
+    .section-title h2{color:var(--cream-0);text-shadow:0 4px 20px rgba(29,19,12,.32)}
+    .section-title p{color:var(--cream-2);opacity:.82}
+
+    .marquee-wrap{mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+    .card{
+      border-color:rgba(234,216,187,.22);
+      background:linear-gradient(145deg,rgba(75,53,34,.88),rgba(43,29,18,.94));
+      box-shadow:0 20px 52px rgba(29,19,12,.38),inset 0 1px rgba(244,231,208,.09);
+    }
+    .card:hover{
+      transform:translateY(-9px) rotate(-1deg) scale(1.012);
+      border-color:rgba(234,216,187,.38);
+      box-shadow:0 28px 65px rgba(29,19,12,.48),inset 0 1px rgba(244,231,208,.12);
+    }
+    .card img{background:var(--cream-5)}
+
+    .buy-wrap{
+      background:linear-gradient(180deg,var(--cream-6),var(--cream-7));
+      padding-top:18px;
+    }
+    .buy-btn{
+      border-color:rgba(234,216,187,.46);
+      background:linear-gradient(135deg,rgba(234,216,187,.13),rgba(75,53,34,.72));
+      color:var(--cream-0);
+      box-shadow:0 12px 34px rgba(29,19,12,.34),inset 0 1px rgba(244,231,208,.10);
+    }
+    .buy-btn:hover{
+      background:linear-gradient(135deg,rgba(234,216,187,.22),rgba(75,53,34,.86));
+      border-color:rgba(234,216,187,.68);
+      box-shadow:0 16px 42px rgba(29,19,12,.44),inset 0 1px rgba(244,231,208,.14);
+    }
+
+    footer{
+      color:var(--cream-2);
+      background:var(--cream-7);
+      border-top-color:rgba(234,216,187,.13);
+    }
+    .mpoxel-link{color:var(--cream-1)}
+
+    ::selection{background:rgba(234,216,187,.22);color:var(--cream-0)}
+
+    /* Warm monochrome treatment for the supplied hero art */
+    .hero-bg{
+      filter:sepia(.34) saturate(.52) contrast(1.04) brightness(.84);
+    }
+    .sun-orb{
+      background:
+        radial-gradient(circle at 50% 48%,rgba(255,244,215,.98) 0 17%,rgba(234,216,187,.98) 18% 38%,rgba(197,161,107,.55) 54%,rgba(117,88,58,.12) 70%,transparent 72%),
+        radial-gradient(circle,rgba(224,194,143,.26),transparent 70%);
+      box-shadow:0 0 35px rgba(234,216,187,.48),0 0 100px rgba(197,161,107,.24);
+    }
+    .sun-orb::before{
+      background:conic-gradient(from 0deg,rgba(244,231,208,.15),rgba(197,161,107,.72),rgba(244,231,208,.16),rgba(117,88,58,.70),rgba(244,231,208,.15));
+    }
+    .sun-ring{
+      border-color:rgba(234,216,187,.58);
+      box-shadow:0 0 18px rgba(197,161,107,.42),inset 0 0 18px rgba(224,194,143,.22);
+    }
+    .sun-om{
+      color:var(--cream-0);
+      text-shadow:0 0 12px rgba(244,231,208,.92),0 0 35px rgba(224,194,143,.62),0 0 80px rgba(197,161,107,.30);
+    }
+    .flame{
+      background:linear-gradient(135deg,var(--cream-0) 0 20%,var(--cream-2) 42%,var(--cream-4) 78%,transparent 79%);
+      filter:drop-shadow(0 0 5px rgba(197,161,107,.60));
+    }
+    .temple{filter:sepia(.10) saturate(.76) drop-shadow(0 24px 30px rgba(29,19,12,.42));}
+
+    @media (max-width:700px){
+      .nav-links{
+        border-color:rgba(234,216,187,.20);
+        background:rgba(43,29,18,.97);
+        box-shadow:0 22px 55px rgba(29,19,12,.48);
+      }
+      .nav-links a{color:var(--cream-1)}
+      .nav-links a:hover{color:var(--cream-0);background:rgba(234,216,187,.08)}
+      .mantra-stage{background:linear-gradient(135deg,rgba(75,53,34,.94),rgba(43,29,18,.94))}
+      .card{background:linear-gradient(145deg,rgba(75,53,34,.94),rgba(43,29,18,.98));box-shadow:0 12px 30px rgba(29,19,12,.36)}
+    }
+
   </style>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -698,31 +730,60 @@
   }
   </script>
 </head>
-<body>
 
-  <nav class="nav">
+<body>
+  <nav class="nav" id="siteNav">
     <div class="brand">DHANVIN.ONLINE</div>
-    <div>
+    <div class="nav-links" id="navLinks">
       <a href="#home">About</a>
       <a href="#mantras">Mantra</a>
       <a href="#sacred">Products</a>
     </div>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+    </button>
   </nav>
 
   <main id="home">
     <section class="hero">
-      <p class="seo-context" aria-label="Dhanvin Online Havan Samagri">Dhanvin Online — Havan Samagri and Puja essentials</p>
-      <div class="om-sacred-stage" aria-label="Om surrounded by sages offering water">
-<div class="om-orbit">
-          <div class="om-light"></div>
-          <div class="om-disc"></div>
-          <div class="om-triangles" aria-hidden="true"></div>
-          <div class="om">ॐ</div>
+      <p class="seo-context">Dhanvin Online — Havan Samagri and Puja essentials</p>
+
+      <div class="hero-scene" aria-label="Temple rising in a mountain landscape with a glowing Om sun">
+        <!-- Layer 1: the supplied mountain/landscape image replaces bg.png -->
+        <img
+          class="hero-bg"
+          src="/bg.png"
+          width="1672"
+          height="941"
+          alt=""
+          fetchpriority="high"
+          decoding="async"
+        >
+
+        <!-- Layer 1.5: sun/OM sits behind the temple -->
+        <div class="sun-orb" aria-hidden="true">
+          <div class="sun-ring"></div>
+          <div class="flame-ring" id="flameRing"></div>
+          <div class="sun-om">ॐ</div>
         </div>
-</div>
-      <div class="eyebrow">शान्ति • ध्यान • परम्परा</div>
-      <h1>WE SELL HAVAN SAMAGRI</h1>
-      <p class="subtitle">Products for Havan &amp; Puja</p>
+
+        <!-- Layer 2: supplied transparent temple sits in front of the sun -->
+        <img
+          class="temple"
+          src="/temple.png"
+          width="1536"
+          height="1024"
+          alt="Traditional Hindu temple"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">शान्ति • ध्यान • परम्परा</p>
+        <h1>WE SELL HAVAN SAMAGRI</h1>
+        <p class="subtitle">Products for Havan &amp; Puja</p>
+      </div>
 
       <div class="mantra-stage" id="mantras">
         <div class="mantra-om" id="mantraOm">ॐ</div>
@@ -730,6 +791,7 @@
       </div>
     </section>
 
+    <!-- Lower product area intentionally kept structurally the same -->
     <section class="section" id="sacred">
       <div class="section-title">
         <h2>Our Main Products</h2>
@@ -738,43 +800,44 @@
 
       <div class="marquee-wrap">
         <div class="marquee">
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
-          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
-          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
       <div class="marquee-wrap">
         <div class="marquee reverse">
-          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
-          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल"></div>
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
+          <div class="card wide"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
       <div class="marquee-wrap">
         <div class="marquee slow">
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
-          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
-          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी"></div>
-          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल"></div>
-          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले"></div>
-          <div class="card"><img src="assets/kala-till.png" alt="काले तिल"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/mango-woods.png" alt="आम की लकड़ी" loading="lazy" decoding="async"></div>
+          <div class="card tall"><img src="assets/ganga-jal.png" alt="गंगा जल" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/dung.png" alt="गोबर के उपले" loading="lazy" decoding="async"></div>
+          <div class="card"><img src="assets/kala-till.png" alt="काले तिल" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>
+
     <div class="buy-wrap">
       <a class="buy-btn" href="shop.html">BUY</a>
     </div>
@@ -782,86 +845,98 @@
 
   <footer>Website by <a class="mpoxel-link" href="https://mpoxel.in">Mpoxel.in</a></footer>
 
-  <!-- Background Om audio. It starts only after the visitor gives permission. -->
-  <audio id="omAudio" src="om.mp3" loop preload="auto" aria-label="ॐ background sound"></audio>
+  <audio id="omAudio" src="om.mp3" loop preload="none" aria-label="ॐ background sound"></audio>
 
   <script>
-    const omAudio = document.getElementById("omAudio");
-    omAudio.volume = 0.42;
+    (() => {
+      /* Mobile navigation */
+      const nav = document.getElementById("siteNav");
+      const toggle = document.getElementById("menuToggle");
+      const links = document.getElementById("navLinks");
 
-    // Browsers block autoplay until the visitor interacts with the page.
-    // The very first scroll, click, touch, or keyboard interaction starts OM.
-    let omStarted = false;
+      function closeMenu(){
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded","false");
+        toggle.setAttribute("aria-label","Open menu");
+      }
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
+      links.addEventListener("click", event => {
+        if(event.target.matches("a")) closeMenu();
+      });
+      document.addEventListener("click", event => {
+        if(!nav.contains(event.target)) closeMenu();
+      });
+      document.addEventListener("keydown", event => {
+        if(event.key === "Escape") closeMenu();
+      });
 
-    async function startOmOnFirstInteraction(){
-      if(omStarted) return;
-      omStarted = true;
+      /* Flame circumference */
+      const flameRing = document.getElementById("flameRing");
+      const flameCount = 28;
+      const frag = document.createDocumentFragment();
+      for(let n = 0; n < flameCount; n++){
+        const flame = document.createElement("i");
+        flame.className = "flame";
+        flame.style.setProperty("--a", `${n * (360 / flameCount)}deg`);
+        flame.style.setProperty("--d", `${-(n % 7) * 0.12}s`);
+        frag.appendChild(flame);
+      }
+      flameRing.appendChild(frag);
 
-      try{
-        await omAudio.play();
-      }catch(err){
-        // If the browser still blocks playback, allow the next interaction to retry.
-        omStarted = false;
+      /* OM audio starts after the first user interaction */
+      const omAudio = document.getElementById("omAudio");
+      omAudio.volume = 0.42;
+      let omStarted = false;
+
+      async function startOmOnFirstInteraction(){
+        if(omStarted) return;
+        try{
+          await omAudio.play();
+          omStarted = true;
+          removeAudioListeners();
+        }catch(err){}
+      }
+      function removeAudioListeners(){
+        ["scroll","pointerdown","touchstart","keydown"].forEach(type => {
+          window.removeEventListener(type,startOmOnFirstInteraction);
+        });
+      }
+      ["scroll","pointerdown","touchstart","keydown"].forEach(type => {
+        window.addEventListener(type,startOmOnFirstInteraction,{passive:true});
+      });
+
+      /* Mantras */
+      const mantras = [
+        "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
+        "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥",
+        "ॐ नमः शिवाय॥",
+        "ॐ सह नाववतु। सह नौ भुनक्तु। सह वीर्यं करवावहै॥",
+        "ॐ शान्तिः शान्तिः शान्तिः॥"
+      ];
+      const mantraOm = document.getElementById("mantraOm");
+      const mantraText = document.getElementById("mantraText");
+      let i = 0;
+
+      function showMantra(){
+        mantraOm.classList.remove("show");
+        mantraText.classList.remove("show");
+        void mantraOm.offsetWidth;
+        void mantraText.offsetWidth;
+        mantraOm.classList.add("show");
+        setTimeout(() => {
+          mantraText.textContent = mantras[i];
+          mantraText.classList.add("show");
+        },650);
+        i = (i + 1) % mantras.length;
       }
 
-      removeOmInteractionListeners();
-    }
-
-    function removeOmInteractionListeners(){
-      window.removeEventListener("scroll", startOmOnFirstInteraction);
-      window.removeEventListener("pointerdown", startOmOnFirstInteraction);
-      window.removeEventListener("touchstart", startOmOnFirstInteraction);
-      window.removeEventListener("keydown", startOmOnFirstInteraction);
-    }
-
-    window.addEventListener("scroll", startOmOnFirstInteraction, {passive:true, once:false});
-    window.addEventListener("pointerdown", startOmOnFirstInteraction, {passive:true, once:false});
-    window.addEventListener("touchstart", startOmOnFirstInteraction, {passive:true, once:false});
-    window.addEventListener("keydown", startOmOnFirstInteraction, {passive:true, once:false});
-
-    // Create a denser, evenly spaced triangular ring around the OM disc.
-    const triangleRing = document.querySelector(".om-triangles");
-    const TRIANGLE_COUNT = 24;
-    for(let n = 0; n < TRIANGLE_COUNT; n++){
-      const triangle = document.createElement("span");
-      triangle.className = "om-triangle";
-      triangle.style.setProperty("--angle", `${n * (360 / TRIANGLE_COUNT)}deg`);
-      triangleRing.appendChild(triangle);
-    }
-
-    const mantras = [
-      "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
-      "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥",
-      "ॐ नमः शिवाय॥",
-      "ॐ सह नाववतु। सह नौ भुनक्तु। सह वीर्यं करवावहै॥",
-      "ॐ शान्तिः शान्तिः शान्तिः॥"
-    ];
-
-    const om = document.getElementById("mantraOm");
-    const text = document.getElementById("mantraText");
-    let i = 0;
-
-    function showMantra(){
-      om.classList.remove("show");
-      text.classList.remove("show");
-      void om.offsetWidth;
-      void text.offsetWidth;
-
-      om.classList.add("show");
-      setTimeout(() => {
-        text.textContent = mantras[i];
-        text.classList.add("show");
-      }, 650);
-
-      i = (i + 1) % mantras.length;
-    }
-
-    showMantra();
-    setInterval(showMantra, 5000);
+      showMantra();
+      window.setInterval(showMantra,5000);
+    })();
   </script>
-
-<style>
-/* Side sages removed: keep the OM composition centered and mobile-friendly. */
-</style>
 </body>
 </html>
