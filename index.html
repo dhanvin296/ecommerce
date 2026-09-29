@@ -943,6 +943,282 @@ footer{
   text-shadow:none !important;
 }
 
+  
+/* =========================================================
+   DHANVIN HERO — REALISTIC TEMPLE FLAG
+   Replaces the old OM/sun ornament.
+   The flag is anchored to the temple area and scales fluidly.
+   ========================================================= */
+
+.temple-flag{
+  --flag-w:clamp(155px,22vw,285px);
+  position:absolute;
+  z-index:5;
+  left:68%;
+  top:clamp(70px,10vw,145px);
+  width:var(--flag-w);
+  aspect-ratio:390 / 330;
+  height:auto;
+  transform-origin:0 100%;
+  pointer-events:none;
+  filter:drop-shadow(0 18px 16px rgba(52,29,12,.22));
+  animation:templeFlagSway 7s ease-in-out infinite;
+}
+
+/* Pole */
+.temple-flag .flag-pole{
+  position:absolute;
+  left:7.7%;
+  bottom:0;
+  width:2.3%;
+  height:94%;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    #482510 0%,
+    #77451e 12%,
+    #b87835 30%,
+    #f0c47b 47%,
+    #a8672b 65%,
+    #673918 84%,
+    #321708 100%
+  );
+  box-shadow:
+    inset 1px 0 rgba(255,255,255,.38),
+    inset -2px 0 rgba(40,15,2,.35),
+    3px 4px 10px rgba(40,20,5,.25);
+}
+
+.temple-flag .flag-pole::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-5.5%;
+  width:clamp(11px,1.45vw,20px);
+  aspect-ratio:1;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(
+    circle at 30% 25%,
+    #ffe8b1 0%,
+    #d69a4d 28%,
+    #9b5b20 58%,
+    #593014 100%
+  );
+  box-shadow:0 2px 8px rgba(45,20,4,.4);
+}
+
+/* Cloth */
+.temple-flag .flag-cloth{
+  position:absolute;
+  left:9.2%;
+  top:5.5%;
+  width:82%;
+  height:47%;
+  transform-origin:left center;
+  overflow:visible;
+  filter:drop-shadow(0 9px 9px rgba(73,28,4,.18));
+}
+
+.temple-flag .fabric{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  clip-path:polygon(
+    0 0, 98% 4%, 100% 14%, 97% 25%, 100% 37%,
+    96% 49%, 100% 61%, 97% 73%, 100% 85%, 96% 96%, 0 100%
+  );
+  background:linear-gradient(
+    180deg,#ff9d43 0%,#f57a27 30%,#e85a13 65%,#cc420a 100%
+  );
+  box-shadow:
+    inset 0 2px 2px rgba(255,230,170,.22),
+    inset 0 -5px 9px rgba(92,25,0,.16);
+}
+
+.temple-flag .fabric::before{
+  content:"";
+  position:absolute;
+  inset:-20% -8%;
+  background:linear-gradient(
+    90deg,
+    transparent 0%,transparent 7%,
+    rgba(105,27,2,.08) 10%,rgba(92,22,0,.28) 15%,
+    rgba(255,183,91,.10) 20%,rgba(255,211,136,.30) 27%,
+    rgba(255,255,255,.08) 31%,rgba(100,24,1,.25) 38%,
+    rgba(82,19,0,.10) 43%,rgba(255,207,128,.32) 50%,
+    rgba(255,236,179,.10) 54%,rgba(103,25,1,.30) 62%,
+    rgba(89,21,0,.08) 68%,rgba(255,195,104,.28) 75%,
+    rgba(255,230,161,.08) 80%,rgba(91,21,0,.25) 88%,transparent 95%
+  );
+  mix-blend-mode:soft-light;
+  opacity:.95;
+  animation:templeFlagDeepFolds 3.6s ease-in-out infinite;
+}
+
+.temple-flag .fabric::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 80px 200px at 12% 45%,rgba(255,240,190,.28),transparent 72%),
+    radial-gradient(ellipse 65px 180px at 43% 55%,rgba(255,227,158,.18),transparent 70%),
+    radial-gradient(ellipse 75px 190px at 76% 45%,rgba(255,218,137,.22),transparent 72%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px);
+  mix-blend-mode:overlay;
+  animation:templeFlagSunlight 4.2s ease-in-out infinite;
+}
+
+.temple-flag .fabric-shade{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,rgba(255,245,205,.16),transparent 17%,
+    transparent 76%,rgba(78,19,0,.18)
+  );
+}
+
+.temple-flag .flag-seam{
+  position:absolute;
+  left:0;
+  top:0;
+  width:2.2%;
+  height:100%;
+  z-index:10;
+  background:linear-gradient(90deg,#7c360d,#ffc06c 35%,#f0832c 70%,#9b3f0a);
+  box-shadow:2px 0 4px rgba(80,25,0,.25);
+}
+
+.temple-flag .flag-edge{
+  position:absolute;
+  left:0;
+  bottom:1px;
+  width:100%;
+  height:2px;
+  z-index:20;
+  opacity:.65;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(255,215,145,.65) 0 3px,
+    rgba(130,49,7,.4) 3px 6px
+  );
+  transform:rotate(-1deg);
+}
+
+.temple-flag .flag-text{
+  position:absolute;
+  left:13%;
+  top:50%;
+  width:58%;
+  transform:translateY(-50%) rotate(-1deg);
+  z-index:15;
+  color:#ffe8b1;
+  font-family:"Noto Sans Devanagari","Nirmala UI","Mangal",sans-serif;
+  font-size:clamp(12px,2vw,22px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:.015em;
+  text-align:center;
+  white-space:nowrap;
+  text-shadow:
+    0 2px 1px rgba(81,26,2,.8),
+    1px 3px 4px rgba(66,19,0,.35),
+    0 0 8px rgba(255,205,116,.16);
+  animation:templeFlagText 3.6s ease-in-out infinite;
+}
+
+.temple-flag .fold{
+  position:absolute;
+  top:-8%;
+  width:13%;
+  height:116%;
+  z-index:6;
+  pointer-events:none;
+  background:linear-gradient(
+    90deg,
+    transparent 0%,rgba(63,15,0,.14) 22%,
+    rgba(255,225,157,.24) 44%,rgba(255,255,255,.08) 53%,
+    rgba(74,17,0,.20) 73%,transparent 100%
+  );
+  filter:blur(1px);
+  opacity:.72;
+  mix-blend-mode:soft-light;
+  transform-origin:center;
+}
+.temple-flag .fold-1{left:10%;animation:templeFlagFoldOne 3.5s ease-in-out infinite}
+.temple-flag .fold-2{left:28%;width:16%;animation:templeFlagFoldTwo 3.8s ease-in-out infinite}
+.temple-flag .fold-3{left:49%;width:14%;animation:templeFlagFoldThree 3.2s ease-in-out infinite}
+.temple-flag .fold-4{left:70%;width:18%;animation:templeFlagFoldFour 4s ease-in-out infinite}
+.temple-flag .fold-5{left:89%;width:12%;animation:templeFlagFoldFive 3.7s ease-in-out infinite}
+
+@keyframes templeFlagSway{
+  0%,100%{transform:rotate(-.45deg) translateY(0)}
+  50%{transform:rotate(.45deg) translateY(-1px)}
+}
+@keyframes templeFlagDeepFolds{
+  0%,100%{transform:translateX(-14%) skewX(0deg) scaleX(1)}
+  25%{transform:translateX(0) skewX(-1deg) scaleX(1.015)}
+  50%{transform:translateX(11%) skewX(1.5deg) scaleX(.985)}
+  75%{transform:translateX(2%) skewX(-1deg) scaleX(1.01)}
+}
+@keyframes templeFlagSunlight{
+  0%,100%{background-position:0 0,0 0,0 0,0 0}
+  50%{background-position:50px 0,110px 0,-70px 0,20px 0}
+}
+@keyframes templeFlagFoldOne{
+  0%,100%{transform:translateX(-5px) skewY(1deg) scaleX(.82)}
+  50%{transform:translateX(9px) skewY(-2deg) scaleX(1.15)}
+}
+@keyframes templeFlagFoldTwo{
+  0%,100%{transform:translateX(5px) skewY(-1deg) scaleX(1)}
+  50%{transform:translateX(-13px) skewY(2deg) scaleX(.72)}
+}
+@keyframes templeFlagFoldThree{
+  0%,100%{transform:translateX(-7px) skewY(1deg) scaleX(.75)}
+  50%{transform:translateX(15px) skewY(-2deg) scaleX(1.18)}
+}
+@keyframes templeFlagFoldFour{
+  0%,100%{transform:translateX(7px) skewY(-1deg) scaleX(.9)}
+  50%{transform:translateX(-15px) skewY(2deg) scaleX(1.15)}
+}
+@keyframes templeFlagFoldFive{
+  0%,100%{transform:translateX(-4px) skewY(1deg) scaleX(.85)}
+  50%{transform:translateX(10px) skewY(-2deg) scaleX(1.1)}
+}
+@keyframes templeFlagText{
+  0%,100%{transform:translateY(-50%) translateX(0) skewY(0deg) scaleX(1)}
+  25%{transform:translateY(-50%) translateX(2px) skewY(.35deg) scaleX(.99)}
+  50%{transform:translateY(-50%) translateX(-3px) skewY(-.65deg) scaleX(.975)}
+  75%{transform:translateY(-50%) translateX(1px) skewY(.35deg) scaleX(.99)}
+}
+
+/* Responsive anchoring: the flag stays inside the hero scene on phones. */
+@media (max-width:700px){
+  .temple-flag{
+    --flag-w:clamp(125px,38vw,190px);
+    left:64%;
+    top:clamp(48px,10vw,72px);
+  }
+  .temple-flag .flag-text{
+    font-size:clamp(10px,3.1vw,15px);
+  }
+}
+@media (max-width:390px){
+  .temple-flag{
+    --flag-w:clamp(112px,41vw,155px);
+    left:61%;
+    top:44px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .temple-flag,
+  .temple-flag *{
+    animation:none !important;
+  }
+}
+
   </style>
 
   <script type="application/ld+json">
@@ -973,7 +1249,7 @@ footer{
     <section class="hero">
       <p class="seo-context">Dhanvin Online — Havan Samagri and Puja essentials</p>
 
-      <div class="hero-scene" aria-label="Temple rising in a mountain landscape with a glowing Om sun">
+      <div class="hero-scene" aria-label="Temple rising in a mountain landscape with a realistic waving saffron flag">
         <!-- Layer 1: the supplied mountain/landscape image replaces bg.png -->
         <img
           class="hero-bg"
@@ -985,14 +1261,27 @@ footer{
           decoding="async"
         >
 
-        <!-- Layer 1.5: sun/OM sits behind the temple -->
-        <div class="sun-orb" aria-hidden="true">
-          <div class="sun-ring"></div>
-          <div class="flame-ring" id="flameRing"></div>
-          <div class="sun-om">ॐ</div>
+        <!-- Layer 1.5: realistic waving temple flag -->
+        <div class="temple-flag" aria-hidden="true">
+          <div class="flag-pole"></div>
+
+          <div class="flag-cloth">
+            <div class="fabric">
+              <div class="fold fold-1"></div>
+              <div class="fold fold-2"></div>
+              <div class="fold fold-3"></div>
+              <div class="fold fold-4"></div>
+              <div class="fold fold-5"></div>
+              <div class="fabric-shade"></div>
+              <div class="flag-text">जयश्रीराम</div>
+            </div>
+            <div class="flag-seam"></div>
+            <div class="flag-edge"></div>
+          </div>
         </div>
 
-        <!-- Layer 2: supplied transparent temple sits in front of the sun -->
+        <!-- Layer 2: supplied transparent temple -->
+
         <img
           class="temple"
           src="/temple.png"
