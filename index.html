@@ -133,7 +133,8 @@
       margin:0 auto;
       overflow:hidden;
       isolation:isolate;
-      border-radius:0 0 34px 34px;
+      border-radius:0;
+      background:transparent;
     }
     .hero-bg{
       position:absolute;
@@ -483,7 +484,8 @@
       }
       .hero-scene{
         height:clamp(370px,112vw,520px);
-        border-radius:0 0 22px 22px;
+        border-radius:0;
+        background:transparent;
       }
       .hero-bg{object-position:center}
       .sun-orb{
@@ -609,16 +611,19 @@
     }
 
     .hero{
-      background:linear-gradient(180deg,rgba(244,231,208,.78) 0%,rgba(244,231,208,.90) 100%);
+      background:transparent;
+      position:relative;
+      z-index:0;
     }
     .hero-scene{
-      box-shadow:0 34px 90px rgba(29,19,12,.34);
-      border:1px solid rgba(234,216,187,.10);
+      background:transparent;
+      box-shadow:none;
+      border:0;
     }
     .hero-scene::after{
       background:
-        linear-gradient(180deg,rgba(29,19,12,.08) 0%,transparent 30%,rgba(29,19,12,.20) 68%,rgba(29,19,12,.78) 100%),
-        radial-gradient(circle at 50% 43%,transparent 28%,rgba(29,19,12,.30) 100%);
+        linear-gradient(180deg,rgba(29,19,12,.03) 0%,transparent 70%,rgba(29,19,12,.10) 100%),
+        radial-gradient(circle at 50% 43%,transparent 32%,rgba(29,19,12,.12) 100%);
     }
 
     .hero-copy{filter:drop-shadow(0 10px 28px rgba(29,19,12,.28))}
@@ -657,6 +662,8 @@
     .card img{background:var(--cream-5)}
 
     .buy-wrap{
+      position:relative;
+      z-index:10;
       background:linear-gradient(180deg,var(--cream-0),var(--cream-1));
       padding-top:18px;
     }
@@ -673,6 +680,8 @@
     }
 
     footer{
+      position:relative;
+      z-index:10;
       color:var(--cream-4);
       background:var(--cream-0);
       border-top-color:rgba(75,53,34,.16);
@@ -690,8 +699,9 @@
       max-width:none;
       object-fit:cover;
       object-position:center;
-      z-index:-10;
+      z-index:-1;
       filter:sepia(.18) saturate(.48) contrast(1.02) brightness(.94);
+      pointer-events:none;
     }
     .sun-orb{
       background:
