@@ -738,6 +738,211 @@
       .card{background:linear-gradient(145deg,rgba(244,231,208,.97),rgba(234,216,187,.96));box-shadow:0 12px 30px rgba(29,19,12,.36)}
     }
 
+  
+/* =========================================================
+   FINAL CLEAN CREAM PASS
+   - Cream content surfaces
+   - Brown typography
+   - Strong nav contrast
+   - Fixed landscape remains visible behind the hero
+   - No brown translucent sheet
+   - OM lifted high enough to remain visible on mobile
+   ========================================================= */
+
+/* Core palette */
+html{
+  background:#f4e7d0 !important;
+}
+body{
+  color:#4b3522 !important;
+  background:#f4e7d0 !important;
+}
+
+/* Fixed artwork: full viewport, unchanged while scrolling */
+.hero-bg{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  max-width:none !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  z-index:-2 !important;
+  filter:none !important;
+}
+
+/* Hero itself must not create a brown overlay */
+.hero{
+  background:transparent !important;
+  color:#4b3522 !important;
+  position:relative;
+  z-index:0;
+}
+.hero-scene{
+  background:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+}
+
+/* Keep the artwork's existing subtle edge treatment, but never a brown sheet */
+.hero-scene::after{
+  background:
+    linear-gradient(180deg,rgba(244,231,208,.03),transparent 70%,rgba(75,53,34,.08)),
+    radial-gradient(circle at 50% 43%,transparent 34%,rgba(75,53,34,.08) 100%) !important;
+}
+
+/* Cream floating navigation with unmistakable brown text */
+.nav{
+  background:rgba(244,231,208,.96) !important;
+  border:1px solid rgba(75,53,34,.16) !important;
+  box-shadow:0 14px 40px rgba(75,53,34,.16),inset 0 1px rgba(255,255,255,.55) !important;
+}
+.brand{
+  color:#4b3522 !important;
+  text-shadow:none !important;
+}
+.nav-links a{
+  color:#4b3522 !important;
+  opacity:1 !important;
+}
+.nav-links a:hover{
+  color:#2b1d12 !important;
+  background:rgba(75,53,34,.08) !important;
+}
+.menu-toggle{
+  color:#4b3522 !important;
+  border-color:rgba(75,53,34,.22) !important;
+  background:rgba(75,53,34,.05) !important;
+}
+
+/* Hero typography: brown, never cream-on-brown */
+.hero-copy{
+  filter:none !important;
+}
+.eyebrow,
+h1,
+.subtitle{
+  color:#4b3522 !important;
+  text-shadow:none !important;
+}
+.eyebrow{font-weight:700}
+.subtitle{opacity:1 !important}
+
+/* OM: move the whole sun higher so the temple cannot swallow it.
+   The OM remains in the warm sun treatment but gets enough exposed area. */
+.sun-orb{
+  top:clamp(18px,5vw,72px) !important;
+}
+.sun-om{
+  color:#4b3522 !important;
+  text-shadow:
+    0 0 10px rgba(244,231,208,.95),
+    0 0 26px rgba(224,194,143,.55) !important;
+}
+
+/* Desktop */
+.temple{
+  bottom:-2% !important;
+}
+
+/* Mobile: push the sun farther upward and reduce temple overlap */
+@media (max-width:700px){
+  .sun-orb{
+    --sun-size:min(61vw,260px) !important;
+    top:8px !important;
+  }
+  .temple{
+    width:124% !important;
+    height:70% !important;
+    bottom:-1% !important;
+  }
+
+  .nav-links{
+    background:#f4e7d0 !important;
+    border-color:rgba(75,53,34,.18) !important;
+    box-shadow:0 18px 45px rgba(75,53,34,.18) !important;
+  }
+  .nav-links a{
+    color:#4b3522 !important;
+  }
+  .nav-links a:hover{
+    color:#2b1d12 !important;
+    background:rgba(75,53,34,.08) !important;
+  }
+}
+
+/* Mantra: solid cream panel, brown text. Absolutely no brown glass. */
+.mantra-stage{
+  background:#f4e7d0 !important;
+  border:1px solid rgba(75,53,34,.16) !important;
+  box-shadow:0 22px 60px rgba(75,53,34,.12),inset 0 1px rgba(255,255,255,.6) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.mantra-om,
+.mantra-text{
+  color:#4b3522 !important;
+  text-shadow:none !important;
+}
+
+/* Lower content rises over the fixed photograph as one opaque cream sheet */
+.section{
+  position:relative;
+  z-index:10;
+  background:
+    linear-gradient(180deg,#f4e7d0 0%,#ead8bb 100%) !important;
+  color:#4b3522 !important;
+}
+.section-title h2,
+.section-title p{
+  color:#4b3522 !important;
+  text-shadow:none !important;
+}
+.section-title p{opacity:.78 !important}
+
+/* Product cards remain cream, not brown */
+.card{
+  background:rgba(244,231,208,.96) !important;
+  border-color:rgba(75,53,34,.16) !important;
+  box-shadow:0 18px 46px rgba(75,53,34,.12),inset 0 1px rgba(255,255,255,.65) !important;
+}
+.card:hover{
+  border-color:rgba(75,53,34,.28) !important;
+  box-shadow:0 25px 60px rgba(75,53,34,.16),inset 0 1px rgba(255,255,255,.72) !important;
+}
+.card img{
+  background:#ead8bb !important;
+}
+
+/* Buy/footer are also solid cream and sit above the fixed artwork */
+.buy-wrap{
+  position:relative;
+  z-index:10;
+  background:linear-gradient(180deg,#ead8bb,#f4e7d0) !important;
+}
+.buy-btn{
+  color:#4b3522 !important;
+  border-color:rgba(75,53,34,.25) !important;
+  background:linear-gradient(135deg,#f4e7d0,#d5bc96) !important;
+  box-shadow:0 12px 34px rgba(75,53,34,.14),inset 0 1px rgba(255,255,255,.55) !important;
+}
+.buy-btn:hover{
+  color:#2b1d12 !important;
+  background:linear-gradient(135deg,#f8ecd9,#d5bc96) !important;
+}
+footer{
+  position:relative;
+  z-index:10;
+  color:#76583a !important;
+  background:#f4e7d0 !important;
+  border-top:1px solid rgba(75,53,34,.14) !important;
+}
+.mpoxel-link{
+  color:#4b3522 !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+
   </style>
 
   <script type="application/ld+json">
