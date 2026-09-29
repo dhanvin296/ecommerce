@@ -1221,11 +1221,26 @@ footer{
 
   
     /* MANTRA VISIBILITY FIX — keep existing design/position unchanged */
-    .mantra-om,
-    .mantra-text{
+    .mantra-om{
       opacity:1 !important;
       transform:none !important;
       visibility:visible !important;
+      position:relative;
+      z-index:2;
+    }
+
+    .mantra-text{
+      display:block !important;
+      width:100% !important;
+      position:relative;
+      z-index:3;
+      color:#4b3522 !important;
+      opacity:1 !important;
+      visibility:visible !important;
+      transform:none !important;
+      min-height:3.4em;
+      white-space:normal;
+      overflow:visible !important;
     }
 </style>
 
@@ -1446,13 +1461,17 @@ footer{
       function showMantra(){
         mantraOm.classList.remove("show");
         mantraText.classList.remove("show");
+
+        /* Put the mantra into the DOM immediately.
+           The CSS keeps it visible; the animation is only decorative. */
+        mantraText.textContent = mantras[i];
+
         void mantraOm.offsetWidth;
         void mantraText.offsetWidth;
+
         mantraOm.classList.add("show");
-        setTimeout(() => {
-          mantraText.textContent = mantras[i];
-          mantraText.classList.add("show");
-        },650);
+        mantraText.classList.add("show");
+
         i = (i + 1) % mantras.length;
       }
 
