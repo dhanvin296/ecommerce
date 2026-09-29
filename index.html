@@ -953,9 +953,9 @@ footer{
 .temple-flag{
   --flag-w:clamp(190px,18vw,285px);
   position:absolute;
-  z-index:5;
-  left:49%;
-  top:clamp(175px,14vw,225px);
+  z-index:2;
+  left:52%;
+  top:clamp(155px,12.5vw,205px);
   width:var(--flag-w);
   aspect-ratio:390 / 330;
   height:auto;
@@ -1198,8 +1198,8 @@ footer{
 @media (max-width:700px){
   .temple-flag{
     --flag-w:clamp(125px,35vw,190px);
-    left:48%;
-    top:clamp(105px,18vw,145px);
+    left:51%;
+    top:clamp(88px,16vw,128px);
   }
   .temple-flag .flag-text{
     font-size:clamp(10px,3.1vw,15px);
@@ -1208,8 +1208,8 @@ footer{
 @media (max-width:390px){
   .temple-flag{
     --flag-w:clamp(108px,39vw,150px);
-    left:45%;
-    top:88px;
+    left:48%;
+    top:72px;
   }
 }
 @media (prefers-reduced-motion:reduce){
@@ -1261,7 +1261,7 @@ footer{
           decoding="async"
         >
 
-        <!-- Layer 1.5: realistic waving temple flag -->
+        <!-- Layer 1.5: flag behind the temple (z-index 2; temple z-index 3) -->
         <div class="temple-flag" aria-hidden="true">
           <div class="flag-pole"></div>
 
