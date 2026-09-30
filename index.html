@@ -758,16 +758,16 @@ body{
   background:#f4e7d0 !important;
 }
 
-/* Fixed artwork: full viewport, unchanged while scrolling */
+/* Keep the landscape and temple in the same scene so the temple stays planted on the land. */
 .hero-bg{
-  position:fixed !important;
+  position:absolute !important;
   inset:0 !important;
-  width:100vw !important;
-  height:100vh !important;
+  width:100% !important;
+  height:100% !important;
   max-width:none !important;
   object-fit:cover !important;
   object-position:center center !important;
-  z-index:-2 !important;
+  z-index:1 !important;
   filter:none !important;
 }
 
@@ -820,13 +820,16 @@ body{
   filter:none !important;
 }
 .eyebrow,
-h1,
-.subtitle{
-  color:#4b3522 !important;
-  text-shadow:none !important;
+h1{
+  color:#f4e7d0 !important;
+  text-shadow:0 2px 16px rgba(29,19,12,.45) !important;
 }
 .eyebrow{font-weight:700}
-.subtitle{opacity:1 !important}
+.subtitle{
+  color:#f4e7d0 !important;
+  opacity:1 !important;
+  text-shadow:0 2px 16px rgba(29,19,12,.45) !important;
+}
 
 /* OM: move the whole sun higher so the temple cannot swallow it.
    The OM remains in the warm sun treatment but gets enough exposed area. */
@@ -840,9 +843,11 @@ h1,
     0 0 26px rgba(224,194,143,.55) !important;
 }
 
-/* Desktop */
+/* Desktop — temple base touches the same ground plane as the landscape. */
 .temple{
-  bottom:-2% !important;
+  bottom:0 !important;
+  height:88% !important;
+  object-position:center bottom !important;
 }
 
 /* Mobile: push the sun farther upward and reduce temple overlap */
@@ -854,7 +859,8 @@ h1,
   .temple{
     width:124% !important;
     height:70% !important;
-    bottom:-1% !important;
+    bottom:0 !important;
+    object-position:center bottom !important;
   }
 
   .nav-links{
@@ -883,6 +889,12 @@ h1,
 .mantra-text{
   color:#4b3522 !important;
   text-shadow:none !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+.mantra-text{
+  font-weight:800 !important;
+  min-height:3.4em;
 }
 
 /* Lower content rises over the fixed photograph as one opaque cream sheet */
@@ -944,6 +956,64 @@ footer{
 }
 
   
+
+/* =========================================================
+   FIRST-SCROLL BIRDS
+   Hidden initially; one natural flight begins on the first scroll.
+   ========================================================= */
+.birds{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  overflow:hidden;
+  pointer-events:none;
+}
+.bird{
+  --y:18%;
+  --delay:0s;
+  position:absolute;
+  left:-12%;
+  top:var(--y);
+  width:34px;
+  height:14px;
+  opacity:0;
+}
+.bird::before,
+.bird::after{
+  content:"";
+  position:absolute;
+  top:4px;
+  width:18px;
+  height:9px;
+  border-top:2.5px solid rgba(43,29,18,.78);
+  border-radius:70% 70% 0 0;
+}
+.bird::before{right:50%;transform-origin:right center;transform:rotate(12deg)}
+.bird::after{left:50%;transform-origin:left center;transform:rotate(-12deg)}
+.birds.fly .bird{
+  animation:birdFlight 6.5s cubic-bezier(.18,.7,.25,1) var(--delay) 1 both;
+}
+.bird-1{--y:17%;--delay:0s;transform:scale(.72)}
+.bird-2{--y:25%;--delay:.35s;transform:scale(.55)}
+.bird-3{--y:13%;--delay:.8s;transform:scale(.88)}
+.bird-4{--y:31%;--delay:1.2s;transform:scale(.48)}
+.bird-5{--y:21%;--delay:1.55s;transform:scale(.65)}
+@keyframes birdFlight{
+  0%{left:-12%;opacity:0;transform:translateY(22px) scale(.75)}
+  8%{opacity:.82}
+  42%{transform:translateY(-18px) scale(1)}
+  70%{transform:translateY(8px) scale(.92)}
+  92%{opacity:.82}
+  100%{left:112%;opacity:0;transform:translateY(-12px) scale(.82)}
+}
+@media (max-width:700px){
+  .bird{width:26px;height:11px}
+  .bird::before,.bird::after{width:14px;height:7px;border-top-width:2px}
+}
+@media (prefers-reduced-motion:reduce){
+  .birds.fly .bird{animation:none;opacity:.65}
+}
+
 /* =========================================================
    DHANVIN HERO — REALISTIC TEMPLE FLAG
    Replaces the old OM/sun ornament.
@@ -953,9 +1023,9 @@ footer{
 .temple-flag{
   --flag-w:clamp(190px,18vw,285px);
   position:absolute;
-  z-index:2;
-  left:52%;
-  top:clamp(155px,12.5vw,205px);
+  z-index:4;
+  left:50.5%;
+  top:clamp(10px,2.5vw,28px);
   width:var(--flag-w);
   aspect-ratio:390 / 330;
   height:auto;
@@ -971,7 +1041,7 @@ footer{
   left:7.7%;
   bottom:0;
   width:2.3%;
-  height:94%;
+  height:100%;
   border-radius:999px;
   background:linear-gradient(
     90deg,
@@ -1012,9 +1082,9 @@ footer{
 .temple-flag .flag-cloth{
   position:absolute;
   left:9.2%;
-  top:5.5%;
-  width:82%;
-  height:47%;
+  top:2%;
+  width:88%;
+  height:48%;
   transform-origin:left center;
   overflow:visible;
   filter:drop-shadow(0 9px 9px rgba(73,28,4,.18));
@@ -1024,10 +1094,8 @@ footer{
   position:absolute;
   inset:0;
   overflow:hidden;
-  clip-path:polygon(
-    0 0, 98% 4%, 100% 14%, 97% 25%, 100% 37%,
-    96% 49%, 100% 61%, 97% 73%, 100% 85%, 96% 96%, 0 100%
-  );
+  /* Classic triangular saffron dhwaja. */
+  clip-path:polygon(0 0, 100% 0, 100% 50%, 0 100%);
   background:linear-gradient(
     180deg,#ff9d43 0%,#f57a27 30%,#e85a13 65%,#cc420a 100%
   );
@@ -1198,8 +1266,8 @@ footer{
 @media (max-width:700px){
   .temple-flag{
     --flag-w:clamp(125px,35vw,190px);
-    left:51%;
-    top:clamp(88px,16vw,128px);
+    left:50%;
+    top:clamp(8px,3vw,18px);
   }
   .temple-flag .flag-text{
     font-size:clamp(10px,3.1vw,15px);
@@ -1209,7 +1277,7 @@ footer{
   .temple-flag{
     --flag-w:clamp(108px,39vw,150px);
     left:48%;
-    top:72px;
+    top:6px;
   }
 }
 @media (prefers-reduced-motion:reduce){
@@ -1221,26 +1289,11 @@ footer{
 
   
     /* MANTRA VISIBILITY FIX — keep existing design/position unchanged */
-    .mantra-om{
-      opacity:1 !important;
-      transform:none !important;
-      visibility:visible !important;
-      position:relative;
-      z-index:2;
-    }
-
+    .mantra-om,
     .mantra-text{
-      display:block !important;
-      width:100% !important;
-      position:relative;
-      z-index:3;
-      color:#4b3522 !important;
       opacity:1 !important;
-      visibility:visible !important;
       transform:none !important;
-      min-height:3.4em;
-      white-space:normal;
-      overflow:visible !important;
+      visibility:visible !important;
     }
 </style>
 
@@ -1272,7 +1325,7 @@ footer{
     <section class="hero">
       <p class="seo-context">Dhanvin Online — Havan Samagri and Puja essentials</p>
 
-      <div class="hero-scene" aria-label="Temple rising in a mountain landscape with a realistic waving saffron flag">
+      <div class="hero-scene" aria-label="Temple grounded on the mountain terrace with a triangular waving saffron flag">
         <!-- Layer 1: the supplied mountain/landscape image replaces bg.png -->
         <img
           class="hero-bg"
@@ -1284,7 +1337,16 @@ footer{
           decoding="async"
         >
 
-        <!-- Layer 1.5: flag behind the temple (z-index 2; temple z-index 3) -->
+        <!-- Birds are revealed by the first scroll and then fly across the sky. -->
+        <div class="birds" id="birds" aria-hidden="true">
+          <span class="bird bird-1"></span>
+          <span class="bird bird-2"></span>
+          <span class="bird bird-3"></span>
+          <span class="bird bird-4"></span>
+          <span class="bird bird-5"></span>
+        </div>
+
+        <!-- Flag rises from the temple's central top and sits in front of the temple. -->
         <div class="temple-flag" aria-hidden="true">
           <div class="flag-pole"></div>
 
@@ -1318,13 +1380,13 @@ footer{
 
       <div class="hero-copy">
         <p class="eyebrow">शान्ति • ध्यान • परम्परा</p>
-        <h1>WE SELL HAVAN SAMAGRI</h1>
+        <h1>WE MAKE HAVAN SAMAGREE</h1>
         <p class="subtitle">Products for Havan &amp; Puja</p>
       </div>
 
       <div class="mantra-stage" id="mantras">
         <div class="mantra-om" id="mantraOm">ॐ</div>
-        <div class="mantra-text" id="mantraText"></div>
+        <div class="mantra-text" id="mantraText">ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥</div>
       </div>
     </section>
 
@@ -1382,7 +1444,7 @@ footer{
 
   <footer>Website by <a class="mpoxel-link" href="https://mpoxel.in">Mpoxel.in</a></footer>
 
-  <audio id="omAudio" src="om.mp3" loop preload="none" aria-label="ॐ background sound"></audio>
+  <audio id="omAudio" src="om.mp3" loop preload="auto" aria-label="ॐ background sound"></audio>
 
   <script>
     (() => {
@@ -1411,20 +1473,19 @@ footer{
         if(event.key === "Escape") closeMenu();
       });
 
-      /* Flame circumference */
-      const flameRing = document.getElementById("flameRing");
-      const flameCount = 28;
-      const frag = document.createDocumentFragment();
-      for(let n = 0; n < flameCount; n++){
-        const flame = document.createElement("i");
-        flame.className = "flame";
-        flame.style.setProperty("--a", `${n * (360 / flameCount)}deg`);
-        flame.style.setProperty("--d", `${-(n % 7) * 0.12}s`);
-        frag.appendChild(flame);
-      }
-      flameRing.appendChild(frag);
+      /* First scroll: start the OM sound and release the birds together. */
+      const birds = document.getElementById("birds");
+      let firstScrollHandled = false;
 
-      /* OM audio starts after the first user interaction */
+      function handleFirstScroll(){
+        if(firstScrollHandled) return;
+        firstScrollHandled = true;
+        if(birds) birds.classList.add("fly");
+        startOmOnFirstInteraction();
+        window.removeEventListener("scroll", handleFirstScroll);
+      }
+
+      /* OM audio starts on the first scroll (with interaction fallbacks for browser autoplay rules). */
       const omAudio = document.getElementById("omAudio");
       omAudio.volume = 0.42;
       let omStarted = false;
@@ -1442,7 +1503,8 @@ footer{
           window.removeEventListener(type,startOmOnFirstInteraction);
         });
       }
-      ["scroll","pointerdown","touchstart","keydown"].forEach(type => {
+      window.addEventListener("scroll", handleFirstScroll, {passive:true});
+      ["pointerdown","touchstart","keydown"].forEach(type => {
         window.addEventListener(type,startOmOnFirstInteraction,{passive:true});
       });
 
@@ -1461,17 +1523,13 @@ footer{
       function showMantra(){
         mantraOm.classList.remove("show");
         mantraText.classList.remove("show");
-
-        /* Put the mantra into the DOM immediately.
-           The CSS keeps it visible; the animation is only decorative. */
-        mantraText.textContent = mantras[i];
-
         void mantraOm.offsetWidth;
         void mantraText.offsetWidth;
-
         mantraOm.classList.add("show");
-        mantraText.classList.add("show");
-
+        setTimeout(() => {
+          mantraText.textContent = mantras[i];
+          mantraText.classList.add("show");
+        },650);
         i = (i + 1) % mantras.length;
       }
 
