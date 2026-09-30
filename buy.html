@@ -1077,23 +1077,55 @@
     }
 
     async function fetchDelhiveryRate() {
-      setStatus("Calculating Delhivery delivery charge…");
-      const result = await apiFetch("/api/delhivery/rate", {
-        method: "POST",
-        body: JSON.stringify({
-          destinationPincode: customer.pincode,
-          weightGrams: calculateWeightGrams(),
-          paymentMode: paymentMethod === "cod" ? "COD" : "Pre-paid",
-          codAmount: paymentMethod === "cod" ? productsTotal : 0
-        })
-      });
-      if (!Number.isFinite(Number(result.deliveryFee))) throw new Error("Delhivery returned an invalid delivery charge.");
-      deliveryFee = Number(result.deliveryFee);
-      // Delivery fee is intentionally NOT shown in the customer's bill.
-      document.getElementById("deliveryFee").textContent = "";
-      document.getElementById("payableAmount").textContent = "₹" + productsTotal;
-      setStatus("");
-      return deliveryFee;
+      /*
+       * Delhivery rate lookup is optional for checkout.
+       * If the backend/API is unavailable, COD orders are still allowed
+       * to proceed instead of getting stuck on "Delhivery API failed".
+       *
+       * IMPORTANT: deliveryFee is kept internal and is not added to the
+       * customer's payable amount on this page.
+       */
+      setStatus("Checking delivery availability…");
+
+      try {
+        const result = await apiFetch("/api/delhivery/rate", {
+          method: "POST",
+          body: JSON.stringify({
+            destinationPincode: customer.pincode,
+            weightGrams: calculateWeightGrams(),
+            paymentMode: paymentMethod === "cod" ? "COD" : "Pre-paid",
+            codAmount: paymentMethod === "cod" ? productsTotal : 0
+          })
+        });
+
+        const parsedFee = Number(result.deliveryFee);
+
+        if (Number.isFinite(parsedFee) && parsedFee >= 0) {
+          deliveryFee = parsedFee;
+        } else {
+          console.warn("Delhivery returned an invalid delivery charge:", result);
+          deliveryFee = 0;
+        }
+
+        document.getElementById("deliveryFee").textContent = "";
+        document.getElementById("payableAmount").textContent = "₹" + productsTotal;
+        setStatus("");
+        return deliveryFee;
+
+      } catch (error) {
+        /*
+         * Do NOT block COD checkout when Delhivery's rate endpoint fails.
+         * The order can still be accepted and handled manually/backend-side.
+         */
+        console.warn("Delhivery rate lookup failed. Continuing checkout:", error);
+
+        deliveryFee = 0;
+        document.getElementById("deliveryFee").textContent = "";
+        document.getElementById("payableAmount").textContent = "₹" + productsTotal;
+
+        setStatus("Delivery charge will be confirmed separately.");
+        return deliveryFee;
+      }
     }
     function createOrderId() {
       const now = new Date();
@@ -1243,11 +1275,9 @@
       document.getElementById("summaryProducts").textContent = "₹" + productsTotal;
       document.getElementById("customerPreview").innerHTML = `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
       showStep(3);
-      try { await fetchDelhiveryRate(); } catch (err) {
-        setStatus(err.message || "Could not calculate Delhivery delivery charge.", true);
-        document.getElementById("buyNow").disabled = true;
-        document.getElementById("buyNow").style.opacity = ".5";
-      }
+      await fetchDelhiveryRate();
+      document.getElementById("buyNow").disabled = false;
+      document.getElementById("buyNow").style.opacity = "1";
     });
 
     document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
@@ -1266,7 +1296,8 @@
       button.classList.add("busy");
       setStatus("Preparing your order…");
       try {
-        // Re-fetch the courier rate immediately before payment/order placement.
+        // Try to refresh the courier rate, but never block COD checkout
+        // if Delhivery is unavailable.
         await fetchDelhiveryRate();
         const total = productsTotal + deliveryFee;
 
@@ -1303,13 +1334,9 @@
         `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
 
       showStep(3);
-      try {
-        await fetchDelhiveryRate();
-      } catch (err) {
-        setStatus(err.message || "Could not calculate Delhivery delivery charge.", true);
-        document.getElementById("buyNow").disabled = true;
-        document.getElementById("buyNow").style.opacity = ".5";
-      }
+      await fetchDelhiveryRate();
+      document.getElementById("buyNow").disabled = false;
+      document.getElementById("buyNow").style.opacity = "1";
     });
 
     document.getElementById("editSavedAddress").addEventListener("click", () => {
