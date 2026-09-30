@@ -1473,41 +1473,6 @@ footer{
         if(event.key === "Escape") closeMenu();
       });
 
-      /* First scroll: start the OM sound and release the birds together. */
-      const birds = document.getElementById("birds");
-      let firstScrollHandled = false;
-
-      function handleFirstScroll(){
-        if(firstScrollHandled) return;
-        firstScrollHandled = true;
-        if(birds) birds.classList.add("fly");
-        startOmOnFirstInteraction();
-        window.removeEventListener("scroll", handleFirstScroll);
-      }
-
-      /* OM audio starts on the first scroll (with interaction fallbacks for browser autoplay rules). */
-      const omAudio = document.getElementById("omAudio");
-      omAudio.volume = 0.42;
-      let omStarted = false;
-
-      async function startOmOnFirstInteraction(){
-        if(omStarted) return;
-        try{
-          await omAudio.play();
-          omStarted = true;
-          removeAudioListeners();
-        }catch(err){}
-      }
-      function removeAudioListeners(){
-        ["scroll","pointerdown","touchstart","keydown"].forEach(type => {
-          window.removeEventListener(type,startOmOnFirstInteraction);
-        });
-      }
-      window.addEventListener("scroll", handleFirstScroll, {passive:true});
-      ["pointerdown","touchstart","keydown"].forEach(type => {
-        window.addEventListener(type,startOmOnFirstInteraction,{passive:true});
-      });
-
       /* Mantras */
       const mantras = [
         "ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥",
@@ -1537,5 +1502,164 @@ footer{
       window.setInterval(showMantra,5000);
     })();
   </script>
+
+
+<style>
+/* =========================================================
+   FINAL HERO / FLAG CORRECTION
+   Full-bleed first screen + properly anchored triangular dhwaja
+   ========================================================= */
+html,body{margin:0 !important;padding:0 !important;}
+.hero{
+  min-height:100svh !important;
+  height:auto !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+.hero-scene{
+  width:100vw !important;
+  max-width:none !important;
+  height:100svh !important;
+  min-height:100svh !important;
+  margin:0 !important;
+  border-radius:0 !important;
+  overflow:hidden !important;
+  position:relative !important;
+}
+.hero-bg{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  z-index:1 !important;
+}
+.hero-scene::after{z-index:8 !important;}
+
+/* Temple fills the scene height so its real pinnacle is visible on phones too. */
+.temple{
+  z-index:6 !important;
+  left:50% !important;
+  bottom:0 !important;
+  width:auto !important;
+  height:100% !important;
+  max-width:none !important;
+  object-fit:contain !important;
+  object-position:center bottom !important;
+  transform:translateX(-50%) !important;
+}
+
+/* Flag pole is anchored around the temple pinnacle instead of floating high in the sky. */
+.temple-flag{
+  --flag-w:clamp(170px,22vw,310px);
+  position:absolute !important;
+  z-index:7 !important;
+  left:50% !important;
+  top:3% !important;
+  width:var(--flag-w) !important;
+  height:43% !important;
+  aspect-ratio:auto !important;
+  transform:translateX(-1%) !important;
+  transform-origin:left bottom !important;
+  filter:drop-shadow(0 14px 14px rgba(52,29,12,.24)) !important;
+  animation:templeFlagSway 7s ease-in-out infinite;
+}
+.temple-flag .flag-pole{
+  left:0 !important;
+  bottom:0 !important;
+  width:3px !important;
+  height:100% !important;
+}
+.temple-flag .flag-pole::before{
+  top:-12px !important;
+}
+
+/* A real triangular pennant: broad at the pole, one clean point at the free end. */
+.temple-flag .flag-cloth{
+  left:3px !important;
+  top:1% !important;
+  width:94% !important;
+  height:46% !important;
+  overflow:visible !important;
+  filter:drop-shadow(0 8px 8px rgba(73,28,4,.18)) !important;
+}
+.temple-flag .fabric{
+  inset:0 !important;
+  overflow:hidden !important;
+  clip-path:polygon(0 0,100% 50%,0 100%) !important;
+  -webkit-clip-path:polygon(0 0,100% 50%,0 100%) !important;
+  border-radius:0 !important;
+}
+/* Keep the fabric texture inside the triangle only. */
+.temple-flag .fabric::before,
+.temple-flag .fabric::after,
+.temple-flag .fabric-shade{
+  clip-path:inherit !important;
+  -webkit-clip-path:inherit !important;
+}
+/* Remove the old seam/edge that produced the unwanted dotted/straight lines. */
+.temple-flag .flag-seam,
+.temple-flag .flag-edge{display:none !important;}
+.temple-flag .flag-text{
+  left:8% !important;
+  top:50% !important;
+  width:70% !important;
+  transform:translateY(-50%) !important;
+  font-size:clamp(11px,1.65vw,21px) !important;
+}
+
+/* First-scroll audio: no pointer/keyboard fallback; it starts with the birds. */
+
+@media (max-width:700px){
+  .hero-scene{
+    height:100svh !important;
+    min-height:100svh !important;
+  }
+  .temple{
+    height:100% !important;
+    width:auto !important;
+    max-width:none !important;
+    left:50% !important;
+  }
+  .temple-flag{
+    --flag-w:clamp(125px,38vw,190px) !important;
+    left:50% !important;
+    top:3% !important;
+    height:38% !important;
+    transform:translateX(-1%) !important;
+  }
+  .temple-flag .flag-pole{width:2px !important;}
+  .temple-flag .flag-cloth{
+    left:2px !important;
+    width:95% !important;
+    height:45% !important;
+  }
+  .temple-flag .flag-text{
+    font-size:clamp(9px,3vw,14px) !important;
+    width:72% !important;
+  }
+  .hero-copy{margin-top:0 !important;}
+}
+</style>
+<script>
+/* Make OM strictly part of the same first-scroll event as the birds. */
+(() => {
+  const audio = document.getElementById('omAudio');
+  const birds = document.getElementById('birds');
+  if (!audio) return;
+  audio.volume = 0.42;
+  let fired = false;
+  const firstScroll = () => {
+    if (fired) return;
+    fired = true;
+    if (birds) birds.classList.add('fly');
+    audio.play().catch(() => {});
+    window.removeEventListener('scroll', firstScroll);
+  };
+  window.addEventListener('scroll', firstScroll, {passive:true, once:true});
+})();
+</script>
+
 </body>
 </html>
