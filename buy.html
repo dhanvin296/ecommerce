@@ -788,7 +788,6 @@
             </div>
           </label>
 
-          <!-- ONLINE PAYMENT TEMPORARILY DISABLED
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="online">
             <div>
@@ -796,12 +795,17 @@
               <span>Pay securely with Razorpay.</span>
             </div>
           </label>
-          -->
         </div>
 
-        <div class="status-note" style="margin-top:14px;">
-          Online payment is temporarily unavailable. Orders are currently accepted as Cash on Delivery.
+        <div id="onlinePaymentBox" style="display:none;margin-top:18px;">
+          <div class="status-note" style="margin-bottom:10px;">
+            Pay online securely with Razorpay. Your selected Mango Havan Wood quantity remains in the order summary above.
+          </div>
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TiFLdG3T1OvoLK" async></script>
+          </form>
         </div>
+
         <div id="paymentStatus" class="status-note" aria-live="polite"></div>
 
         <button id="buyNow" class="buy-now" type="button">PLACE ORDER</button>
@@ -868,9 +872,8 @@
     let paymentMethod = "cod";
     let orderFinalized = false;
 
-    // TEMPORARY: online/Razorpay payment is disabled.
-    // Set to true later when you are ready to re-enable online payments.
-    const ONLINE_PAYMENT_ENABLED = false;
+    // Razorpay online payment is enabled for the Online Payment option.
+    const ONLINE_PAYMENT_ENABLED = true;
 
     function apiUrl(path) {
       return API_BASE_URL.replace(/\/$/, "") + path;
@@ -1280,16 +1283,30 @@
       document.getElementById("buyNow").style.opacity = "1";
     });
 
+    function updatePaymentControls() {
+      const onlineSelected = ONLINE_PAYMENT_ENABLED && paymentMethod === "online";
+      const onlineBox = document.getElementById("onlinePaymentBox");
+      const buyNow = document.getElementById("buyNow");
+
+      if (onlineBox) onlineBox.style.display = onlineSelected ? "block" : "none";
+      if (buyNow) {
+        buyNow.style.display = onlineSelected ? "none" : "block";
+        buyNow.disabled = false;
+        buyNow.style.opacity = "1";
+      }
+    }
+
     document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
       input.addEventListener("change", async () => {
         paymentMethod = ONLINE_PAYMENT_ENABLED ? input.value : "cod";
-        document.getElementById("buyNow").disabled = false;
-        document.getElementById("buyNow").style.opacity = "1";
+        updatePaymentControls();
         if (customer.pincode) {
           try { await fetchDelhiveryRate(); } catch (err) { setStatus(err.message || "Could not update delivery charge.", true); }
         }
       });
     });
+
+    updatePaymentControls();
 
     document.getElementById("buyNow").addEventListener("click", async () => {
       const button = document.getElementById("buyNow");
@@ -1301,16 +1318,12 @@
         await fetchDelhiveryRate();
         const total = productsTotal + deliveryFee;
 
-        // ONLINE PAYMENT IS TEMPORARILY DISABLED.
-        // COD is the only active payment method until ONLINE_PAYMENT_ENABLED is true.
-        if (!ONLINE_PAYMENT_ENABLED || paymentMethod === "cod") {
-          paymentMethod = "cod";
+        if (paymentMethod === "cod") {
           await completeOrder();
           return;
         }
 
-        // Future Razorpay flow can be restored here when online payments are enabled.
-        throw new Error("Online payment is temporarily unavailable.");
+        throw new Error("Please complete the Razorpay payment above.");
       } catch (err) {
         orderFinalized = false;
         setStatus(err.message || "Could not place the order.", true);
@@ -1334,6 +1347,7 @@
         `<strong>${escapeHtml(customer.name)}</strong><br>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}<br>${escapeHtml(customer.state)} - ${escapeHtml(customer.pincode)}<br>Phone: ${escapeHtml(customer.phone)}`;
 
       showStep(3);
+      updatePaymentControls();
       await fetchDelhiveryRate();
       document.getElementById("buyNow").disabled = false;
       document.getElementById("buyNow").style.opacity = "1";
