@@ -654,6 +654,68 @@
       }
     }
 
+
+    /* MANGO PRODUCT DETAIL */
+    .product-detail-overlay{
+      position:fixed; inset:0; z-index:1800;
+      background:rgba(47,26,14,.42);
+      opacity:0; pointer-events:none;
+      transition:opacity .25s ease;
+      backdrop-filter:blur(5px);
+    }
+    .product-detail-overlay.show{opacity:1;pointer-events:auto}
+    .product-detail{
+      position:fixed; z-index:1900; inset:0;
+      width:min(1080px,94vw); height:min(720px,90vh);
+      margin:auto; background:#fffdf9;
+      border:1px solid var(--border); border-radius:24px;
+      box-shadow:0 30px 80px rgba(47,26,14,.28);
+      overflow:auto; opacity:0; pointer-events:none;
+      transform:translateY(22px) scale(.97);
+      transition:.25s ease;
+    }
+    .product-detail.show{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+    .detail-back{
+      position:absolute;top:18px;left:18px;z-index:2;
+      border:1px solid var(--border);background:rgba(255,250,242,.92);
+      color:var(--brown);padding:10px 14px;border-radius:11px;
+      font-weight:800;cursor:pointer;backdrop-filter:blur(8px);
+    }
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;min-height:100%}
+    .detail-image{
+      min-height:520px;padding:70px 45px 45px;
+      display:flex;align-items:center;justify-content:center;
+      background:radial-gradient(circle at center,#fff1cf 0%,#fffaf1 55%,#fff 100%);
+    }
+    .detail-image img{width:100%;height:100%;max-height:500px;object-fit:contain}
+    .detail-info{padding:85px 48px 45px;display:flex;flex-direction:column;justify-content:center}
+    .detail-eyebrow{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+    .detail-info h2{font-family:Georgia,serif;color:var(--brown);font-size:clamp(32px,4vw,52px);line-height:1.05;margin:9px 0 14px}
+    .detail-description{color:#806c5b;font-size:15px;line-height:1.75;max-width:500px}
+    .detail-price{color:var(--brown);font-size:27px;font-weight:900;margin:22px 0 5px}
+    .detail-unit{color:#806c5b;font-size:12px}
+    .detail-actions{margin-top:25px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .detail-qty{
+      width:105px;height:48px;border:1px solid var(--border);border-radius:12px;
+      background:#fff;color:var(--brown);padding:0 12px;font-size:15px;font-weight:800;
+    }
+    .detail-add{
+      height:48px;border:0;border-radius:12px;padding:0 22px;
+      background:linear-gradient(135deg,#6f4122,#4b2a16);color:#fff;
+      font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(78,41,17,.16);
+    }
+    .detail-note{margin-top:13px;color:#9a8068;font-size:12px}
+    .unavailable{color:#8b6c52;font-size:13px;font-weight:800}
+    .unavailable-btn{background:#eee5da!important;color:#806c5b!important;box-shadow:none!important;cursor:not-allowed!important}
+    .mango-card{cursor:pointer}
+    @media(max-width:700px){
+      .product-detail{height:94vh;width:95vw;border-radius:20px}
+      .detail-grid{grid-template-columns:1fr}
+      .detail-image{min-height:300px;height:42vh;padding:65px 25px 15px}
+      .detail-info{padding:28px 24px 35px}
+      .detail-info h2{font-size:34px}
+    }
+
     /* AI ASSISTANT */
     .ai-assistant-button{
       position:fixed;
@@ -1217,7 +1279,7 @@
     <div class="products">
 
       <!-- MANGO WOODS -->
-      <article class="product-card">
+      <article class="product-card mango-card" onclick="openMangoDetail()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openMangoDetail()">
         <div class="product-image">
           <img
             src="assets/mango-woods.png"
@@ -1233,9 +1295,7 @@
 
           <div class="product-bottom">
             <span class="price">₹249</span>
-            <button class="buy-btn" onclick="addToCart('Mango Havan Wood', 249)">
-              ADD
-            </button>
+            <button class="buy-btn" onclick="event.stopPropagation(); openMangoDetail()">VIEW DETAILS</button>
           </div>
         </div>
       </article>
@@ -1256,10 +1316,8 @@
           <p>Traditional dried cow dung cakes prepared for sacred rituals.</p>
 
           <div class="product-bottom">
-            <span class="price">₹199</span>
-            <button class="buy-btn" onclick="addToCart('Havan Cow Dung Cakes', 199)">
-              ADD
-            </button>
+            <span class="unavailable">CURRENTLY UNAVAILABLE</span>
+            <button class="buy-btn unavailable-btn" type="button" disabled>UNAVAILABLE</button>
           </div>
         </div>
       </article>
@@ -1280,10 +1338,8 @@
           <p>Traditionally used as a sacred element during puja and rituals.</p>
 
           <div class="product-bottom">
-            <span class="price">₹149</span>
-            <button class="buy-btn" onclick="addToCart('Ganga Jal', 149)">
-              ADD
-            </button>
+            <span class="unavailable">CURRENTLY UNAVAILABLE</span>
+            <button class="buy-btn unavailable-btn" type="button" disabled>UNAVAILABLE</button>
           </div>
         </div>
       </article>
@@ -1304,10 +1360,8 @@
           <p>Black sesame seeds traditionally used in puja and havan rituals.</p>
 
           <div class="product-bottom">
-            <span class="price">₹129</span>
-            <button class="buy-btn" onclick="addToCart('Kala Til', 129)">
-              ADD
-            </button>
+            <span class="unavailable">CURRENTLY UNAVAILABLE</span>
+            <button class="buy-btn unavailable-btn" type="button" disabled>UNAVAILABLE</button>
           </div>
         </div>
       </article>
@@ -1342,6 +1396,33 @@
     <p style="margin-top:8px;">© 2026 Dhanvin Online. All rights reserved.</p>
   </footer>
 
+
+
+  <!-- MANGO WOOD PRODUCT DETAIL -->
+  <div id="productDetailOverlay" class="product-detail-overlay" onclick="closeMangoDetail()"></div>
+  <section id="mangoDetail" class="product-detail" aria-label="Mango Havan Wood details" aria-hidden="true">
+    <button class="detail-back" type="button" onclick="closeMangoDetail()">← Back to products</button>
+    <div class="detail-grid">
+      <div class="detail-image">
+        <img src="assets/mango-woods.png" alt="Mango Havan Wood">
+      </div>
+      <div class="detail-info">
+        <div class="detail-eyebrow">Dhanvin Online • Havan Essentials</div>
+        <h2>Mango Havan Wood</h2>
+        <p class="detail-description">
+          Natural mango wood pieces traditionally used for havan. Carefully selected
+          for sacred fire rituals and packed with care for your puja.
+        </p>
+        <div class="detail-price">₹249 <span style="font-size:14px;font-weight:700;">/ KG</span></div>
+        <div class="detail-unit">Select the amount of mango wood you want in kilograms.</div>
+        <div class="detail-actions">
+          <input id="mangoKg" class="detail-qty" type="number" min="1" step="1" value="1" aria-label="Quantity in kilograms">
+          <button class="detail-add" type="button" onclick="addMangoByKg()">ADD TO CART</button>
+        </div>
+        <div class="detail-note">Price is calculated at ₹249 per kilogram.</div>
+      </div>
+    </div>
+  </section>
 
   <!-- CART DRAWER -->
   <div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
@@ -1588,8 +1669,43 @@
     });
 
 
+
+    function openMangoDetail(){
+      const detail=document.getElementById("mangoDetail");
+      const overlay=document.getElementById("productDetailOverlay");
+      detail.classList.add("show");
+      overlay.classList.add("show");
+      detail.setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+    }
+
+    function closeMangoDetail(){
+      document.getElementById("mangoDetail").classList.remove("show");
+      document.getElementById("productDetailOverlay").classList.remove("show");
+      document.getElementById("mangoDetail").setAttribute("aria-hidden","true");
+      document.body.style.overflow="";
+    }
+
+    function addMangoByKg(){
+      const input=document.getElementById("mangoKg");
+      const kg=Math.max(1,Math.floor(Number(input.value)||1));
+      input.value=kg;
+      const existing=cart.find(item=>item.product==="Mango Havan Wood");
+      if(existing) existing.quantity += kg;
+      else cart.push({product:"Mango Havan Wood",price:249,quantity:kg});
+      saveCart();
+      updateCartUI();
+      closeMangoDetail();
+
+      const message=document.getElementById("cartMessage");
+      message.textContent=kg+" KG Mango Havan Wood added to cart";
+      message.classList.add("show");
+      clearTimeout(window.cartTimer);
+      window.cartTimer=setTimeout(()=>message.classList.remove("show"),1800);
+    }
+
     const CART_KEY = "havanSamagreeCart";
-    let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]").filter(item => item.product === "Mango Havan Wood");
 
     function saveCart() {
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -1670,7 +1786,7 @@
         <div class="cart-item">
           <div>
             <h3>${escapeHtml(item.product)}</h3>
-            <div class="cart-item-price">₹${item.price} each</div>
+            <div class="cart-item-price">₹${item.price} / KG</div>
 
             <div class="cart-item-actions">
               <button class="qty-btn" type="button" onclick="changeQuantity(${index}, -1)">−</button>
